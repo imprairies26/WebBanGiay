@@ -4,185 +4,193 @@
 }
 
 <!-- MAIN HERO -->
-<section class="position-relative overflow-hidden bg-surface-low d-flex align-items-center" style="height: 80vh; min-height: 600px; margin-top: -80px;">
-    <!-- Background Image -->
-    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA05vTjmRyjGZ6OHL3fXvxpfoKiex8GaFKWtLQPU7uQ520aLuPSaDSGIYeX2lfbw2lchHOrEjTdc51_WVOg6goTRpTc4O-UsoSsMR4xPIxWjgkJZOM45FA0WLdhJeEGb4cNQUPo5xU3rEaV6VW1F05LNL97L7lV0OakhxrSIgRubYtv46U5szWb_P6BOde6JY5B0mkklbi-usWAvU8nTDAK9I4yviX5QVe7ldv3-2wYsm8-lVahjNzMLd-T3dDGb_RedCa3qT4CAZBJ" 
-         class="position-absolute w-100 h-100 object-fit-cover opacity-75 object-position-center" 
-         style="mix-blend-mode: multiply; z-index: 0;" alt="Hero background">
+<section class="position-relative overflow-hidden bg-surface-low d-flex align-items-center" style="height: 90vh; min-height: 700px; margin-top: -100px;">
+    <!-- Background Elements -->
+    <div class="position-absolute top-50 start-50 translate-middle w-100 h-100" style="background: radial-gradient(circle at 70% 30%, rgba(255, 90, 0, 0.15) 0%, transparent 50%); z-index: 0;"></div>
     
-    <div class="container position-relative z-1">
-        <div class="row">
-            <div class="col-md-6 text-dark">
-                <p class="font-headline text-primary fw-bold text-uppercase tracking-widest mb-3 small">Engineered for Velocity</p>
-                <h1 class="display-2 fw-bold font-headline mb-4" style="line-height: 1;">DEFY<br>GRAVITY.</h1>
-                <p class="fs-5 text-dark opacity-75 mb-5" style="max-width: 450px;">Experience next-level energy return with our proprietary foam technology. The new Kinetic Aero strikes the perfect balance of weightless feel and aggressive grip.</p>
-                
-                <div class="d-flex gap-3 flex-wrap">
-                    <button class="btn btn-kinetic-primary">Shop The Aero</button>
-                    <button class="btn btn-kinetic-secondary">View Tech Specs</button>
+    <div class="container-fluid max-width-1440 position-relative z-1 px-4">
+        <div class="row align-items-center">
+            <div class="col-lg-7 order-2 order-lg-1">
+                <div class="hero-content p-4 p-md-0">
+                    <p class="text-primary fw-bold text-uppercase tracking-widest mb-3" style="font-family: 'Space Mono', monospace; font-size: 0.8rem;">[ ENGINEERED FOR MOTION ]</p>
+                    <h1 class="display-1 fw-bold mb-4 tracking-tighter" style="line-height: 0.85; font-size: calc(3rem + 6vw);">
+                        KINETIC<br><span class="text-outline" style="-webkit-text-stroke: 2px var(--kinetic-on-surface); color: transparent;">PRECISION</span>
+                    </h1>
+                    <div class="glass-card p-4 rounded-4 mt-5 border border-white shadow-sm" style="max-width: 500px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px);">
+                        <p class="fs-6 text-dark mb-4" style="line-height: 1.6;">Experience next-level energy return with our proprietary foam technology. The new Kinetic Aero strikes the perfect balance of weightless feel and aggressive grip.</p>
+                        <div class="d-flex gap-3">
+                            <button class="btn btn-kinetic-primary">SHOP COLLECTION</button>
+                            <button class="btn btn-kinetic-secondary">TECH SPECS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 order-1 order-lg-2 position-relative">
+                <div class="hero-image-container py-5">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" 
+                         class="img-fluid floating-img" 
+                         style="filter: drop-shadow(0 50px 80px rgba(0,0,0,0.25)); transform: rotate(-15deg) scale(1.2); z-index: 2; position: relative;" alt="Kinetic Aero Hero">
+                    <!-- Tech Specs Floating Badge -->
+                    <div class="position-absolute bottom-0 start-0 glass-card p-3 rounded-4 border border-white shadow-sm d-none d-md-block" style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); z-index: 3;">
+                        <span class="d-block text-primary fw-bold small" style="font-family: 'Space Mono', monospace;">+45% ENERGY RETURN</span>
+                        <span class="d-block text-dark small">ULTRA-LIGHT FOAM</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
+<style>
+    .text-outline {
+        transition: all 0.5s ease;
+    }
+    .floating-img {
+        animation: float 6s ease-in-out infinite;
+    }
+    @@keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-15deg) scale(1.2); }
+        50% { transform: translateY(-30px) rotate(-12deg) scale(1.2); }
+    }
+    .hero-content {
+        animation: fadeIn 1s ease-out;
+    }
+    @@keyframes fadeIn {
+        from { opacity: 0; transform: translateX(-30px); }
+        to { opacity: 1; transform: translateX(0); }
+    }
+</style>
+
 <!-- PRODUCT SECTION -->
 <div class="container-fluid max-width-1440 py-5 px-4 mt-5">
     <div class="row g-5">
         <!-- Sidebar Filter -->
-        <div class="col-12 col-md-3">
-            <div class="sticky-top" style="top: 100px;">
-                <h3 class="font-headline fs-6 text-uppercase mb-4">Category</h3>
-                <div class="d-flex flex-column gap-3 mb-5 px-2">
-                    <div class="form-check custom-check">
-                        <input class="form-check-input" type="checkbox" id="cat1" checked>
-                        <label class="form-check-label text-secondary fw-bold" for="cat1">Running</label>
-                    </div>
-                    <div class="form-check custom-check">
-                        <input class="form-check-input" type="checkbox" id="cat2">
-                        <label class="form-check-label text-secondary" for="cat2">Training</label>
-                    </div>
-                    <div class="form-check custom-check">
-                        <input class="form-check-input" type="checkbox" id="cat3">
-                        <label class="form-check-label text-secondary" for="cat3">Trail</label>
-                    </div>
-                    <div class="form-check custom-check">
-                        <input class="form-check-input" type="checkbox" id="cat4">
-                        <label class="form-check-label text-secondary" for="cat4">Lifestyle</label>
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+            <div class="sticky-top" style="top: 120px;">
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h2 class="font-headline fs-5 mb-0">Bộ lọc</h2>
+                    <button class="btn btn-link text-secondary text-decoration-none small p-0">Xóa tất cả</button>
+                </div>
+
+                <!-- Categorie -->
+                <div class="mb-5">
+                    <h3 class="filter-section-title">DANH MỤC</h3>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="form-check custom-check">
+                            <input class="form-check-input shadow-none" type="checkbox" id="cat1" checked>
+                            <label class="form-check-label text-dark fw-bold" for="cat1">Running (245)</label>
+                        </div>
+                        <div class="form-check custom-check">
+                            <input class="form-check-input shadow-none" type="checkbox" id="cat2">
+                            <label class="form-check-label text-secondary" for="cat2">Training (128)</label>
+                        </div>
+                        <div class="form-check custom-check">
+                            <input class="form-check-input shadow-none" type="checkbox" id="cat3">
+                            <label class="form-check-label text-secondary" for="cat3">Trail (64)</label>
+                        </div>
+                        <div class="form-check custom-check">
+                            <input class="form-check-input shadow-none" type="checkbox" id="cat4">
+                            <label class="form-check-label text-secondary" for="cat4">Lifestyle (312)</label>
+                        </div>
                     </div>
                 </div>
 
-                <h3 class="font-headline fs-6 text-uppercase mb-4">Size</h3>
-                <div class="d-flex flex-wrap gap-2 mb-5">
-                    <button class="btn btn-light border">8</button>
-                    <button class="btn btn-light border">8.5</button>
-                    <button class="btn btn-primary bg-primary text-white border-0 fw-bold">9</button>
-                    <button class="btn btn-light border">9.5</button>
-                    <button class="btn btn-light border">10</button>
-                    <button class="btn btn-light border">10.5</button>
+                <!-- Size -->
+                <div class="mb-5">
+                    <h3 class="filter-section-title">KÍCH THƯỚC (US)</h3>
+                    <div class="row g-2">
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold">7</button></div>
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold">7.5</button></div>
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold active">8</button></div>
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold">8.5</button></div>
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold">9</button></div>
+                        <div class="col-4"><button class="btn btn-outline-secondary w-100 py-2 small fw-bold">9.5</button></div>
+                    </div>
+                </div>
+
+                <!-- Colors -->
+                <div class="mb-5">
+                    <h3 class="filter-section-title">MÀU SẮC</h3>
+                    <div class="d-flex flex-wrap gap-3">
+                        <div class="color-swatch active"><div class="color-swatch-inner" style="background: #000;"></div></div>
+                        <div class="color-swatch"><div class="color-swatch-inner" style="background: #FF5A00;"></div></div>
+                        <div class="color-swatch"><div class="color-swatch-inner" style="background: #fff; border: 1px solid #e2e2e5;"></div></div>
+                        <div class="color-swatch"><div class="color-swatch-inner" style="background: #3b82f6;"></div></div>
+                        <div class="color-swatch"><div class="color-swatch-inner" style="background: #10b981;"></div></div>
+                    </div>
+                </div>
+
+                <!-- Price Range Slider (Placeholder for UI) -->
+                <div class="mb-5">
+                    <h3 class="filter-section-title">GIÁ CẢ</h3>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span class="small text-secondary">0đ</span>
+                        <span class="small text-secondary">5.000.000đ+</span>
+                    </div>
+                    <input type="range" class="form-range" min="0" max="5000000" step="100000">
                 </div>
             </div>
         </div>
         
         <!-- Grid -->
-        <div class="col-12 col-md-9">
-            <div class="d-flex justify-content-between align-items-center mb-5">
-                <div class="d-flex gap-2">
-                    <span class="badge bg-light text-dark border p-2 d-flex align-items-center gap-1 font-headline">Running <span class="material-symbols-outlined text-secondary ms-1 fs-6 cursor-pointer" style="cursor:pointer">close</span></span>
-                    <span class="badge bg-light text-dark border p-2 d-flex align-items-center gap-1 font-headline">Size 9 <span class="material-symbols-outlined text-secondary ms-1 fs-6 cursor-pointer" style="cursor:pointer">close</span></span>
+        <div class="col-12 col-lg-9">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5 gap-4">
+                <div>
+                    <h2 class="font-headline fs-4 mb-1">Tất cả sản phẩm</h2>
+                    <p class="text-secondary small mb-0">Hiển thị 1 - 24 của 1,248 sản phẩm</p>
                 </div>
-                <select class="form-select w-auto border-0 border-bottom bg-transparent no-border-input" style="border-radius: 0;">
-                    <option>Sort by: Featured</option>
-                    <option>Newest</option>
-                    <option>Price (Low)</option>
-                </select>
+                <div class="d-flex gap-3 align-items-center">
+                    <span class="text-secondary small d-none d-md-block">Sắp xếp theo:</span>
+                    <select class="form-select w-auto border-0 bg-white shadow-sm rounded-pill px-4 py-2 small">
+                        <option>Nổi bật nhất</option>
+                        <option>Mới nhất</option>
+                        <option>Giá: Thấp đến Cao</option>
+                        <option>Giá: Cao đến Thấp</option>
+                    </select>
+                </div>
             </div>
 
-            <!-- Product Grid -->
             <div class="row g-5">
-                <!-- Product Card 1 -->
-                <div class="col-12 col-md-6 mb-4">
-                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="1" class="text-decoration-none">
-                        <div class="kinetic-card h-100 rounded-3">
-                            <span class="badge bg-white text-dark shadow-sm position-absolute rounded-0 py-2 px-3 tracking-widest text-uppercase" style="top:1.5rem; left:1.5rem; z-index:10;">Featured</span>
-                            <div class="kinetic-card-img-container cursor-pointer">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Kinetic Quantum">
-                                <div class="quick-add-container">
-                                    <button class="quick-add-btn">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </button>
+                <!-- Product Items (Simulated for many products) -->
+                <!-- Duplicate this card structure logic... -->
+                @for(int i = 0; i < 6; i++) {
+                    <div class="col-12 col-md-6 mb-4">
+                        <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="1" class="text-decoration-none">
+                            <div class="kinetic-card h-100">
+                                <span class="badge bg-white text-dark shadow-sm position-absolute rounded-pill py-2 px-3 tracking-widest text-uppercase" style="top:1.5rem; left:1.5rem; z-index:10; font-size: 0.6rem; font-family: 'Space Mono';">New Arrival</span>
+                                <div class="kinetic-card-img-container">
+                                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Product Image">
+                                    <div class="quick-add-container">
+                                        <button class="quick-add-btn"><span class="material-symbols-outlined">shopping_cart</span></button>
+                                    </div>
+                                </div>
+                                <div class="p-4 d-flex justify-content-between align-items-start">
+                                    <div>
+                                        <h4 class="font-headline fs-6 fw-bold mb-1">Kinetic Quantum V2</h4>
+                                        <p class="text-secondary small mb-0">Running Shoes / Black / Red</p>
+                                    </div>
+                                    <div class="text-end">
+                                        <span class="text-dark fw-bold fs-5">2.450.000đ</span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="p-4 d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Quantum</h4>
-                                    <p class="text-secondary small mb-0">Running Shoes</p>
-                                </div>
-                                <div class="text-end">
-                                    <span class="text-dark fw-bold fs-5">$180</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product Card 2 -->
-                <div class="col-12 col-md-6 mb-4">
-                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="2" class="text-decoration-none">
-                        <div class="kinetic-card h-100 rounded-3">
-                            <span class="badge bg-primary position-absolute rounded-0 py-2 px-3 tracking-widest text-uppercase" style="top:1.5rem; left:1.5rem; z-index:10;">Sale</span>
-                            <div class="kinetic-card-img-container cursor-pointer">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiv-dSomy1GRdVWCzkxAiqMU_QD9JQqwwwDHCouIGBSiRWk-6vRjgwvxzt8hFEOx3cIbNpNPXv1kFZxqW1XiODW6wYvrdsDOfkCxneIw_PJ18x-BULd80W0a0cbbvpOQ42l7EKYh0ZAzvK6UvFoSJdnCG69Tp1OVri3rQoFq1LHvXuG1eIv_vIkruE6CBwiRDWq8mMIaAp_I_V7QWrCuors0TMm0bI-_pUXRKiVT-35EPxIu_yEuoKPaZx5uOgYj2xbH8cjmMleohk" alt="Kinetic Shift V2">
-                                <div class="quick-add-container">
-                                    <button class="quick-add-btn">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-4 d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Shift V2</h4>
-                                    <p class="text-secondary small mb-0">Lifestyle Shoes</p>
-                                </div>
-                                <div class="text-end">
-                                    <span class="text-primary fw-bold fs-5">$130</span>
-                                    <span class="text-secondary small text-decoration-line-through ms-2">$160</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product Card 3 -->
-                <div class="col-12 col-md-6 mb-4">
-                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="3" class="text-decoration-none">
-                        <div class="kinetic-card h-100 rounded-3">
-                            <div class="kinetic-card-img-container cursor-pointer">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-EeJDitHu_Zre8nwdeC0hY6MfW8_CrvGBMaKI58WLU8LMtF-O_DNd8vUywIt_hkragbygjwk0nSskrXSx3iuczyiMcYPt7XRd3fepgdmvd06VzQw1FmB1lBoRdwq0vErCQ8WBrKgEBQR9atkw9VguboGud7m0sGUrFSe7holvrN3tKfjeL47WSz3xKaygaGQEA2o4GogmyeXnSU1W-x5yNbWcjl9emMKW7xwgSAe1nvkyNhSbMRf8qAiC1WVFWSPQC2StLX3I64R3" alt="Kinetic Stealth">
-                                <div class="quick-add-container">
-                                    <button class="quick-add-btn">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-4 d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Stealth</h4>
-                                    <p class="text-secondary small mb-0">Training Shoes</p>
-                                </div>
-                                <div class="text-end">
-                                    <span class="text-dark fw-bold fs-5">$150</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- Product Card 4 -->
-                <div class="col-12 col-md-6 mb-4">
-                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="4" class="text-decoration-none">
-                        <div class="kinetic-card h-100 rounded-3">
-                            <div class="kinetic-card-img-container cursor-pointer">
-                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu-RW-5Ztok81Ts88NzzVplXkJC9mon5NF-Rumw_beDVj45vn5xMQwEP-ifOzNpjbTRKfI9NlFx6iJvIZ3vAp1gPXlV1F08qvH-Lj6Qjce0FTJaQDkKSdUzJ6qjZOzdtQFlzWwJDfDl51YCfMwE2eLwXWxF0Sw_EG5MMbgEvRD_a8mRSIZ01GNE2t6tA3vlnxJpzQsVWMkV9MVrJhbbEk48Tv72aq3Paib356MP_Iw9_q1ClW_YS5NeZFj4vC4Pp8-9r9kJb3x1bdn" alt="Kinetic Core">
-                                <div class="quick-add-container">
-                                    <button class="quick-add-btn">
-                                        <span class="material-symbols-outlined">add</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="p-4 d-flex justify-content-between align-items-start">
-                                <div>
-                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Core</h4>
-                                    <p class="text-secondary small mb-0">Running Shoes</p>
-                                </div>
-                                <div class="text-end">
-                                    <span class="text-dark fw-bold fs-5">$160</span>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                        </a>
+                    </div>
+                }
             </div>
+
+            <!-- PAGINATION -->
+            <nav aria-label="Page navigation" class="mt-5 pt-5">
+                <ul class="pagination kinetic-pagination justify-content-center">
+                    <li class="page-item disabled"><a class="page-link" href="#"><span class="material-symbols-outlined fs-5">chevron_left</span></a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><span class="page-link">...</span></li>
+                    <li class="page-item"><a class="page-link" href="#">52</a></li>
+                    <li class="page-item"><a class="page-link" href="#"><span class="material-symbols-outlined fs-5">chevron_right</span></a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
