@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - KINETIC</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Style -->
+    <link href="assets/css/style.css" rel="stylesheet">
+</head>
+<body class="bg-surface vh-100 overflow-hidden d-flex flex-column" style="padding-top: 0 !important;">
+
+<!-- HEADER -->
+<header class="bg-white border-bottom border-secondary-subtle px-4 py-3 d-flex justify-content-between align-items-center shadow-sm z-3">
+    <div class="d-flex align-items-center gap-4">
+        <a class="text-decoration-none font-headline fs-4 fst-italic text-dark fw-bold" href="index.html">KINETIC <span class="badge bg-dark fs-6 fst-normal align-middle ms-2">ADMIN</span></a>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+        <span class="text-secondary small fw-bold" id="admin-name">Admin</span>
+        <button class="btn btn-sm btn-outline-danger rounded-pill" onclick="Auth.logout()">Logout</button>
+    </div>
+</header>
+
+<!-- MAIN LAYOUT -->
+<div class="container-fluid flex-grow-1 overflow-hidden p-0 d-flex flex-column flex-lg-row">
+    
+    <!-- SIDEBAR -->
+    <div class="col-12 col-lg-2 bg-white d-flex flex-column h-100 border-end border-secondary-subtle">
+        <div class="list-group list-group-flush pt-4">
+            <a href="admin_dashboard_stats.html" class="list-group-item list-group-item-action py-3 fw-bold active font-headline tracking-wide text-uppercase border-0 rounded-end-pill me-3 bg-dark text-white shadow-sm">Dashboard</a>
+            <a href="admin_product_management.html" class="list-group-item list-group-item-action py-3 font-headline tracking-wide text-uppercase border-0 rounded-end-pill me-3 text-secondary my-1">Products</a>
+            <a href="admin_user_management.html" class="list-group-item list-group-item-action py-3 font-headline tracking-wide text-uppercase border-0 rounded-end-pill me-3 text-secondary my-1">Users / Roles</a>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="col-12 col-lg-10 bg-surface-low p-4 p-md-5 overflow-auto">
+        <h1 class="font-headline fs-3 fw-bold mb-5">Business Overview</h1>
+
+        <!-- Stats Grid -->
+        <div class="row g-4 mb-5">
+            <div class="col-12 col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+                    <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Revenue</p>
+                    <h3 class="fs-2 fw-bold text-dark m-0" id="stat-revenue">$0</h3>
+                    <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +12.5%</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+                    <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Orders</p>
+                    <h3 class="fs-2 fw-bold text-dark m-0" id="stat-orders">0</h3>
+                    <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +5.2%</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+                    <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Users</p>
+                    <h3 class="fs-2 fw-bold text-dark m-0" id="stat-users">0</h3>
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+                    <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Cancellations</p>
+                    <h3 class="fs-2 fw-bold text-danger m-0">0</h3>
+                    <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_down</span> -2.4%</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4">
+            <h4 class="font-headline fs-5 fw-bold mb-4">Recent Transactions</h4>
+            <div class="table-responsive">
+                <table class="table table-borderless table-hover align-middle">
+                    <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
+                        <tr>
+                            <th class="py-3 rounded-start">Order ID</th>
+                            <th class="py-3">Customer</th>
+                            <th class="py-3">Date</th>
+                            <th class="py-3">Status</th>
+                            <th class="py-3 rounded-end text-end">Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recent-orders-table">
+                        <!-- Injected via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/auth.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        Auth.requireRole('admin');
+        const user = Auth.getCurrentUser();
+        document.getElementById('admin-name').textContent = user.name;
+
+        // Calculate Stats
+        const orders = window.db.getOrders() || [];
+        const users = window.db.getUsers() || [];
+        
+        let totalRev = 0;
+        orders.forEach(o => totalRev += o.total);
+
+        document.getElementById('stat-revenue').textContent = `$${totalRev.toFixed(0)}`;
+        document.getElementById('stat-orders').textContent = orders.length;
+        document.getElementById('stat-users').textContent = users.length;
+
+        // Populate Table (get last 5)
+        const recent = orders.slice().reverse().slice(0, 5);
+        const tbody = document.getElementById('recent-orders-table');
+        if(recent.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" class="text-center text-secondary py-4">No recent orders found.</td></tr>`;
+        } else {
+            recent.forEach(o => {
+                const badgeClass = o.status === 'Completed' ? 'bg-success' : 'bg-warning text-dark';
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="fw-bold bg-white text-secondary"><small>${o.id}</small></td>
+                        <td class="bg-white">${o.userEmail}</td>
+                        <td class="text-secondary small bg-white">${o.date}</td>
+                        <td class="bg-white"><span class="badge ${badgeClass}">${o.status}</span></td>
+                        <td class="fw-bold text-end bg-white">$${o.total.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+        }
+    });
+
+</script>
+</body>
+</html>

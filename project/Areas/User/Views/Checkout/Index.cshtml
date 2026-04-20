@@ -1,0 +1,102 @@
+@{
+    ViewData["Title"] = "Checkout";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5" style="max-width: 1200px;">
+    <div class="row g-5">
+        
+        <!-- Left Column: Forms -->
+        <div class="col-12 col-lg-7">
+            <h2 class="font-headline fs-5 fw-bold mb-4">Contact Information</h2>
+            <div class="mb-5">
+                <input type="email" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mb-3" placeholder="Email address" required>
+            </div>
+
+            <h2 class="font-headline fs-5 fw-bold mb-4">Shipping Address</h2>
+            <div class="row g-3 mb-5">
+                <div class="col-sm-6">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="First name" required>
+                </div>
+                <div class="col-sm-6">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Last name" required>
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Address" required>
+                </div>
+                <div class="col-12">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Apartment, suite, etc. (optional)">
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="City" required>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="State/Province" required>
+                </div>
+                <div class="col-sm-4">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="ZIP/Postal code" required>
+                </div>
+            </div>
+
+            <h2 class="font-headline fs-5 fw-bold mb-4">Payment</h2>
+            <div class="bg-surface-lowest border border-secondary-subtle rounded-3 p-4 mb-4">
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="radio" name="payment" id="pay-card" checked>
+                    <label class="form-check-label fw-bold" for="pay-card">Credit or debit card</label>
+                </div>
+                <div class="mt-3">
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mb-3" placeholder="Card number">
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Expiration date (MM/YY)">
+                        </div>
+                        <div class="col-6">
+                            <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Security code">
+                        </div>
+                    </div>
+                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mt-3" placeholder="Name on card">
+                </div>
+            </div>
+            
+            <button class="btn btn-kinetic-primary w-100 py-3 mt-4 fs-5">Pay Now</button>
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="col-12 col-lg-5 p-0 p-lg-4 bg-surface-low rounded-3 align-self-start">
+            <div class="d-flex flex-column gap-3 mb-4">
+                <!-- Item -->
+                <div class="d-flex align-items-center gap-3">
+                    <div class="position-relative bg-white rounded p-2" style="width: 60px; height: 60px;">
+                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" class="img-fluid" style="mix-blend-mode: multiply;">
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">1</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="fw-bold fs-6">Kinetic Quantum</div>
+                        <div class="text-secondary small">Size: 9</div>
+                    </div>
+                    <div class="fw-bold">$180</div>
+                </div>
+            </div>
+            
+            <div class="d-flex gap-2 mb-4">
+                <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 flex-grow-1" placeholder="Discount code">
+                <button class="btn btn-sm btn-dark px-4 rounded-5">Apply</button>
+            </div>
+
+            <div class="d-flex justify-content-between mb-2 text-secondary small">
+                <span>Subtotal</span>
+                <span>$180.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 text-secondary small">
+                <span>Shipping</span>
+                <span>$0.00</span>
+            </div>
+            <hr class="border-secondary-subtle">
+            <div class="d-flex justify-content-between fw-bold fs-4 align-items-center">
+                <span>Total</span>
+                <span>$180.00</span>
+            </div>
+        </div>
+
+    </div>
+</div>

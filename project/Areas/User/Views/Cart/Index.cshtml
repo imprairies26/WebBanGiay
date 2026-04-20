@@ -1,0 +1,86 @@
+@{
+    ViewData["Title"] = "Shopping Cart";
+    ViewData["ActiveNav"] = "Shop";
+}
+
+<div class="container-fluid max-width-1440 py-5 px-4">
+    <h1 class="font-headline fs-2 fw-bold mb-5">Your Bag</h1>
+
+    <div class="row g-5">
+        <!-- Cart Items -->
+        <div class="col-12 col-lg-8">
+            <!-- Cart Item 1 -->
+            <div class="d-flex flex-column flex-md-row gap-4 align-items-center bg-surface-lowest p-4 rounded-3 mb-3">
+                <div class="bg-surface d-flex align-items-center justify-content-center rounded-3 p-3" style="width: 120px; height: 120px;">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Kinetic Quantum" class="img-fluid" style="mix-blend-mode: multiply;">
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h4 class="font-headline fs-5 fw-bold mb-0">Kinetic Quantum</h4>
+                        <span class="fw-bold">$180</span>
+                    </div>
+                    <p class="text-secondary small mb-3">Running</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center border rounded-pill px-3 py-1">
+                            <button class="btn btn-sm btn-link text-dark text-decoration-none">-</button>
+                            <span class="mx-3 fw-bold">1</span>
+                            <button class="btn btn-sm btn-link text-dark text-decoration-none">+</button>
+                        </div>
+                        <button class="btn btn-link text-secondary p-0 text-decoration-underline small">Remove</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cart Item 2 -->
+            <div class="d-flex flex-column flex-md-row gap-4 align-items-center bg-surface-lowest p-4 rounded-3 mb-3">
+                <div class="bg-surface d-flex align-items-center justify-content-center rounded-3 p-3" style="width: 120px; height: 120px;">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiv-dSomy1GRdVWCzkxAiqMU_QD9JQqwwwDHCouIGBSiRWk-6vRjgwvxzt8hFEOx3cIbNpNPXv1kFZxqW1XiODW6wYvrdsDOfkCxneIw_PJ18x-BULd80W0a0cbbvpOQ42l7EKYh0ZAzvK6UvFoSJdnCG69Tp1OVri3rQoFq1LHvXuG1eIv_vIkruE6CBwiRDWq8mMIaAp_I_V7QWrCuors0TMm0bI-_pUXRKiVT-35EPxIu_yEuoKPaZx5uOgYj2xbH8cjmMleohk" alt="Kinetic Shift V2" class="img-fluid" style="mix-blend-mode: multiply;">
+                </div>
+                <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <h4 class="font-headline fs-5 fw-bold mb-0">Kinetic Shift V2</h4>
+                        <span class="fw-bold">$130</span>
+                    </div>
+                    <p class="text-secondary small mb-3">Lifestyle</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center border rounded-pill px-3 py-1">
+                            <button class="btn btn-sm btn-link text-dark text-decoration-none">-</button>
+                            <span class="mx-3 fw-bold">2</span>
+                            <button class="btn btn-sm btn-link text-dark text-decoration-none">+</button>
+                        </div>
+                        <button class="btn btn-link text-secondary p-0 text-decoration-underline small">Remove</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="col-12 col-lg-4">
+            <div class="bg-surface-lowest p-4 rounded-3 sticky-top" style="top: 100px;">
+                <h3 class="font-headline fs-5 fw-bold mb-4">Summary</h3>
+                
+                <div class="d-flex justify-content-between mb-3 text-secondary">
+                    <span>Subtotal</span>
+                    <span>$440.00</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3 text-secondary">
+                    <span>Estimated Shipping</span>
+                    <span>$0.00</span>
+                </div>
+                <div class="d-flex justify-content-between mb-4 text-secondary">
+                    <span>Tax</span>
+                    <span>Calculated at checkout</span>
+                </div>
+                
+                <hr class="border-secondary-subtle mb-4">
+                
+                <div class="d-flex justify-content-between mb-4 font-headline fw-bold fs-5">
+                    <span>Total</span>
+                    <span>$440.00</span>
+                </div>
+
+                <a asp-area="User" asp-controller="Checkout" asp-action="Index" class="btn btn-kinetic-primary w-100 py-3 mt-2">Go to Checkout</a>
+            </div>
+        </div>
+    </div>
+</div>

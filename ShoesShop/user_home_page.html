@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>KINETIC - Precision Engineered Shoes</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&amp;family=Manrope:wght@200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-tertiary-fixed": "#001c37",
+                    "on-tertiary-fixed-variant": "#00497f",
+                    "on-surface": "#191c1d",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#e2e2e5",
+                    "secondary": "#5d5e61",
+                    "primary-container": "#ff5a00",
+                    "background": "#f8f9fa",
+                    "on-secondary-fixed-variant": "#454749",
+                    "primary": "#a83900",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-fixed": "#380d00",
+                    "outline-variant": "#e4beb1",
+                    "on-background": "#191c1d",
+                    "surface-tint": "#a83900",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-container": "#0095fc",
+                    "on-primary-fixed-variant": "#802900",
+                    "error-container": "#ffdad6",
+                    "on-error": "#ffffff",
+                    "primary-fixed": "#ffdbcf",
+                    "on-error-container": "#93000a",
+                    "surface-container-low": "#f3f4f5",
+                    "tertiary-fixed": "#d2e4ff",
+                    "surface": "#f8f9fa",
+                    "on-secondary": "#ffffff",
+                    "on-tertiary-container": "#002c50",
+                    "surface-container-high": "#e7e8e9",
+                    "tertiary-fixed-dim": "#a0c9ff",
+                    "surface-dim": "#d9dadb",
+                    "secondary-fixed": "#e2e2e5",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#ffb59a",
+                    "on-surface-variant": "#5b4137",
+                    "on-secondary-fixed": "#1a1c1e",
+                    "outline": "#907065",
+                    "inverse-primary": "#ffb59a",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#636467",
+                    "tertiary": "#0061a6",
+                    "on-primary-container": "#511700",
+                    "on-tertiary": "#ffffff",
+                    "surface-variant": "#e1e3e4",
+                    "inverse-surface": "#2e3132",
+                    "surface-bright": "#f8f9fa",
+                    "secondary-fixed-dim": "#c6c6c9"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {},
+            "fontFamily": {
+                    "headline": ["Epilogue"],
+                    "body": ["Manrope"],
+                    "label": ["Manrope"]
+            }
+          },
+        },
+      }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 h-20 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-2xl shadow-[0_20px_40px_-10px_rgba(25,28,29,0.06)] flex justify-between items-center px-12 mx-auto">
+<div class="flex items-center gap-8">
+<a class="text-2xl font-black italic tracking-tighter text-zinc-900 dark:text-zinc-100 font-headline uppercase" href="#">
+                KINETIC
+            </a>
+<nav class="hidden md:flex gap-6 font-headline font-bold uppercase tracking-tight text-sm">
+<a class="relative text-zinc-900 dark:text-white after:content-[''] after:absolute after:-bottom-1.5 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-orange-600 after:rounded-full hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform" href="#">Shop</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 transition-colors hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform" href="#">POS</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 transition-colors hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform" href="#">Admin</a>
+<a class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 transition-colors hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform" href="#">Profile</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<button class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 transition-colors hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="search">search</span>
+</button>
+<button class="text-zinc-500 dark:text-zinc-400 hover:text-orange-600 transition-colors hover:opacity-80 transition-all duration-300 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-2xl" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="pt-20">
+<!-- Hero Banner Carousel -->
+<section class="relative w-full h-[819px] overflow-hidden bg-surface-container-low flex items-center">
+<div class="absolute inset-0 z-0">
+<img alt="High contrast side profile of a vibrant red running shoe suspended in mid-air against a soft, blurred studio background" class="w-full h-full object-cover opacity-90 mix-blend-multiply" data-alt="High contrast side profile of a vibrant red running shoe suspended in mid-air against a soft, blurred studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA05vTjmRyjGZ6OHL3fXvxpfoKiex8GaFKWtLQPU7uQ520aLuPSaDSGIYeX2lfbw2lchHOrEjTdc51_WVOg6goTRpTc4O-UsoSsMR4xPIxWjgkJZOM45FA0WLdhJeEGb4cNQUPo5xU3rEaV6VW1F05LNL97L7lV0OakhxrSIgRubYtv46U5szWb_P6BOde6JY5B0mkklbi-usWAvU8nTDAK9I4yviX5QVe7ldv3-2wYsm8-lVahjNzMLd-T3dDGb_RedCa3qT4CAZBJ"/>
+</div>
+<div class="relative z-10 w-full max-w-[1440px] mx-auto px-12 grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="max-w-2xl text-on-surface">
+<p class="font-headline font-bold text-primary tracking-widest uppercase mb-4 text-sm">Engineered for Velocity</p>
+<h1 class="font-headline text-[3.5rem] leading-[1.1] font-bold tracking-[-0.02em] mb-6">DEFY <br/>GRAVITY.</h1>
+<p class="font-body text-lg leading-[1.6] mb-10 max-w-lg text-on-surface/80">Experience next-level energy return with our proprietary foam technology. The new Kinetic Aero strikes the perfect balance of weightless feel and aggressive grip.</p>
+<div class="flex gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary font-headline font-bold text-sm px-8 py-4 rounded-full uppercase tracking-wider hover:shadow-[0_20px_40px_-10px_rgba(168,57,0,0.3)] transition-all duration-300">
+                            Shop The Aero
+                        </button>
+<button class="bg-transparent border border-outline-variant/15 text-on-surface font-headline font-bold text-sm px-8 py-4 rounded-full uppercase tracking-wider hover:bg-primary-fixed-dim/10 transition-all duration-300">
+                            View Tech Specs
+                        </button>
+</div>
+</div>
+</div>
+<!-- Carousel Indicators -->
+<div class="absolute bottom-8 left-12 flex gap-3 z-20">
+<button aria-label="Slide 1" class="w-12 h-1 bg-primary rounded-full"></button>
+<button aria-label="Slide 2" class="w-12 h-1 bg-surface-variant rounded-full hover:bg-outline transition-colors"></button>
+<button aria-label="Slide 3" class="w-12 h-1 bg-surface-variant rounded-full hover:bg-outline transition-colors"></button>
+</div>
+</section>
+<!-- Main Content Area: Sidebar + Grid -->
+<section class="max-w-[1440px] mx-auto px-12 py-24 flex flex-col md:flex-row gap-16">
+<!-- Sidebar Filter -->
+<aside class="w-full md:w-64 flex-shrink-0 space-y-12 pr-8 sticky top-32 h-fit">
+<!-- Category Filter -->
+<div>
+<h3 class="font-headline font-bold text-sm tracking-wider uppercase mb-6 text-on-surface">Category</h3>
+<div class="space-y-4 font-body text-sm text-secondary">
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-4 h-4 rounded-[0.125rem] border border-outline group-hover:border-primary transition-colors flex items-center justify-center bg-primary border-primary">
+<span class="material-symbols-outlined text-[10px] text-on-primary font-bold" data-icon="check">check</span>
+</div>
+<span class="text-on-surface font-semibold">Running</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-4 h-4 rounded-[0.125rem] border border-outline group-hover:border-primary transition-colors flex items-center justify-center"></div>
+<span class="group-hover:text-on-surface transition-colors">Training</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-4 h-4 rounded-[0.125rem] border border-outline group-hover:border-primary transition-colors flex items-center justify-center"></div>
+<span class="group-hover:text-on-surface transition-colors">Trail</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<div class="w-4 h-4 rounded-[0.125rem] border border-outline group-hover:border-primary transition-colors flex items-center justify-center"></div>
+<span class="group-hover:text-on-surface transition-colors">Lifestyle</span>
+</label>
+</div>
+</div>
+<!-- Size Filter -->
+<div>
+<h3 class="font-headline font-bold text-sm tracking-wider uppercase mb-6 text-on-surface">Size</h3>
+<div class="flex flex-wrap gap-2">
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">8</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">8.5</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-primary text-on-primary font-bold">9</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">9.5</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">10</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">10.5</button>
+<button class="w-10 h-10 flex items-center justify-center font-body text-sm rounded-lg bg-secondary-container text-on-surface hover:bg-surface-variant transition-colors">11</button>
+</div>
+</div>
+<!-- Color Filter -->
+<div>
+<h3 class="font-headline font-bold text-sm tracking-wider uppercase mb-6 text-on-surface">Color</h3>
+<div class="flex flex-wrap gap-3">
+<button aria-label="Black" class="w-6 h-6 rounded-full bg-black ring-2 ring-offset-2 ring-offset-surface ring-primary"></button>
+<button aria-label="White" class="w-6 h-6 rounded-full bg-white border border-outline-variant/30"></button>
+<button aria-label="Orange" class="w-6 h-6 rounded-full bg-[#ff5a00]"></button>
+<button aria-label="Grey" class="w-6 h-6 rounded-full bg-zinc-400"></button>
+<button aria-label="Navy" class="w-6 h-6 rounded-full bg-blue-800"></button>
+</div>
+</div>
+</aside>
+<!-- Product Grid -->
+<div class="flex-1 w-full">
+<!-- Active Filters & Sort -->
+<div class="flex justify-between items-center mb-12">
+<div class="flex gap-2">
+<span class="px-4 py-2 bg-secondary-container rounded-full text-xs font-headline font-bold uppercase tracking-wider flex items-center gap-2">
+                            Running
+                            <button class="hover:text-primary"><span class="material-symbols-outlined text-[14px]" data-icon="close">close</span></button>
+</span>
+<span class="px-4 py-2 bg-secondary-container rounded-full text-xs font-headline font-bold uppercase tracking-wider flex items-center gap-2">
+                            Size 9
+                            <button class="hover:text-primary"><span class="material-symbols-outlined text-[14px]" data-icon="close">close</span></button>
+</span>
+</div>
+<div class="relative min-w-[200px]">
+<select class="w-full appearance-none bg-transparent border-0 border-b border-outline/30 pb-2 text-sm font-body focus:ring-0 focus:border-primary text-on-surface focus:outline-none cursor-pointer">
+<option>Sort by: Featured</option>
+<option>Sort by: Newest</option>
+<option>Sort by: Price (Low to High)</option>
+<option>Sort by: Price (High to Low)</option>
+</select>
+<span class="material-symbols-outlined absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none text-secondary" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Bento-style Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-x-8 gap-y-20">
+<!-- Product Card 1: Featured -->
+<article class="group relative flex flex-col">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-surface-container-lowest text-on-surface font-headline font-bold text-[10px] uppercase tracking-[0.05em] px-3 py-1.5 shadow-sm">Featured</span>
+</div>
+<div class="relative bg-surface-container-lowest aspect-[4/5] mb-6 flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-[1.02] shadow-[0_20px_40px_-10px_rgba(25,28,29,0.03)] group-hover:shadow-[0_20px_40px_-10px_rgba(25,28,29,0.08)]">
+<img alt="Sleek green and black running shoe shown in profile view against a clean white background, high contrast lighting" class="w-full h-auto object-contain mix-blend-multiply drop-shadow-2xl" data-alt="Sleek green and black running shoe shown in profile view against a clean white background, high contrast lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU"/>
+<!-- Quick Add Overlay -->
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface text-on-surface w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline text-[1.25rem] font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Kinetic Quantum</h2>
+<p class="font-body text-sm text-secondary">Men's Road Running Shoes</p>
+</div>
+<span class="font-body font-bold text-lg text-on-surface">$180</span>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="w-4 h-4 rounded-full bg-[#2a3026] border border-outline-variant/30"></span>
+<span class="w-4 h-4 rounded-full bg-white border border-outline-variant/30"></span>
+</div>
+</article>
+<!-- Product Card 2: Sale -->
+<article class="group relative flex flex-col lg:mt-16">
+<div class="absolute top-4 left-4 z-10">
+<span class="bg-primary text-on-primary font-headline font-bold text-[10px] uppercase tracking-[0.05em] px-3 py-1.5 shadow-sm">Sale</span>
+</div>
+<div class="relative bg-surface-container-lowest aspect-[4/5] mb-6 flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-[1.02] shadow-[0_20px_40px_-10px_rgba(25,28,29,0.03)] group-hover:shadow-[0_20px_40px_-10px_rgba(25,28,29,0.08)]">
+<img alt="Bright colorful chunky sneaker with dynamic color blocking in orange, blue, and white against a minimal studio background" class="w-full h-auto object-contain mix-blend-multiply drop-shadow-2xl" data-alt="Bright colorful chunky sneaker with dynamic color blocking in orange, blue, and white against a minimal studio background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiv-dSomy1GRdVWCzkxAiqMU_QD9JQqwwwDHCouIGBSiRWk-6vRjgwvxzt8hFEOx3cIbNpNPXv1kFZxqW1XiODW6wYvrdsDOfkCxneIw_PJ18x-BULd80W0a0cbbvpOQ42l7EKYh0ZAzvK6UvFoSJdnCG69Tp1OVri3rQoFq1LHvXuG1eIv_vIkruE6CBwiRDWq8mMIaAp_I_V7QWrCuors0TMm0bI-_pUXRKiVT-35EPxIu_yEuoKPaZx5uOgYj2xbH8cjmMleohk"/>
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface text-on-surface w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline text-[1.25rem] font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Kinetic Shift V2</h2>
+<p class="font-body text-sm text-secondary">Unisex Lifestyle Shoes</p>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-body font-bold text-lg text-primary">$130</span>
+<span class="font-body text-sm text-secondary line-through">$160</span>
+</div>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="w-4 h-4 rounded-full bg-gradient-to-br from-orange-400 to-blue-500 border border-outline-variant/30"></span>
+</div>
+</article>
+<!-- Product Card 3 -->
+<article class="group relative flex flex-col">
+<div class="relative bg-surface-container-lowest aspect-[4/5] mb-6 flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-[1.02] shadow-[0_20px_40px_-10px_rgba(25,28,29,0.03)] group-hover:shadow-[0_20px_40px_-10px_rgba(25,28,29,0.08)]">
+<img alt="Minimalist black and white athletic shoe photographed dramatically on a dark surface with sharp directional lighting" class="w-full h-auto object-contain mix-blend-multiply drop-shadow-2xl" data-alt="Minimalist black and white athletic shoe photographed dramatically on a dark surface with sharp directional lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-EeJDitHu_Zre8nwdeC0hY6MfW8_CrvGBMaKI58WLU8LMtF-O_DNd8vUywIt_hkragbygjwk0nSskrXSx3iuczyiMcYPt7XRd3fepgdmvd06VzQw1FmB1lBoRdwq0vErCQ8WBrKgEBQR9atkw9VguboGud7m0sGUrFSe7holvrN3tKfjeL47WSz3xKaygaGQEA2o4GogmyeXnSU1W-x5yNbWcjl9emMKW7xwgSAe1nvkyNhSbMRf8qAiC1WVFWSPQC2StLX3I64R3"/>
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface text-on-surface w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline text-[1.25rem] font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Kinetic Stealth</h2>
+<p class="font-body text-sm text-secondary">Men's Training Shoes</p>
+</div>
+<span class="font-body font-bold text-lg text-on-surface">$150</span>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="w-4 h-4 rounded-full bg-black border border-outline-variant/30"></span>
+<span class="w-4 h-4 rounded-full bg-zinc-600 border border-outline-variant/30"></span>
+</div>
+</article>
+<!-- Product Card 4 -->
+<article class="group relative flex flex-col lg:mt-16">
+<div class="relative bg-surface-container-lowest aspect-[4/5] mb-6 flex items-center justify-center p-8 transition-transform duration-500 group-hover:scale-[1.02] shadow-[0_20px_40px_-10px_rgba(25,28,29,0.03)] group-hover:shadow-[0_20px_40px_-10px_rgba(25,28,29,0.08)]">
+<img alt="Clean white minimalist sneaker with blue accents floating on a solid blue background with soft shadow" class="w-full h-auto object-contain mix-blend-multiply drop-shadow-2xl" data-alt="Clean white minimalist sneaker with blue accents floating on a solid blue background with soft shadow" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu-RW-5Ztok81Ts88NzzVplXkJC9mon5NF-Rumw_beDVj45vn5xMQwEP-ifOzNpjbTRKfI9NlFx6iJvIZ3vAp1gPXlV1F08qvH-Lj6Qjce0FTJaQDkKSdUzJ6qjZOzdtQFlzWwJDfDl51YCfMwE2eLwXWxF0Sw_EG5MMbgEvRD_a8mRSIZ01GNE2t6tA3vlnxJpzQsVWMkV9MVrJhbbEk48Tv72aq3Paib356MP_Iw9_q1ClW_YS5NeZFj4vC4Pp8-9r9kJb3x1bdn"/>
+<div class="absolute bottom-6 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+<button class="bg-surface text-on-surface w-12 h-12 rounded-full flex items-center justify-center shadow-lg hover:bg-primary hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h2 class="font-headline text-[1.25rem] font-bold text-on-surface mb-1 group-hover:text-primary transition-colors">Kinetic Core</h2>
+<p class="font-body text-sm text-secondary">Women's Road Running Shoes</p>
+</div>
+<span class="font-body font-bold text-lg text-on-surface">$160</span>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="w-4 h-4 rounded-full bg-blue-100 border border-outline-variant/30"></span>
+<span class="w-4 h-4 rounded-full bg-[#ff5a00] border border-outline-variant/30"></span>
+</div>
+</article>
+</div>
+<!-- Infinite Scroll Loading Indicator -->
+<div class="w-full py-24 flex flex-col items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-4xl animate-spin mb-4" data-icon="refresh">refresh</span>
+<p class="font-headline font-bold text-xs uppercase tracking-widest">Loading More Precision</p>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f3f4f5] dark:bg-zinc-900 w-full py-20 px-12 mt-32">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 max-w-[1440px] mx-auto">
+<div class="col-span-1 md:col-span-2 lg:col-span-1">
+<a class="font-['Epilogue'] font-black text-zinc-900 dark:text-white text-2xl tracking-tighter italic block mb-6" href="#">KINETIC</a>
+<p class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide leading-relaxed max-w-xs">
+                    Precision engineered footwear for those who refuse to stand still.
+                </p>
+</div>
+<div class="flex flex-col gap-4">
+<a class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide hover:text-orange-500 underline-offset-4 hover:underline transition-all duration-200" href="#">Support</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide hover:text-orange-500 underline-offset-4 hover:underline transition-all duration-200" href="#">Contact</a>
+</div>
+<div class="flex flex-col gap-4">
+<a class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide hover:text-orange-500 underline-offset-4 hover:underline transition-all duration-200" href="#">Shipping</a>
+<a class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide hover:text-orange-500 underline-offset-4 hover:underline transition-all duration-200" href="#">Returns</a>
+</div>
+<div class="flex flex-col gap-4">
+<a class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide hover:text-orange-500 underline-offset-4 hover:underline transition-all duration-200" href="#">Privacy</a>
+</div>
+<div class="col-span-1 md:col-span-2 lg:col-span-4 mt-12 pt-8 border-t border-outline-variant/20">
+<p class="text-zinc-500 dark:text-zinc-400 font-['Manrope'] text-sm tracking-wide text-center">
+                    © 2024 KINETIC PRECISION. ENGINEERED FOR MOTION.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

@@ -1,0 +1,188 @@
+@{
+    ViewData["Title"] = "Shop";
+    ViewData["ActiveNav"] = "Shop";
+}
+
+<!-- MAIN HERO -->
+<section class="position-relative overflow-hidden bg-surface-low d-flex align-items-center" style="height: 80vh; min-height: 600px; margin-top: -80px;">
+    <!-- Background Image -->
+    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA05vTjmRyjGZ6OHL3fXvxpfoKiex8GaFKWtLQPU7uQ520aLuPSaDSGIYeX2lfbw2lchHOrEjTdc51_WVOg6goTRpTc4O-UsoSsMR4xPIxWjgkJZOM45FA0WLdhJeEGb4cNQUPo5xU3rEaV6VW1F05LNL97L7lV0OakhxrSIgRubYtv46U5szWb_P6BOde6JY5B0mkklbi-usWAvU8nTDAK9I4yviX5QVe7ldv3-2wYsm8-lVahjNzMLd-T3dDGb_RedCa3qT4CAZBJ" 
+         class="position-absolute w-100 h-100 object-fit-cover opacity-75 object-position-center" 
+         style="mix-blend-mode: multiply; z-index: 0;" alt="Hero background">
+    
+    <div class="container position-relative z-1">
+        <div class="row">
+            <div class="col-md-6 text-dark">
+                <p class="font-headline text-primary fw-bold text-uppercase tracking-widest mb-3 small">Engineered for Velocity</p>
+                <h1 class="display-2 fw-bold font-headline mb-4" style="line-height: 1;">DEFY<br>GRAVITY.</h1>
+                <p class="fs-5 text-dark opacity-75 mb-5" style="max-width: 450px;">Experience next-level energy return with our proprietary foam technology. The new Kinetic Aero strikes the perfect balance of weightless feel and aggressive grip.</p>
+                
+                <div class="d-flex gap-3 flex-wrap">
+                    <button class="btn btn-kinetic-primary">Shop The Aero</button>
+                    <button class="btn btn-kinetic-secondary">View Tech Specs</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRODUCT SECTION -->
+<div class="container-fluid max-width-1440 py-5 px-4 mt-5">
+    <div class="row g-5">
+        <!-- Sidebar Filter -->
+        <div class="col-12 col-md-3">
+            <div class="sticky-top" style="top: 100px;">
+                <h3 class="font-headline fs-6 text-uppercase mb-4">Category</h3>
+                <div class="d-flex flex-column gap-3 mb-5 px-2">
+                    <div class="form-check custom-check">
+                        <input class="form-check-input" type="checkbox" id="cat1" checked>
+                        <label class="form-check-label text-secondary fw-bold" for="cat1">Running</label>
+                    </div>
+                    <div class="form-check custom-check">
+                        <input class="form-check-input" type="checkbox" id="cat2">
+                        <label class="form-check-label text-secondary" for="cat2">Training</label>
+                    </div>
+                    <div class="form-check custom-check">
+                        <input class="form-check-input" type="checkbox" id="cat3">
+                        <label class="form-check-label text-secondary" for="cat3">Trail</label>
+                    </div>
+                    <div class="form-check custom-check">
+                        <input class="form-check-input" type="checkbox" id="cat4">
+                        <label class="form-check-label text-secondary" for="cat4">Lifestyle</label>
+                    </div>
+                </div>
+
+                <h3 class="font-headline fs-6 text-uppercase mb-4">Size</h3>
+                <div class="d-flex flex-wrap gap-2 mb-5">
+                    <button class="btn btn-light border">8</button>
+                    <button class="btn btn-light border">8.5</button>
+                    <button class="btn btn-primary bg-primary text-white border-0 fw-bold">9</button>
+                    <button class="btn btn-light border">9.5</button>
+                    <button class="btn btn-light border">10</button>
+                    <button class="btn btn-light border">10.5</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Grid -->
+        <div class="col-12 col-md-9">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <div class="d-flex gap-2">
+                    <span class="badge bg-light text-dark border p-2 d-flex align-items-center gap-1 font-headline">Running <span class="material-symbols-outlined text-secondary ms-1 fs-6 cursor-pointer" style="cursor:pointer">close</span></span>
+                    <span class="badge bg-light text-dark border p-2 d-flex align-items-center gap-1 font-headline">Size 9 <span class="material-symbols-outlined text-secondary ms-1 fs-6 cursor-pointer" style="cursor:pointer">close</span></span>
+                </div>
+                <select class="form-select w-auto border-0 border-bottom bg-transparent no-border-input" style="border-radius: 0;">
+                    <option>Sort by: Featured</option>
+                    <option>Newest</option>
+                    <option>Price (Low)</option>
+                </select>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="row g-5">
+                <!-- Product Card 1 -->
+                <div class="col-12 col-md-6 mb-4">
+                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="1" class="text-decoration-none">
+                        <div class="kinetic-card h-100 rounded-3">
+                            <span class="badge bg-white text-dark shadow-sm position-absolute rounded-0 py-2 px-3 tracking-widest text-uppercase" style="top:1.5rem; left:1.5rem; z-index:10;">Featured</span>
+                            <div class="kinetic-card-img-container cursor-pointer">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Kinetic Quantum">
+                                <div class="quick-add-container">
+                                    <button class="quick-add-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Quantum</h4>
+                                    <p class="text-secondary small mb-0">Running Shoes</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-dark fw-bold fs-5">$180</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product Card 2 -->
+                <div class="col-12 col-md-6 mb-4">
+                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="2" class="text-decoration-none">
+                        <div class="kinetic-card h-100 rounded-3">
+                            <span class="badge bg-primary position-absolute rounded-0 py-2 px-3 tracking-widest text-uppercase" style="top:1.5rem; left:1.5rem; z-index:10;">Sale</span>
+                            <div class="kinetic-card-img-container cursor-pointer">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiv-dSomy1GRdVWCzkxAiqMU_QD9JQqwwwDHCouIGBSiRWk-6vRjgwvxzt8hFEOx3cIbNpNPXv1kFZxqW1XiODW6wYvrdsDOfkCxneIw_PJ18x-BULd80W0a0cbbvpOQ42l7EKYh0ZAzvK6UvFoSJdnCG69Tp1OVri3rQoFq1LHvXuG1eIv_vIkruE6CBwiRDWq8mMIaAp_I_V7QWrCuors0TMm0bI-_pUXRKiVT-35EPxIu_yEuoKPaZx5uOgYj2xbH8cjmMleohk" alt="Kinetic Shift V2">
+                                <div class="quick-add-container">
+                                    <button class="quick-add-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Shift V2</h4>
+                                    <p class="text-secondary small mb-0">Lifestyle Shoes</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-primary fw-bold fs-5">$130</span>
+                                    <span class="text-secondary small text-decoration-line-through ms-2">$160</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="col-12 col-md-6 mb-4">
+                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="3" class="text-decoration-none">
+                        <div class="kinetic-card h-100 rounded-3">
+                            <div class="kinetic-card-img-container cursor-pointer">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-EeJDitHu_Zre8nwdeC0hY6MfW8_CrvGBMaKI58WLU8LMtF-O_DNd8vUywIt_hkragbygjwk0nSskrXSx3iuczyiMcYPt7XRd3fepgdmvd06VzQw1FmB1lBoRdwq0vErCQ8WBrKgEBQR9atkw9VguboGud7m0sGUrFSe7holvrN3tKfjeL47WSz3xKaygaGQEA2o4GogmyeXnSU1W-x5yNbWcjl9emMKW7xwgSAe1nvkyNhSbMRf8qAiC1WVFWSPQC2StLX3I64R3" alt="Kinetic Stealth">
+                                <div class="quick-add-container">
+                                    <button class="quick-add-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Stealth</h4>
+                                    <p class="text-secondary small mb-0">Training Shoes</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-dark fw-bold fs-5">$150</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="col-12 col-md-6 mb-4">
+                    <a asp-area="User" asp-controller="Product" asp-action="Detail" asp-route-id="4" class="text-decoration-none">
+                        <div class="kinetic-card h-100 rounded-3">
+                            <div class="kinetic-card-img-container cursor-pointer">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu-RW-5Ztok81Ts88NzzVplXkJC9mon5NF-Rumw_beDVj45vn5xMQwEP-ifOzNpjbTRKfI9NlFx6iJvIZ3vAp1gPXlV1F08qvH-Lj6Qjce0FTJaQDkKSdUzJ6qjZOzdtQFlzWwJDfDl51YCfMwE2eLwXWxF0Sw_EG5MMbgEvRD_a8mRSIZ01GNE2t6tA3vlnxJpzQsVWMkV9MVrJhbbEk48Tv72aq3Paib356MP_Iw9_q1ClW_YS5NeZFj4vC4Pp8-9r9kJb3x1bdn" alt="Kinetic Core">
+                                <div class="quick-add-container">
+                                    <button class="quick-add-btn">
+                                        <span class="material-symbols-outlined">add</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h4 class="font-headline fs-5 fw-bold mb-1">Kinetic Core</h4>
+                                    <p class="text-secondary small mb-0">Running Shoes</p>
+                                </div>
+                                <div class="text-end">
+                                    <span class="text-dark fw-bold fs-5">$160</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,183 @@
+@{
+    ViewData["Title"] = "POS Terminal";
+}
+
+<!-- MAIN POS LAYOUT -->
+<div class="container-fluid flex-grow-1 overflow-hidden p-0 d-flex flex-column flex-lg-row">
+    
+    <!-- LEFT: Products Area -->
+    <div class="col-12 col-lg-8 bg-surface-low d-flex flex-column h-100 border-end border-secondary-subtle">
+        <!-- Search Bar -->
+        <div class="p-4 bg-white shadow-sm z-2">
+            <div class="position-relative">
+                <span class="material-symbols-outlined position-absolute top-50 translate-middle-y ms-3 text-secondary">search</span>
+                <input type="text" class="form-control form-control-lg bg-surface-low border-0 ps-5 rounded-pill" id="pos-search" placeholder="Search by name or scan barcode (e.g. Kinetic Aero)...">
+            </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="flex-grow-1 overflow-auto p-4">
+            <div class="row g-3">
+                <!-- Product 1 -->
+                <div class="col-6 col-md-4 col-xl-3">
+                    <div class="card h-100 border-0 shadow-sm cursor-pointer hover-lift" style="cursor:pointer;">
+                        <div class="bg-surface-lowest p-3 text-center d-flex align-items-center justify-content-center" style="height: 120px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" class="img-fluid" style="mix-blend-mode: multiply; max-height: 100px;">
+                        </div>
+                        <div class="card-body p-3">
+                            <h6 class="card-title font-headline fw-bold mb-1 text-truncate" style="font-size: 0.9rem;">Kinetic Quantum</h6>
+                            <p class="card-text text-primary fw-bold m-0">$180</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="col-6 col-md-4 col-xl-3">
+                    <div class="card h-100 border-0 shadow-sm cursor-pointer hover-lift" style="cursor:pointer;">
+                        <div class="bg-surface-lowest p-3 text-center d-flex align-items-center justify-content-center" style="height: 120px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiv-dSomy1GRdVWCzkxAiqMU_QD9JQqwwwDHCouIGBSiRWk-6vRjgwvxzt8hFEOx3cIbNpNPXv1kFZxqW1XiODW6wYvrdsDOfkCxneIw_PJ18x-BULd80W0a0cbbvpOQ42l7EKYh0ZAzvK6UvFoSJdnCG69Tp1OVri3rQoFq1LHvXuG1eIv_vIkruE6CBwiRDWq8mMIaAp_I_V7QWrCuors0TMm0bI-_pUXRKiVT-35EPxIu_yEuoKPaZx5uOgYj2xbH8cjmMleohk" class="img-fluid" style="mix-blend-mode: multiply; max-height: 100px;">
+                        </div>
+                        <div class="card-body p-3">
+                            <h6 class="card-title font-headline fw-bold mb-1 text-truncate" style="font-size: 0.9rem;">Kinetic Shift V2</h6>
+                            <p class="card-text text-primary fw-bold m-0">$130</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="col-6 col-md-4 col-xl-3">
+                    <div class="card h-100 border-0 shadow-sm cursor-pointer hover-lift" style="cursor:pointer;">
+                        <div class="bg-surface-lowest p-3 text-center d-flex align-items-center justify-content-center" style="height: 120px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-EeJDitHu_Zre8nwdeC0hY6MfW8_CrvGBMaKI58WLU8LMtF-O_DNd8vUywIt_hkragbygjwk0nSskrXSx3iuczyiMcYPt7XRd3fepgdmvd06VzQw1FmB1lBoRdwq0vErCQ8WBrKgEBQR9atkw9VguboGud7m0sGUrFSe7holvrN3tKfjeL47WSz3xKaygaGQEA2o4GogmyeXnSU1W-x5yNbWcjl9emMKW7xwgSAe1nvkyNhSbMRf8qAiC1WVFWSPQC2StLX3I64R3" class="img-fluid" style="mix-blend-mode: multiply; max-height: 100px;">
+                        </div>
+                        <div class="card-body p-3">
+                            <h6 class="card-title font-headline fw-bold mb-1 text-truncate" style="font-size: 0.9rem;">Kinetic Stealth</h6>
+                            <p class="card-text text-primary fw-bold m-0">$150</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Product 4 -->
+                <div class="col-6 col-md-4 col-xl-3">
+                    <div class="card h-100 border-0 shadow-sm cursor-pointer hover-lift" style="cursor:pointer;">
+                        <div class="bg-surface-lowest p-3 text-center d-flex align-items-center justify-content-center" style="height: 120px;">
+                            <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDu-RW-5Ztok81Ts88NzzVplXkJC9mon5NF-Rumw_beDVj45vn5xMQwEP-ifOzNpjbTRKfI9NlFx6iJvIZ3vAp1gPXlV1F08qvH-Lj6Qjce0FTJaQDkKSdUzJ6qjZOzdtQFlzWwJDfDl51YCfMwE2eLwXWxF0Sw_EG5MMbgEvRD_a8mRSIZ01GNE2t6tA3vlnxJpzQsVWMkV9MVrJhbbEk48Tv72aq3Paib356MP_Iw9_q1ClW_YS5NeZFj4vC4Pp8-9r9kJb3x1bdn" class="img-fluid" style="mix-blend-mode: multiply; max-height: 100px;">
+                        </div>
+                        <div class="card-body p-3">
+                            <h6 class="card-title font-headline fw-bold mb-1 text-truncate" style="font-size: 0.9rem;">Kinetic Core</h6>
+                            <p class="card-text text-primary fw-bold m-0">$160</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT: Cart Area -->
+    <div class="col-12 col-lg-4 bg-white d-flex flex-column h-100 shadow position-relative z-3">
+        <!-- Cart Header -->
+        <div class="p-4 border-bottom border-secondary-subtle d-flex justify-content-between align-items-center">
+            <h2 class="font-headline fs-5 fw-bold mb-0">Current Order</h2>
+            <button class="btn btn-sm btn-link text-danger text-decoration-none">Clear</button>
+        </div>
+
+        <!-- Cart Items -->
+        <div class="flex-grow-1 overflow-auto bg-surface-low p-2">
+            <!-- Item 1 -->
+            <div class="bg-white p-3 mb-2 rounded shadow-sm d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-secondary rounded-pill px-2 py-1">1</span>
+                    <div>
+                        <h6 class="font-headline fw-bold mb-0 text-truncate" style="max-width: 150px;">Kinetic Quantum</h6>
+                        <small class="text-secondary">$180 </small>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <span class="fw-bold d-block">$180</span>
+                    <button class="btn btn-sm text-danger p-0 mt-1"><span class="material-symbols-outlined fs-6">delete</span></button>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="bg-white p-3 mb-2 rounded shadow-sm d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-secondary rounded-pill px-2 py-1">2</span>
+                    <div>
+                        <h6 class="font-headline fw-bold mb-0 text-truncate" style="max-width: 150px;">Kinetic Shift V2</h6>
+                        <small class="text-secondary">$130 </small>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <span class="fw-bold d-block">$260</span>
+                    <button class="btn btn-sm text-danger p-0 mt-1"><span class="material-symbols-outlined fs-6">delete</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Footer / Summary -->
+        <div class="p-4 bg-white border-top border-secondary-subtle shadow-lg">
+            <div class="d-flex justify-content-between mb-2 text-secondary small">
+                <span>Subtotal</span>
+                <span>$440.00</span>
+            </div>
+            <div class="d-flex justify-content-between mb-3 text-secondary small">
+                <span>Tax (10%)</span>
+                <span>$44.00</span>
+            </div>
+            <div class="d-flex justify-content-between font-headline fw-bold fs-4 mb-4">
+                <span>Total</span>
+                <span class="text-primary">$484.00</span>
+            </div>
+            <button class="btn btn-kinetic-primary w-100 py-3 fs-5" data-bs-toggle="modal" data-bs-target="#paymentModal">Charge</button>
+        </div>
+    </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+      <div class="modal-header bg-dark text-white border-0 py-4">
+        <h5 class="modal-title font-headline fw-bold">Select Payment Method</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+          <div class="d-flex border-bottom">
+              <button class="btn flex-fill py-3 rounded-0 fw-bold border-bottom border-3 border-primary bg-light" id="tab-cash" onclick="switchTab('cash')">CASH</button>
+              <button class="btn flex-fill py-3 rounded-0 fw-bold border-bottom border-3 border-transparent" id="tab-transfer" onclick="switchTab('transfer')">BANK TRANSFER</button>
+          </div>
+
+          <div class="p-4" id="view-cash">
+              <h4 class="font-headline text-center fs-2 fw-bold text-primary mb-4">$484.00</h4>
+              <label class="form-label font-headline small text-secondary fw-bold">Amount Tendered</label>
+              <div class="input-group input-group-lg mb-3">
+                  <span class="input-group-text bg-white border-end-0">$</span>
+                  <input type="number" class="form-control border-start-0" id="cash-tendered" placeholder="0.00">
+              </div>
+              <div class="d-flex justify-content-between align-items-center bg-surface-low p-3 rounded text-danger fw-bold fs-5 mb-4">
+                  <span>Change Due:</span>
+                  <span id="cash-change">$0.00</span>
+              </div>
+              <button class="btn btn-dark w-100 py-3 font-headline fw-bold">Confirm Payment</button>
+          </div>
+
+          <div class="p-4 d-none text-center" id="view-transfer">
+              <h4 class="font-headline fs-2 fw-bold text-primary mb-2">$484.00</h4>
+              <p class="text-secondary small mb-4">Scan QR code via Banking App</p>
+              <div class="bg-white p-2 d-inline-block border rounded-3 shadow-sm mb-4">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=KINETIC-POS-TRANSFER" alt="QR Code">
+              </div>
+              <button class="btn btn-dark w-100 py-3 font-headline fw-bold mt-2">Verify & Confirm</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts {
+<script>
+    function switchTab(tab) {
+        document.getElementById('tab-cash').className = 'btn flex-fill py-3 rounded-0 fw-bold border-bottom border-3 ' + (tab === 'cash' ? 'border-primary bg-light' : 'border-transparent');
+        document.getElementById('tab-transfer').className = 'btn flex-fill py-3 rounded-0 fw-bold border-bottom border-3 ' + (tab === 'transfer' ? 'border-primary bg-light' : 'border-transparent');
+        
+        document.getElementById('view-cash').classList.toggle('d-none', tab !== 'cash');
+        document.getElementById('view-transfer').classList.toggle('d-none', tab !== 'transfer');
+    }
+</script>
+}

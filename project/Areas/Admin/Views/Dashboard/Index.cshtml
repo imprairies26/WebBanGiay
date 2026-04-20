@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActiveNav"] = "Dashboard";
+}
+
+<h1 class="font-headline fs-3 fw-bold mb-5">Business Overview</h1>
+
+<!-- Stats Grid -->
+<div class="row g-4 mb-5">
+    <div class="col-12 col-md-3">
+        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Revenue</p>
+            <h3 class="fs-2 fw-bold text-dark m-0">$12,450</h3>
+            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +12.5%</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Orders</p>
+            <h3 class="fs-2 fw-bold text-dark m-0">86</h3>
+            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +5.2%</p>
+        </div>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Users</p>
+            <h3 class="fs-2 fw-bold text-dark m-0">124</h3>
+        </div>
+    </div>
+    <div class="col-12 col-md-3">
+        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
+            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Cancellations</p>
+            <h3 class="fs-2 fw-bold text-danger m-0">3</h3>
+            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_down</span> -2.4%</p>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Transactions -->
+<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4">
+    <h4 class="font-headline fs-5 fw-bold mb-4">Recent Transactions</h4>
+    <div class="table-responsive">
+        <table class="table table-borderless table-hover align-middle">
+            <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
+                <tr>
+                    <th class="py-3 rounded-start">Order ID</th>
+                    <th class="py-3">Customer</th>
+                    <th class="py-3">Date</th>
+                    <th class="py-3">Status</th>
+                    <th class="py-3 rounded-end text-end">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="fw-bold bg-white text-secondary"><small>ORD-12345</small></td>
+                    <td class="bg-white">user@test.com</td>
+                    <td class="text-secondary small bg-white">2024-01-15</td>
+                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
+                    <td class="fw-bold text-end bg-white">$180.00</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold bg-white text-secondary"><small>ORD-67890</small></td>
+                    <td class="bg-white">john@example.com</td>
+                    <td class="text-secondary small bg-white">2024-01-20</td>
+                    <td class="bg-white"><span class="badge bg-warning text-dark">Processing</span></td>
+                    <td class="fw-bold text-end bg-white">$260.00</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold bg-white text-secondary"><small>POS-54321</small></td>
+                    <td class="bg-white">Store Walk-in</td>
+                    <td class="text-secondary small bg-white">2024-01-22</td>
+                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
+                    <td class="fw-bold text-end bg-white">$150.00</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold bg-white text-secondary"><small>ORD-11223</small></td>
+                    <td class="bg-white">sarah@example.com</td>
+                    <td class="text-secondary small bg-white">2024-01-23</td>
+                    <td class="bg-white"><span class="badge bg-warning text-dark">Processing</span></td>
+                    <td class="fw-bold text-end bg-white">$320.00</td>
+                </tr>
+                <tr>
+                    <td class="fw-bold bg-white text-secondary"><small>POS-99887</small></td>
+                    <td class="bg-white">Store Walk-in</td>
+                    <td class="text-secondary small bg-white">2024-01-24</td>
+                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
+                    <td class="fw-bold text-end bg-white">$210.00</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

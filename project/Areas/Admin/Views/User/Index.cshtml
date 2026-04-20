@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Manage Users";
+    ViewData["ActiveNav"] = "Users";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+    <h1 class="font-headline fs-3 fw-bold mb-0">System Users</h1>
+    <button class="btn btn-dark rounded-pill px-4" data-bs-toggle="modal" data-bs-target="#userModal">+ Add User</button>
+</div>
+
+<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-0 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 text-nowrap">
+            <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
+                <tr>
+                    <th class="py-3 px-4">Name</th>
+                    <th class="py-3">Email Address</th>
+                    <th class="py-3">Role</th>
+                    <th class="py-3 text-end px-4">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="px-4 fw-bold text-dark">Admin User</td>
+                    <td class="text-secondary">admin@test.com</td>
+                    <td><span class="badge bg-danger text-uppercase">admin</span></td>
+                    <td class="text-end px-4">
+                        <button class="btn btn-sm btn-outline-danger rounded-pill ms-2">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 fw-bold text-dark">POS Staff</td>
+                    <td class="text-secondary">staff@test.com</td>
+                    <td><span class="badge bg-primary text-uppercase">staff</span></td>
+                    <td class="text-end px-4">
+                        <button class="btn btn-sm btn-outline-danger rounded-pill ms-2">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="px-4 fw-bold text-dark">John Doe</td>
+                    <td class="text-secondary">user@test.com</td>
+                    <td><span class="badge bg-secondary text-uppercase">user</span></td>
+                    <td class="text-end px-4">
+                        <button class="btn btn-sm btn-outline-danger rounded-pill ms-2">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- User Modal -->
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-0 shadow-lg rounded-4">
+      <div class="modal-header border-0 pb-0 pt-4 px-4">
+        <h5 class="modal-title font-headline fw-bold">Add/Edit User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+          <form id="user-form">
+              <div class="row g-3">
+                  <div class="col-12">
+                      <label class="form-label small text-secondary fw-bold text-uppercase font-headline">Full Name</label>
+                      <input type="text" class="form-control bg-surface border-0" id="u-name" required>
+                  </div>
+                  <div class="col-12">
+                      <label class="form-label small text-secondary fw-bold text-uppercase font-headline">Email</label>
+                      <input type="email" class="form-control bg-surface border-0" id="u-email" required>
+                  </div>
+                  <div class="col-12">
+                      <label class="form-label small text-secondary fw-bold text-uppercase font-headline">Password</label>
+                      <input type="text" class="form-control bg-surface border-0" id="u-pass" required placeholder="Enter password">
+                  </div>
+                  <div class="col-12">
+                      <label class="form-label small text-secondary fw-bold text-uppercase font-headline">Role</label>
+                      <select class="form-select bg-surface border-0" id="u-role">
+                          <option value="user">Customer (User)</option>
+                          <option value="staff">Sales Staff (POS)</option>
+                          <option value="admin">Administrator</option>
+                      </select>
+                  </div>
+                  <div class="col-12 mt-4 text-end">
+                      <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal">Cancel</button>
+                      <button type="submit" class="btn btn-dark px-4">Save User</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>

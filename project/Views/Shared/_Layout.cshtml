@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"] - KINETIC</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <!-- Custom Style -->
+    <link href="~/css/style.css" rel="stylesheet" asp-append-version="true">
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+<!-- USER TOP NAV -->
+<header class="fixed-top glass-nav w-100 px-4 py-3 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center gap-4">
+        <a class="text-decoration-none font-headline fs-4 fst-italic text-dark fw-bold" asp-area="User" asp-controller="Home" asp-action="Index">KINETIC</a>
+        <nav class="d-none d-md-flex gap-4 ms-3">
+            <a asp-area="User" asp-controller="Home" asp-action="Index" class="nav-kinetic-link @(ViewData["ActiveNav"]?.ToString() == "Shop" ? "active" : "")">Shop</a>
+            <a asp-area="User" asp-controller="Profile" asp-action="Index" class="nav-kinetic-link @(ViewData["ActiveNav"]?.ToString() == "Profile" ? "active" : "")">Profile</a>
+            <a asp-area="User" asp-controller="Account" asp-action="Login" class="nav-kinetic-link @(ViewData["ActiveNav"]?.ToString() == "Login" ? "active" : "")">Login</a>
+        </nav>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+        <button class="btn btn-link text-secondary p-0 border-0 me-2">
+            <span class="material-symbols-outlined fs-4">search</span>
+        </button>
+        <a asp-area="User" asp-controller="Cart" asp-action="Index" class="btn btn-link text-secondary p-0 border-0 position-relative">
+            <span class="material-symbols-outlined fs-4">shopping_bag</span>
+            <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.65rem;"></span>
+        </a>
+    </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+    @RenderBody()
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-surface-low w-100 py-5 mt-5">
+    <div class="container-fluid max-width-1440 px-4">
+        <div class="row g-5">
+            <div class="col-12 col-lg-4">
+                <a class="font-headline fs-4 fst-italic text-dark text-decoration-none fw-bold d-block mb-3" asp-area="User" asp-controller="Home" asp-action="Index">KINETIC</a>
+                <p class="text-secondary small tracking-wide" style="max-width: 250px;">
+                    Precision engineered footwear for those who refuse to stand still.
+                </p>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="d-flex flex-column gap-3">
+                    <a href="#" class="text-secondary text-decoration-none small hover-primary">Support</a>
+                    <a href="#" class="text-secondary text-decoration-none small hover-primary">Contact</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="d-flex flex-column gap-3">
+                    <a href="#" class="text-secondary text-decoration-none small hover-primary">Shipping</a>
+                    <a href="#" class="text-secondary text-decoration-none small hover-primary">Returns</a>
+                </div>
+            </div>
+            <div class="col-6 col-md-4 col-lg-2">
+                <div class="d-flex flex-column gap-3">
+                    <a href="#" class="text-secondary text-decoration-none small hover-primary">Privacy</a>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-5 pt-4 border-top border-secondary-subtle">
+            <div class="col-12 text-center">
+                <p class="text-secondary small tracking-wide">
+                    © 2024 KINETIC PRECISION. ENGINEERED FOR MOTION.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

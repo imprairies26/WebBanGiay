@@ -1,0 +1,73 @@
+@{
+    ViewData["Title"] = "Product Detail";
+    ViewData["ActiveNav"] = "Shop";
+}
+
+<!-- PRODUCT DETAIL SECTION -->
+<div class="container-fluid max-width-1440 py-5 px-4">
+    <!-- Breadcrumb -->
+    <div class="mb-5">
+        <a asp-area="User" asp-controller="Home" asp-action="Index" class="text-decoration-none text-secondary small text-uppercase font-headline">Shop</a>
+        <span class="text-secondary mx-2">/</span>
+        <span class="text-dark small text-uppercase font-headline fw-bold">Kinetic Quantum</span>
+    </div>
+
+    <div class="row g-5">
+        <!-- Image Gallery -->
+        <div class="col-12 col-md-7">
+            <div class="bg-surface-lowest d-flex align-items-center justify-content-center p-5 mb-4 rounded-3 h-100" style="min-height: 500px;">
+                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Product" class="img-fluid" style="mix-blend-mode: multiply; filter: drop-shadow(0 20px 25px rgba(0,0,0,0.15)); max-height: 500px;">
+            </div>
+        </div>
+
+        <!-- Details -->
+        <div class="col-12 col-md-5">
+            <div class="sticky-top" style="top: 100px;">
+                <h1 class="font-headline display-5 fw-bold mb-2">Kinetic Quantum</h1>
+                <p class="text-secondary mb-4 text-uppercase small tracking-wide">Running Shoes</p>
+                
+                <div class="mb-4">
+                    <span class="fs-2 fw-bold font-headline text-dark">$180</span>
+                </div>
+
+                <div class="mb-4 text-secondary small lh-lg" style="max-width: 400px;">
+                    Lightweight, breathable, and designed for speed. Experience next level shock absorption and energy return in every stride.
+                </div>
+
+                <div class="mb-5">
+                    <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wide mb-3">Select Size</label>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-light border py-2 px-3 fw-bold">8</button>
+                        <button class="btn btn-primary bg-primary text-white border-0 py-2 px-3 fw-bold shadow-sm">9</button>
+                        <button class="btn btn-light border py-2 px-3 fw-bold">10</button>
+                        <button class="btn btn-light border py-2 px-3 fw-bold">11</button>
+                    </div>
+                </div>
+
+                <button class="btn btn-kinetic-primary w-100 py-3 mb-3">Add To Bag</button>
+                <button class="btn btn-kinetic-secondary w-100 py-3">Favorite</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Reviews Section -->
+    <div class="row mt-5 pt-5 border-top border-secondary-subtle">
+        <div class="col-12 col-md-8 mx-auto">
+            <h3 class="font-headline fs-4 fw-bold mb-4">Customer Reviews</h3>
+            <div class="bg-surface-lowest p-4 rounded-3 mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="font-headline fw-bold">John D.</span>
+                    <span class="text-warning">★★★★★</span>
+                </div>
+                <p class="text-secondary small mb-0">Extremely comfortable and light. I beat my PR on my first run with these!</p>
+            </div>
+            <div class="bg-surface-lowest p-4 rounded-3">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="font-headline fw-bold">Sarah W.</span>
+                    <span class="text-warning">★★★★☆</span>
+                </div>
+                <p class="text-secondary small mb-0">Great shoe, highly responsive. Slightly narrow in the toe box, consider sizing up a half size.</p>
+            </div>
+        </div>
+    </div>
+</div>
