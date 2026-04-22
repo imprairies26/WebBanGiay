@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Works\\code\\BAOCAO\\WebNangCao\\product\\WebBanGiay\\project\\project.csproj": {}
+    "E:\\DAI_HOC\\Năm 3\\WebBanGiay\\project\\project.csproj": {}
   },
   "projects": {
-    "D:\\Works\\code\\BAOCAO\\WebNangCao\\product\\WebBanGiay\\project\\project.csproj": {
+    "E:\\DAI_HOC\\Năm 3\\WebBanGiay\\project\\project.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Works\\code\\BAOCAO\\WebNangCao\\product\\WebBanGiay\\project\\project.csproj",
+        "projectUniqueName": "E:\\DAI_HOC\\Năm 3\\WebBanGiay\\project\\project.csproj",
         "projectName": "project",
-        "projectPath": "D:\\Works\\code\\BAOCAO\\WebNangCao\\product\\WebBanGiay\\project\\project.csproj",
-        "packagesPath": "C:\\Users\\KenAto\\.nuget\\packages\\",
-        "outputPath": "D:\\Works\\code\\BAOCAO\\WebNangCao\\product\\WebBanGiay\\project\\obj\\",
+        "projectPath": "E:\\DAI_HOC\\Năm 3\\WebBanGiay\\project\\project.csproj",
+        "packagesPath": "C:\\Users\\LEGION\\.nuget\\packages\\",
+        "outputPath": "E:\\DAI_HOC\\Năm 3\\WebBanGiay\\project\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\KenAto\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\LEGION\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {

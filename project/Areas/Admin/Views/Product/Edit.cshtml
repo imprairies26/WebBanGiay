@@ -1,0 +1,103 @@
+@model project.Areas.Admin.Models.ProductVM
+
+@{
+    ViewData["Title"] = "Chỉnh sửa sản phẩm";
+}
+
+<div class="container-fluid py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-1">
+                    <li class="breadcrumb-item"><a asp-action="Index" class="text-decoration-none text-secondary">Sản phẩm</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Chỉnh sửa</li>
+                </ol>
+            </nav>
+            <h1 class="font-headline fs-3 fw-bold mb-0 text-uppercase">Chỉnh sửa sản phẩm</h1>
+        </div>
+        <a asp-action="Index" class="btn btn-outline-dark rounded-pill px-4 d-flex align-items-center gap-2">
+            <span class="material-symbols-outlined fs-5">arrow_back</span> Quay lại
+        </a>
+    </div>
+
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Product.Id" />
+        <input type="hidden" asp-for="Product.CreatedAt" />
+
+        <div class="row g-4">
+            <div class="col-12 col-lg-8">
+                <div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4">
+                    <div class="mb-4">
+                        <label asp-for="Product.Name" class="form-label small text-secondary fw-bold text-uppercase">Tên sản phẩm</label>
+                        <input asp-for="Product.Name" class="form-control bg-light border-0 rounded-3 p-3 shadow-none" placeholder="Ví dụ: Kinetic Quantum V3">
+                            <span asp-validation-for="Product.Name" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Product.Description" class="form-label small text-secondary fw-bold text-uppercase">Mô tả sản phẩm</label>
+                            <textarea asp-for="Product.Description" rows="10" class="form-control bg-light border-0 rounded-3 p-3 shadow-none" placeholder="Nhập mô tả chi tiết sản phẩm..."></textarea>
+                            <span asp-validation-for="Product.Description" class="text-danger small"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4 mb-4">
+                        <h5 class="font-headline fw-bold mb-3 fs-6 text-uppercase text-primary">Phân loại & Giá</h5>
+                    
+                        <div class="mb-3">
+                            <label asp-for="Product.CategoryId" class="form-label small text-secondary fw-bold text-uppercase">Danh mục</label>
+                            <select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" class="form-select bg-light border-0 rounded-pill px-3 shadow-none">
+                                <option disabled selected>-- Chọn danh mục --</option>
+                            </select>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger small"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Product.BasePrice" class="form-label small text-secondary fw-bold text-uppercase">Giá gốc ($)</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0">$</span>
+                                <input asp-for="Product.BasePrice" type="number" step="0.01" class="form-control bg-light border-0 shadow-none" placeholder="0.00">
+                                </div>
+                                <span asp-validation-for="Product.BasePrice" class="text-danger small"></span>
+                            </div>
+
+                            <div class="mb-3">
+                                <label asp-for="Product.SalePrice" class="form-label small text-secondary fw-bold text-uppercase">Giá giảm (Nếu có)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0">$</span>
+                                    <input asp-for="Product.SalePrice" type="number" step="0.01" class="form-control bg-light border-0 shadow-none" placeholder="0.00">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4">
+                                <h5 class="font-headline fw-bold mb-3 fs-6 text-uppercase text-primary">Trạng thái</h5>
+                    
+                                <div class="form-check form-switch mb-3">
+                                    <input asp-for="Product.IsActive" class="form-check-input" type="checkbox">
+                                        <label asp-for="Product.IsActive" class="form-check-label fw-bold small text-uppercase">Đang kinh doanh</label>
+                                    </div>
+
+                                    <div class="form-check form-switch mb-3">
+                                        <input asp-for="Product.IsFeatured" class="form-check-input" type="checkbox">
+                                            <label asp-for="Product.IsFeatured" class="form-check-label fw-bold small text-uppercase">Sản phẩm nổi bật</label>
+                                        </div>
+
+                                        <hr class="text-secondary-subtle">
+
+                                        <button type="submit" class="btn btn-dark w-100 rounded-pill fw-bold py-2 mt-2">CẬP NHẬT THAY ĐỔI</button>
+                                        <p class="text-center small text-secondary mt-3 mb-0">Cập nhật lần cuối: @Model.Product.UpdatedAt.ToString("dd/MM/yyyy HH:mm")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    @section Scripts {
+                        <partial name="_ValidationScriptsPartial" />
+    
+                        <script>
+                            // Code bổ sung để xử lý logic ngày tháng hoặc định dạng giá nếu cần
+                        </script>
+                    }

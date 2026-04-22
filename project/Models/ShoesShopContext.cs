@@ -24,7 +24,8 @@ public partial class ShoesShopContext : DbContext
     public virtual DbSet<Role> Roles { get; set; }
     public virtual DbSet<PasswordResetToken> PasswordResetTokens { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {}
+    
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
