@@ -1,0 +1,13 @@
+@{
+    ViewData["Title"] = "Lỗi hệ thống";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid py-5 mt-5 text-center" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
+    <div style="max-width: 600px;">
+        <span class="material-symbols-outlined text-danger display-1 mb-4">report_problem</span>
+        <h1 class="font-headline fs-1 fw-bold mb-3">SYSTEM ERROR.</h1>
+        <p class="text-secondary fs-5 mb-5">Đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ.</p>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3">QUAY LẠI TRANG CHỦ</a>
+    </div>
+</div>

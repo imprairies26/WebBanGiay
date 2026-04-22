@@ -1,6 +1,12 @@
+@model project.Models.Product
 @{
-    ViewData["Title"] = "Product Detail";
+    ViewData["Title"] = Model.Name;
     ViewData["ActiveNav"] = "Shop";
+    var mainImage = Model.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl 
+                   ?? Model.ProductImages.FirstOrDefault()?.ImageUrl 
+                   ?? "https://via.placeholder.com/800x800?text=No+Image";
+    var subImages = Model.ProductImages.Where(i => !i.IsMain).OrderBy(i => i.SortOrder).ToList();
+    var availableColors = Model.ProductVariants.Select(v => v.Color).Distinct().ToList();
 }
 
 <!-- PRODUCT DETAIL SECTION -->
@@ -9,65 +15,248 @@
     <div class="mb-5">
         <a asp-area="User" asp-controller="Home" asp-action="Index" class="text-decoration-none text-secondary small text-uppercase font-headline">Shop</a>
         <span class="text-secondary mx-2">/</span>
-        <span class="text-dark small text-uppercase font-headline fw-bold">Kinetic Quantum</span>
+        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-categories="@Model.CategoryId" class="text-decoration-none text-secondary small text-uppercase font-headline">@Model.Category.Name</a>
+        <span class="text-secondary mx-2">/</span>
+        <span class="text-dark small text-uppercase font-headline fw-bold">@Model.Name</span>
     </div>
 
     <div class="row g-5">
         <!-- Image Gallery -->
         <div class="col-12 col-md-7">
-            <div class="bg-surface-lowest d-flex align-items-center justify-content-center p-5 mb-4 rounded-3 h-100" style="min-height: 500px;">
-                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" alt="Product" class="img-fluid" style="mix-blend-mode: multiply; filter: drop-shadow(0 20px 25px rgba(0,0,0,0.15)); max-height: 500px;">
+            <div class="product-gallery">
+                <div class="bg-surface-lowest d-flex align-items-center justify-content-center p-5 mb-4 rounded-4 main-image-container" style="min-height: 500px; border: 1px solid rgba(0,0,0,0.05);">
+                    <img id="main-product-image" src="@mainImage" alt="@Model.Name" class="img-fluid" style="mix-blend-mode: multiply; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.15)); max-height: 600px;">
+                </div>
+                
+                @if (subImages.Count > 0)
+                {
+                    <div class="row g-3">
+                        <div class="col-3">
+                            <div class="gallery-thumb active rounded-3 overflow-hidden border cursor-pointer" onclick="updateMainImage('@mainImage', this)">
+                                <img src="@mainImage" class="img-fluid" style="mix-blend-mode: multiply;">
+                            </div>
+                        </div>
+                        @foreach (var img in subImages)
+                        {
+                            <div class="col-3">
+                                <div class="gallery-thumb rounded-3 overflow-hidden border cursor-pointer" onclick="updateMainImage('@img.ImageUrl', this)">
+                                    <img src="@img.ImageUrl" class="img-fluid" style="mix-blend-mode: multiply;">
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
         </div>
 
         <!-- Details -->
         <div class="col-12 col-md-5">
             <div class="sticky-top" style="top: 100px;">
-                <h1 class="font-headline display-5 fw-bold mb-2">Kinetic Quantum</h1>
-                <p class="text-secondary mb-4 text-uppercase small tracking-wide">Running Shoes</p>
-                
-                <div class="mb-4">
-                    <span class="fs-2 fw-bold font-headline text-dark">$180</span>
-                </div>
-
-                <div class="mb-4 text-secondary small lh-lg" style="max-width: 400px;">
-                    Lightweight, breathable, and designed for speed. Experience next level shock absorption and energy return in every stride.
-                </div>
-
-                <div class="mb-5">
-                    <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wide mb-3">Select Size</label>
-                    <div class="d-flex flex-wrap gap-2">
-                        <button class="btn btn-light border py-2 px-3 fw-bold">8</button>
-                        <button class="btn btn-primary bg-primary text-white border-0 py-2 px-3 fw-bold shadow-sm">9</button>
-                        <button class="btn btn-light border py-2 px-3 fw-bold">10</button>
-                        <button class="btn btn-light border py-2 px-3 fw-bold">11</button>
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div>
+                        <h1 class="font-headline display-5 fw-bold mb-1">@Model.Name</h1>
+                        <p class="text-secondary mb-0 text-uppercase small tracking-widest font-headline">@Model.Category.Name</p>
                     </div>
+                    @if (Model.IsFeatured)
+                    {
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-headline small tracking-widest text-uppercase">Exclusive</span>
+                    }
+                </div>
+                
+                <div class="my-4">
+                    @if (Model.SalePrice.HasValue && Model.SalePrice < Model.BasePrice)
+                    {
+                        <span class="fs-2 fw-bold font-headline text-danger">@Model.SalePrice.Value.ToString("N0")đ</span>
+                        <span class="ms-3 text-secondary text-decoration-line-through fs-5">@Model.BasePrice.ToString("N0")đ</span>
+                    }
+                    else
+                    {
+                        <span class="fs-2 fw-bold font-headline text-dark">@Model.BasePrice.ToString("N0")đ</span>
+                    }
                 </div>
 
-                <button class="btn btn-kinetic-primary w-100 py-3 mb-3">Add To Bag</button>
-                <button class="btn btn-kinetic-secondary w-100 py-3">Favorite</button>
+                <div class="mb-5 text-secondary small lh-lg" style="max-width: 500px;">
+                    @Model.Description
+                </div>
+
+                <!-- SELECTION FORM -->
+                <form id="add-to-cart-form" asp-area="User" asp-controller="Cart" asp-action="Add" method="post">
+                    <input type="hidden" name="productId" value="@Model.Id" />
+                    <input type="hidden" id="selected-variant-id" name="variantId" value="" />
+                    
+                    <!-- Color Selection -->
+                    <div class="mb-4">
+                        <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wider mb-3">Màu sắc: <span id="current-color-label" class="text-dark">Chọn màu</span></label>
+                        <div class="d-flex flex-wrap gap-3">
+                            @foreach (var color in availableColors)
+                            {
+                                <div class="color-option">
+                                    <input type="radio" name="color" value="@color" id="color-@color" class="btn-check" onchange="updateVariants()">
+                                    <label class="color-swatch-large" for="color-@color" data-bs-toggle="tooltip" title="@color">
+                                        <div class="color-swatch-inner" style="background: @color; border: 1px solid #e2e2e5;"></div>
+                                    </label>
+                                </div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Size Selection -->
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wider mb-0">Kích thước: <span id="current-size-label" class="text-dark">Chọn size</span></label>
+                            <a href="#" class="text-secondary small text-decoration-none border-bottom">Bảng size</a>
+                        </div>
+                        <div id="size-options" class="d-flex flex-wrap gap-2">
+                            <!-- Populated via JS -->
+                            <p class="small text-secondary italic">Vui lòng chọn màu sắc trước</p>
+                        </div>
+                    </div>
+
+                    <!-- SKU & Stock Info -->
+                    <div id="variant-info" class="mb-4 d-none">
+                        <p class="small text-secondary mb-1">SKU: <span id="sku-label" class="text-dark fw-bold"></span></p>
+                        <p class="small text-secondary">Tình trạng: <span id="stock-label" class="fw-bold"></span></p>
+                    </div>
+
+                    <div class="d-flex gap-3">
+                        <button id="add-to-bag-btn" type="submit" class="btn btn-kinetic-primary flex-grow-1 py-3" disabled>Thêm vào giỏ hàng</button>
+                        <button type="button" class="btn btn-kinetic-secondary px-4 py-3"><span class="material-symbols-outlined">favorite</span></button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
     
-    <!-- Reviews Section -->
+    <!-- Tech Specs / Details Section -->
     <div class="row mt-5 pt-5 border-top border-secondary-subtle">
-        <div class="col-12 col-md-8 mx-auto">
-            <h3 class="font-headline fs-4 fw-bold mb-4">Customer Reviews</h3>
-            <div class="bg-surface-lowest p-4 rounded-3 mb-4">
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="font-headline fw-bold">John D.</span>
-                    <span class="text-warning">★★★★★</span>
+        <div class="col-12 col-md-8">
+            <h3 class="font-headline fs-4 fw-bold mb-4">Chi tiết sản phẩm</h3>
+            <div class="row g-4">
+                <div class="col-6 col-md-4">
+                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Engineered for</span>
+                    <span class="fw-bold">High Performance</span>
                 </div>
-                <p class="text-secondary small mb-0">Extremely comfortable and light. I beat my PR on my first run with these!</p>
-            </div>
-            <div class="bg-surface-lowest p-4 rounded-3">
-                <div class="d-flex justify-content-between mb-2">
-                    <span class="font-headline fw-bold">Sarah W.</span>
-                    <span class="text-warning">★★★★☆</span>
+                <div class="col-6 col-md-4">
+                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Technology</span>
+                    <span class="fw-bold">Kinetic Aero Foam</span>
                 </div>
-                <p class="text-secondary small mb-0">Great shoe, highly responsive. Slightly narrow in the toe box, consider sizing up a half size.</p>
+                <div class="col-6 col-md-4">
+                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Materials</span>
+                    <span class="fw-bold">Recycled Mesh / Rubber</span>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+    .gallery-thumb {
+        aspect-ratio: 1/1;
+        background: #f8f9fa;
+        padding: 10px;
+        transition: all 0.2s ease;
+    }
+    .gallery-thumb:hover, .gallery-thumb.active {
+        border-color: var(--kinetic-primary) !important;
+        opacity: 0.8;
+    }
+    .color-swatch-large {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        padding: 3px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .btn-check:checked + .color-swatch-large {
+        border-color: var(--kinetic-primary);
+    }
+    .color-swatch-large .color-swatch-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+    .cursor-pointer { cursor: pointer; }
+</style>
+
+@section Scripts {
+    <script>
+        const variants = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ProductVariants.Select(v => new { 
+            id = v.Id, 
+            size = v.Size, 
+            color = v.Color, 
+            sku = v.Sku, 
+            stock = v.StockQuantity 
+        })));
+
+        function updateMainImage(url, el) {
+            document.getElementById('main-product-image').src = url;
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+        }
+
+        function updateVariants() {
+            const selectedColor = document.querySelector('input[name="color"]:checked')?.value;
+            const colorLabel = document.getElementById('current-color-label');
+            const sizeOptions = document.getElementById('size-options');
+            const variantInfo = document.getElementById('variant-info');
+            const addToBagBtn = document.getElementById('add-to-bag-btn');
+            
+            if (selectedColor) {
+                colorLabel.innerText = selectedColor;
+                
+                // Filter sizes for selected color
+                const availableSizes = variants.filter(v => v.color === selectedColor);
+                
+                let html = '';
+                availableSizes.forEach(v => {
+                    const isOutOfStock = v.stock <= 0;
+                    html += `
+                        <div class="size-option">
+                            <input type="radio" name="size" value="${v.size}" id="size-${v.id}" class="btn-check" onchange="selectVariant(${v.id})" ${isOutOfStock ? 'disabled' : ''}>
+                            <label class="btn btn-outline-secondary py-2 px-3 fw-bold ${isOutOfStock ? 'opacity-25' : ''}" for="size-${v.id}">${v.size}</label>
+                        </div>
+                    `;
+                });
+                sizeOptions.innerHTML = html;
+                
+                // Reset variant selection
+                document.getElementById('selected-variant-id').value = '';
+                document.getElementById('current-size-label').innerText = 'Chọn size';
+                variantInfo.classList.add('d-none');
+                addToBagBtn.disabled = true;
+            }
+        }
+
+        function selectVariant(variantId) {
+            const variant = variants.find(v => v.id === variantId);
+            if (variant) {
+                document.getElementById('selected-variant-id').value = variant.id;
+                document.getElementById('current-size-label').innerText = variant.size;
+                document.getElementById('sku-label').innerText = variant.sku;
+                
+                const stockLabel = document.getElementById('stock-label');
+                if (variant.stock > 10) {
+                    stockLabel.innerText = 'Còn hàng';
+                    stockLabel.className = 'fw-bold text-success';
+                } else if (variant.stock > 0) {
+                    stockLabel.innerText = `Chỉ còn ${variant.stock} sản phẩm`;
+                    stockLabel.className = 'fw-bold text-warning';
+                } else {
+                    stockLabel.innerText = 'Hết hàng';
+                    stockLabel.className = 'fw-bold text-danger';
+                }
+                
+                document.getElementById('variant-info').classList.remove('d-none');
+                document.getElementById('add-to-bag-btn').disabled = (variant.stock <= 0);
+            }
+        }
+
+        // Initialize tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
+}

@@ -12,6 +12,7 @@ project.fragment.lock.json
 artifacts/
 **/appsettings.Development.json
 
+
 ## User Secrets
 **/secrets.json
 

@@ -1,102 +1,206 @@
+@model project.Models.Cart
 @{
-    ViewData["Title"] = "Checkout";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Thanh toán";
+    decimal subtotal = Model.CartItems.Sum(ci => (ci.ProductVariant.Product.SalePrice ?? ci.ProductVariant.Product.BasePrice) * ci.Quantity);
 }
 
-<div class="container py-5" style="max-width: 1200px;">
-    <div class="row g-5">
-        
-        <!-- Left Column: Forms -->
-        <div class="col-12 col-lg-7">
-            <h2 class="font-headline fs-5 fw-bold mb-4">Contact Information</h2>
-            <div class="mb-5">
-                <input type="email" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mb-3" placeholder="Email address" required>
-            </div>
-
-            <h2 class="font-headline fs-5 fw-bold mb-4">Shipping Address</h2>
-            <div class="row g-3 mb-5">
-                <div class="col-sm-6">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="First name" required>
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Last name" required>
-                </div>
-                <div class="col-12">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Address" required>
-                </div>
-                <div class="col-12">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Apartment, suite, etc. (optional)">
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="City" required>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="State/Province" required>
-                </div>
-                <div class="col-sm-4">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="ZIP/Postal code" required>
-                </div>
-            </div>
-
-            <h2 class="font-headline fs-5 fw-bold mb-4">Payment</h2>
-            <div class="bg-surface-lowest border border-secondary-subtle rounded-3 p-4 mb-4">
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="radio" name="payment" id="pay-card" checked>
-                    <label class="form-check-label fw-bold" for="pay-card">Credit or debit card</label>
-                </div>
-                <div class="mt-3">
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mb-3" placeholder="Card number">
-                    <div class="row g-3">
-                        <div class="col-6">
-                            <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Expiration date (MM/YY)">
+<div class="container-fluid max-width-1440 py-5 px-4 mt-5">
+    <form id="checkout-form" asp-area="User" asp-controller="Checkout" asp-action="PlaceOrder" method="post">
+        <div class="row g-5">
+            <!-- Left Column: Shipping & Payment -->
+            <div class="col-12 col-lg-7">
+                <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm mb-4">
+                    <h2 class="font-headline fs-4 fw-bold mb-4 d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">local_shipping</span>
+                        Thông tin giao hàng
+                    </h2>
+                    
+                    <div class="row g-4">
+                        <div class="col-12">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Họ và tên người nhận</label>
+                            <input type="text" name="fullName" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập họ và tên" required>
                         </div>
-                        <div class="col-6">
-                            <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0" placeholder="Security code">
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Số điện thoại</label>
+                            <input type="tel" name="phoneNumber" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập số điện thoại" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Địa chỉ Email (Tùy chọn)</label>
+                            <input type="email" name="email" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập email">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Địa chỉ nhận hàng</label>
+                            <textarea name="shippingAddress" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" rows="3" placeholder="Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố" required></textarea>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Ghi chú đơn hàng (Tùy chọn)</label>
+                            <textarea name="customerNote" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" rows="2" placeholder="Ví dụ: Giao giờ hành chính, gọi trước khi giao..."></textarea>
                         </div>
                     </div>
-                    <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 mt-3" placeholder="Name on card">
+                </div>
+
+                <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm">
+                    <h2 class="font-headline fs-4 fw-bold mb-4 d-flex align-items-center gap-2">
+                        <span class="material-symbols-outlined text-primary">payments</span>
+                        Phương thức thanh toán
+                    </h2>
+                    
+                    <div class="d-flex flex-column gap-3">
+                        <div class="payment-option p-3 rounded-3 border bg-light cursor-pointer transition-all active-border">
+                            <div class="form-check custom-check mb-0">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="pay-cod" value="COD" checked>
+                                <label class="form-check-label d-flex align-items-center gap-3 w-100 cursor-pointer" for="pay-cod">
+                                    <span class="material-symbols-outlined fs-2 text-secondary">local_shipping</span>
+                                    <div>
+                                        <span class="d-block fw-bold">Thanh toán khi nhận hàng (COD)</span>
+                                        <span class="small text-secondary">Thanh toán bằng tiền mặt khi shipper giao hàng đến</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-option p-3 rounded-3 border bg-light cursor-pointer transition-all">
+                            <div class="form-check custom-check mb-0">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="pay-bank" value="BANK_TRANSFER">
+                                <label class="form-check-label d-flex align-items-center gap-3 w-100 cursor-pointer" for="pay-bank">
+                                    <span class="material-symbols-outlined fs-2 text-secondary">account_balance</span>
+                                    <div>
+                                        <span class="d-block fw-bold">Chuyển khoản ngân hàng</span>
+                                        <span class="small text-secondary">Thông tin chuyển khoản sẽ hiển thị sau khi đặt hàng</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <button class="btn btn-kinetic-primary w-100 py-3 mt-4 fs-5">Pay Now</button>
-        </div>
 
-        <!-- Right Column: Order Summary -->
-        <div class="col-12 col-lg-5 p-0 p-lg-4 bg-surface-low rounded-3 align-self-start">
-            <div class="d-flex flex-column gap-3 mb-4">
-                <!-- Item -->
-                <div class="d-flex align-items-center gap-3">
-                    <div class="position-relative bg-white rounded p-2" style="width: 60px; height: 60px;">
-                        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" class="img-fluid" style="mix-blend-mode: multiply;">
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">1</span>
+            <!-- Right Column: Order Summary -->
+            <div class="col-12 col-lg-5">
+                <div class="sticky-top" style="top: 120px;">
+                    <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
+                        <h2 class="font-headline fs-4 fw-bold mb-4">Đơn hàng của bạn</h2>
+                        
+                        <div class="cart-items-summary mb-4" style="max-height: 300px; overflow-y: auto;">
+                            @foreach (var item in Model.CartItems)
+                            {
+                                var product = item.ProductVariant.Product;
+                                var variant = item.ProductVariant;
+                                var price = product.SalePrice ?? product.BasePrice;
+                                var mainImage = product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl 
+                                               ?? product.ProductImages.FirstOrDefault()?.ImageUrl 
+                                               ?? "https://via.placeholder.com/100x100?text=IMG";
+
+                                <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom border-secondary-subtle">
+                                    <div class="position-relative bg-white rounded p-1 border" style="width: 70px; height: 70px; flex-shrink: 0;">
+                                        <img src="@mainImage" class="img-fluid" style="mix-blend-mode: multiply;">
+                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.7rem;">@item.Quantity</span>
+                                    </div>
+                                    <div class="flex-grow-1 min-width-0">
+                                        <div class="fw-bold fs-6 text-truncate">@product.Name</div>
+                                        <div class="text-secondary small">Size: @variant.Size / @variant.Color</div>
+                                    </div>
+                                    <div class="fw-bold">@((price * item.Quantity).ToString("N0"))đ</div>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Promotion Code -->
+                        <div class="mb-4">
+                            <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Mã giảm giá</label>
+                            <div class="d-flex gap-2">
+                                <input type="text" id="promo-code-input" name="promoCode" class="form-control bg-light border-0 py-2 px-3 rounded-pill shadow-none" placeholder="Nhập mã ưu đãi">
+                                <button type="button" onclick="applyPromo()" class="btn btn-dark rounded-pill px-4 py-2 small">Áp dụng</button>
+                            </div>
+                            <div id="promo-message" class="mt-2 small d-none"></div>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2 text-secondary">
+                            <span>Tạm tính</span>
+                            <span>@subtotal.ToString("N0")đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 text-secondary">
+                            <span>Phí vận chuyển</span>
+                            <span class="text-success fw-bold">Miễn phí</span>
+                        </div>
+                        <div id="discount-row" class="d-flex justify-content-between mb-3 text-danger d-none">
+                            <span>Giảm giá</span>
+                            <span id="discount-amount">0đ</span>
+                        </div>
+                        
+                        <hr class="border-secondary-subtle mb-4">
+                        
+                        <div class="d-flex justify-content-between mb-4 font-headline fw-bold fs-3 align-items-center">
+                            <span>Tổng tiền</span>
+                            <span id="final-total" class="text-primary">@subtotal.ToString("N0")đ</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-kinetic-primary w-100 py-3 shadow-sm fs-5 fw-bold">ĐẶT HÀNG NGAY</button>
                     </div>
-                    <div class="flex-grow-1">
-                        <div class="fw-bold fs-6">Kinetic Quantum</div>
-                        <div class="text-secondary small">Size: 9</div>
+                    
+                    <div class="text-center">
+                        <p class="text-secondary small">Bằng cách nhấp vào "Đặt hàng ngay", bạn đồng ý với <a href="#" class="text-dark border-bottom text-decoration-none">Điều khoản & Điều kiện</a> của KINETIC.</p>
                     </div>
-                    <div class="fw-bold">$180</div>
                 </div>
             </div>
-            
-            <div class="d-flex gap-2 mb-4">
-                <input type="text" class="form-control bg-transparent border-0 border-bottom border-secondary-subtle px-0 py-2 rounded-0 flex-grow-1" placeholder="Discount code">
-                <button class="btn btn-sm btn-dark px-4 rounded-5">Apply</button>
-            </div>
-
-            <div class="d-flex justify-content-between mb-2 text-secondary small">
-                <span>Subtotal</span>
-                <span>$180.00</span>
-            </div>
-            <div class="d-flex justify-content-between mb-3 text-secondary small">
-                <span>Shipping</span>
-                <span>$0.00</span>
-            </div>
-            <hr class="border-secondary-subtle">
-            <div class="d-flex justify-content-between fw-bold fs-4 align-items-center">
-                <span>Total</span>
-                <span>$180.00</span>
-            </div>
         </div>
-
-    </div>
+    </form>
 </div>
+
+<style>
+    .payment-option:hover {
+        border-color: var(--kinetic-primary) !important;
+    }
+    .payment-option.active-border {
+        border-color: var(--kinetic-primary) !important;
+        background-color: white !important;
+    }
+    .cursor-pointer { cursor: pointer; }
+    .transition-all { transition: all 0.2s ease; }
+</style>
+
+@section Scripts {
+    <script>
+        const subtotal = @subtotal;
+
+        function applyPromo() {
+            const code = document.getElementById('promo-code-input').value;
+            const messageEl = document.getElementById('promo-message');
+            const discountRow = document.getElementById('discount-row');
+            const discountAmount = document.getElementById('discount-amount');
+            const finalTotal = document.getElementById('final-total');
+
+            if (!code) return;
+
+            fetch('@Url.Action("ValidatePromo", "Checkout", new { area = "User" })', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `code=${code}&currentTotal=${subtotal}`
+            })
+            .then(res => res.json())
+            .then(data => {
+                messageEl.classList.remove('d-none', 'text-success', 'text-danger');
+                if (data.success) {
+                    messageEl.innerText = 'Áp dụng mã thành công!';
+                    messageEl.classList.add('text-success');
+                    discountRow.classList.remove('d-none');
+                    discountAmount.innerText = '-' + data.discount.toLocaleString() + 'đ';
+                    finalTotal.innerText = data.finalTotal.toLocaleString() + 'đ';
+                } else {
+                    messageEl.innerText = data.message;
+                    messageEl.classList.add('text-danger');
+                    discountRow.classList.add('d-none');
+                    finalTotal.innerText = subtotal.toLocaleString() + 'đ';
+                }
+            });
+        }
+
+        // Visual selection for payment methods
+        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active-border'));
+                e.target.closest('.payment-option').classList.add('active-border');
+            });
+        });
+    </script>
+}
