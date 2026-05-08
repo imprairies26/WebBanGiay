@@ -1,6 +1,6 @@
-@model project.Models.ProductHomeViewModel
+    @model project.Models.ProductHomeViewModel
 @{
-    ViewData["Title"] = "Shop";
+    ViewData["Title"] = Localizer["ShopTitle"];
     ViewData["ActiveNav"] = "Shop";
     var availableSizes = ViewBag.AvailableSizes as List<string> ?? new List<string>();
     var availableColors = ViewBag.AvailableColors as List<string> ?? new List<string>();
@@ -15,15 +15,13 @@
         <div class="row align-items-center">
             <div class="col-lg-7 order-2 order-lg-1">
                 <div class="hero-content p-4 p-md-0">
-                    <p class="text-primary fw-bold text-uppercase tracking-widest mb-3" style="font-family: 'Space Mono', monospace; font-size: 0.8rem;">[ ENGINEERED FOR MOTION ]</p>
                     <h1 class="display-1 fw-bold mb-4 tracking-tighter" style="line-height: 0.85; font-size: calc(3rem + 6vw);">
-                        KINETIC<br><span class="text-outline" style="-webkit-text-stroke: 2px var(--kinetic-on-surface); color: transparent;">PRECISION</span>
+                        KINETIC<br><span class="text-outline" style="-webkit-text-stroke: 2px var(--kinetic-on-surface); color: transparent; font-family: sans-serif;">PRECISION</span>
                     </h1>
                     <div class="glass-card p-4 rounded-4 mt-5 border border-white shadow-sm" style="max-width: 500px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(10px);">
-                        <p class="fs-6 text-dark mb-4" style="line-height: 1.6;">Experience next-level energy return with our proprietary foam technology. The new Kinetic Aero strikes the perfect balance of weightless feel and aggressive grip.</p>
+                        <p class="fs-6 text-dark mb-4" style="line-height: 1.6;">@Localizer["HeroDesc"]</p>
                         <div class="d-flex gap-3">
-                            <a href="#product-section" class="btn btn-kinetic-primary">SHOP COLLECTION</a>
-                            <button class="btn btn-kinetic-secondary">TECH SPECS</button>
+                            <a href="#product-section" class="btn btn-kinetic-primary">@Localizer["ShopCollection"]</a>
                         </div>
                     </div>
                 </div>
@@ -32,12 +30,7 @@
                 <div class="hero-image-container py-5">
                     <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" 
                          class="img-fluid floating-img" 
-                         style="filter: drop-shadow(0 50px 80px rgba(0,0,0,0.25)); transform: rotate(-15deg) scale(1.2); z-index: 2; position: relative;" alt="Kinetic Aero Hero">
-                    <!-- Tech Specs Floating Badge -->
-                    <div class="position-absolute bottom-0 start-0 glass-card p-3 rounded-4 border border-white shadow-sm d-none d-md-block" style="background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(10px); z-index: 3;">
-                        <span class="d-block text-primary fw-bold small" style="font-family: 'Space Mono', monospace;">+45% ENERGY RETURN</span>
-                        <span class="d-block text-dark small">ULTRA-LIGHT FOAM</span>
-                    </div>
+                         style="filter: drop-shadow(0 50px 80px rgba(0,0,0,0.25)); transform: rotate(-15deg) scale(1.2); z-index: 2; position: relative; margin-left:80px;" alt="Kinetic Aero Hero">
                 </div>
             </div>
         </div>
@@ -76,6 +69,40 @@
 
 <!-- PRODUCT SECTION -->
 <div id="product-section" class="container-fluid max-width-1440 py-5 px-4 mt-5">
+    <!-- SEARCH & FILTER BAR -->
+    <div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-3 mb-5">
+        <form id="filter-form-top" method="get" asp-area="User" asp-controller="Home" asp-action="Index">
+            <div class="row g-3 align-items-center">
+                <div class="col-12 col-md-4">
+                    <select name="categories" class="form-select bg-light border-0 rounded-pill px-4 shadow-none small filter-input">
+                        <option value="">@Localizer["AllCategories"]</option>
+                        @foreach (var cat in Model.Categories)
+                        {
+                            <option value="@cat.Id" selected="@(Model.SelectedCategories.Contains(cat.Id.ToString()))">@cat.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="input-group bg-light rounded-pill px-3 py-1 border-0">
+                        <span class="input-group-text bg-transparent border-0 text-secondary"><i class="fa-solid fa-magnifying-glass fs-6"></i></span>
+                        <input type="text" name="search" value="@Model.SearchQuery" class="form-control bg-transparent border-0 shadow-none small" placeholder="@Localizer["SearchPlaceholder"]">
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <select name="sortBy" class="form-select bg-light border-0 rounded-pill px-4 shadow-none small filter-input">
+                        <option value="featured" selected="@(Model.SortBy == "featured")">@Localizer["Featured"]</option>
+                        <option value="newest" selected="@(Model.SortBy == "newest")">@Localizer["Newest"]</option>
+                        <option value="price_asc" selected="@(Model.SortBy == "price_asc")">@Localizer["PriceLowToHigh"]</option>
+                        <option value="price_desc" selected="@(Model.SortBy == "price_desc")">@Localizer["PriceHighToLow"]</option>
+                    </select>
+                </div>
+                <div class="col-12 col-md-2">
+                    <button type="submit" class="btn btn-primary bg-primary border-0 rounded-pill w-100 fw-bold small">@Localizer["Filter"]</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
     <form id="filter-form" method="get" asp-area="User" asp-controller="Home" asp-action="Index">
         <input type="hidden" name="search" value="@Model.SearchQuery" />
         <div class="row g-5">
@@ -83,13 +110,13 @@
             <div class="col-12 col-lg-3 d-none d-lg-block">
                 <div class="sticky-top" style="top: 120px;">
                     <div class="d-flex justify-content-between align-items-center mb-5">
-                        <h2 class="font-headline fs-5 mb-0">Bộ lọc</h2>
-                        <a href="@Url.Action("Index", "Home", new { area = "User" })" class="btn btn-link text-secondary text-decoration-none small p-0">Xóa tất cả</a>
+                        <h2 class="font-headline fs-5 mb-0">@Localizer["Filters"]</h2>
+                        <a href="@Url.Action("Index", "Home", new { area = "User" })" class="btn btn-link text-secondary text-decoration-none small p-0">@Localizer["ClearAll"]</a>
                     </div>
 
-                    <!-- Categorie -->
+                    <!-- Categories -->
                     <div class="mb-5">
-                        <h3 class="filter-section-title">DANH MỤC</h3>
+                        <h3 class="filter-section-title">@Localizer["Categories"]</h3>
                         <div class="d-flex flex-column gap-3">
                             @foreach (var category in Model.Categories)
                             {
@@ -103,7 +130,7 @@
 
                     <!-- Size -->
                     <div class="mb-5">
-                        <h3 class="filter-section-title">KÍCH THƯỚC</h3>
+                        <h3 class="filter-section-title">@Localizer["Sizes"]</h3>
                         <div class="row g-2">
                             @foreach (var size in availableSizes)
                             {
@@ -117,7 +144,7 @@
 
                     <!-- Colors -->
                     <div class="mb-5">
-                        <h3 class="filter-section-title">MÀU SẮC</h3>
+                        <h3 class="filter-section-title">@Localizer["Colors"]</h3>
                         <div class="d-flex flex-wrap gap-3">
                             @foreach (var color in availableColors)
                             {
@@ -140,22 +167,22 @@
                         <h2 class="font-headline fs-4 mb-1">
                             @if (!string.IsNullOrEmpty(Model.SearchQuery))
                             {
-                                @:Kết quả cho "@Model.SearchQuery"
+                                @Localizer["ResultsFor", Model.SearchQuery]
                             }
                             else
                             {
-                                @:Tất cả sản phẩm
+                                @Localizer["AllProducts"]
                             }
                         </h2>
-                        <p class="text-secondary small mb-0">Hiển thị @Model.Products.Count của @Model.TotalItems sản phẩm</p>
+                        <p class="text-secondary small mb-0">@Localizer["DisplayingCount", Model.Products.Count, Model.TotalItems]</p>
                     </div>
-                    <div class="d-flex gap-3 align-items-center">
-                        <span class="text-secondary small d-none d-md-block">Sắp xếp theo:</span>
+                    <div class="d-flex gap-3 align-items-center d-lg-none">
+                        <span class="text-secondary small">@Localizer["SortBy"]:</span>
                         <select name="sortBy" class="form-select w-auto border-0 bg-white shadow-sm rounded-pill px-4 py-2 small filter-input">
-                            <option value="featured" selected="@(Model.SortBy == "featured")">Nổi bật nhất</option>
-                            <option value="newest" selected="@(Model.SortBy == "newest")">Mới nhất</option>
-                            <option value="price_asc" selected="@(Model.SortBy == "price_asc")">Giá: Thấp đến Cao</option>
-                            <option value="price_desc" selected="@(Model.SortBy == "price_desc")">Giá: Cao đến Thấp</option>
+                            <option value="featured" selected="@(Model.SortBy == "featured")">@Localizer["Featured"]</option>
+                            <option value="newest" selected="@(Model.SortBy == "newest")">@Localizer["Newest"]</option>
+                            <option value="price_asc" selected="@(Model.SortBy == "price_asc")">@Localizer["PriceLowToHigh"]</option>
+                            <option value="price_desc" selected="@(Model.SortBy == "price_desc")">@Localizer["PriceHighToLow"]</option>
                         </select>
                     </div>
                 </div>
@@ -164,9 +191,9 @@
                     @if (Model.Products.Count == 0)
                     {
                         <div class="col-12 text-center py-5">
-                            <span class="material-symbols-outlined display-1 text-secondary opacity-25 mb-4">search_off</span>
-                            <h3 class="text-secondary">Không tìm thấy sản phẩm nào</h3>
-                            <p class="text-secondary">Thử thay đổi bộ lọc hoặc từ khóa tìm kiếm</p>
+                            <i class="fa-solid fa-magnifying-glass-minus display-1 text-secondary opacity-25 mb-4"></i>
+                            <h3 class="text-secondary">@Localizer["NoProductsFound"]</h3>
+                            <p class="text-secondary">@Localizer["TryChangingFilters"]</p>
                         </div>
                     }
                     else
@@ -192,7 +219,7 @@
                                         <div class="kinetic-card-img-container">
                                             <img src="@mainImage" alt="@product.Name" loading="lazy">
                                             <div class="quick-add-container">
-                                                <button type="button" class="quick-add-btn"><span class="material-symbols-outlined">shopping_cart</span></button>
+                                                <button type="button" class="quick-add-btn"><i class="fa-solid fa-cart-plus"></i></button>
                                             </div>
                                         </div>
                                         <div class="p-4 d-flex justify-content-between align-items-start">
@@ -227,7 +254,7 @@
                         <ul class="pagination kinetic-pagination justify-content-center">
                             <li class="page-item @(Model.CurrentPage == 1 ? "disabled" : "")">
                                 <button type="submit" name="page" value="@(Model.CurrentPage - 1)" class="page-link border-0 bg-transparent">
-                                    <span class="material-symbols-outlined fs-5">chevron_left</span>
+                                    <i class="fa-solid fa-chevron-left fs-6"></i>
                                 </button>
                             </li>
                             
@@ -240,7 +267,7 @@
 
                             <li class="page-item @(Model.CurrentPage == Model.TotalPages ? "disabled" : "")">
                                 <button type="submit" name="page" value="@(Model.CurrentPage + 1)" class="page-link border-0 bg-transparent">
-                                    <span class="material-symbols-outlined fs-5">chevron_right</span>
+                                    <i class="fa-solid fa-chevron-right fs-6"></i>
                                 </button>
                             </li>
                         </ul>
@@ -255,7 +282,15 @@
     <script>
         document.querySelectorAll('.filter-input').forEach(input => {
             input.addEventListener('change', () => {
-                document.getElementById('filter-form').submit();
+                const topForm = document.getElementById('filter-form-top');
+                const sidebarForm = document.getElementById('filter-form');
+                
+                // If top filter changed, submit top form, otherwise sidebar
+                if (input.closest('#filter-form-top')) {
+                    topForm.submit();
+                } else {
+                    sidebarForm.submit();
+                }
             });
         });
     </script>

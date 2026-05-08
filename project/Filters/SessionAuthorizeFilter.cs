@@ -17,6 +17,7 @@ namespace project.Filters
             // 1. TRANG CÔNG KHAI
             bool isPublicPage = 
                 (controllerName == "Account") || 
+                (controllerName == "Language") ||
                 (controllerName == "Home" && actionName == "Index") || 
                 (controllerName == "Product" && actionName == "Detail") || 
                 (controllerName == "Cart");

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="OrderDetailTitle" xml:space="preserve">
+    <value>Order Detail #</value>
+  </data>
+  <data name="OrderDetailTitleUpper" xml:space="preserve">
+    <value>ORDER DETAIL #</value>
+  </data>
+  <data name="OrderStatusHeader" xml:space="preserve">
+    <value>Order Status</value>
+  </data>
+  <data name="ShippingStatus" xml:space="preserve">
+    <value>Shipping Status</value>
+  </data>
+  <data name="StatusPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="StatusProcessing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="StatusShipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="StatusDelivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="StatusCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="PaymentStatus" xml:space="preserve">
+    <value>Payment Status</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="PaymentPaid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Failed</value>
+  </data>
+  <data name="UpdateBtn" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
+  </data>
+  <data name="ColProduct" xml:space="preserve">
+    <value>Product</value>
+  </data>
+  <data name="ColCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="ColUnitPrice" xml:space="preserve">
+    <value>Unit Price</value>
+  </data>
+  <data name="ColQty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="ColTotal" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Subtotal:</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount:</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>GRAND TOTAL:</value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="GuestCustomer" xml:space="preserve">
+    <value>Guest Customer</value>
+  </data>
+  <data name="DeliverTo" xml:space="preserve">
+    <value>Deliver To</value>
+  </data>
+  <data name="InStore" xml:space="preserve">
+    <value>In Store (POS)</value>
+  </data>
+  <data name="OtherInfo" xml:space="preserve">
+    <value>Other Information</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="SalesChannel" xml:space="preserve">
+    <value>Sales Channel</value>
+  </data>
+  <data name="PosChannel" xml:space="preserve">
+    <value>In Store (POS)</value>
+  </data>
+  <data name="WebChannel" xml:space="preserve">
+    <value>Website Online</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Serving Staff (POS)</value>
+  </data>
+  <data name="CustomerNote" xml:space="preserve">
+    <value>Customer Note</value>
+  </data>
+  <data name="NoNote" xml:space="preserve">
+    <value>No note</value>
+  </data>
+</root>

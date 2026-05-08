@@ -1,7 +1,7 @@
-@model project.Models.LoginViewModel
+ @model project.Models.LoginViewModel
 
 @{
-    ViewData["Title"] = "Đăng nhập";
+    ViewData["Title"] = Localizer["LoginTitle"];
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
@@ -17,10 +17,9 @@
                 <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC-Z59r9b0vyyQJzgaLYRB6Ib8kMRiAg7yPUznIdRxusg0xsX3Rnp4GY5IUj5WL-qBAt1Y8IifoRj7RGC_94TQXfsJsI-fIX-QMZOBJHfZR_Nj42kcwWcV2ULKSN28dpD3twGVToH35WexsqQ8enob5avvYPYmoHt-Ckrg0wWg29eThLjkD1BqM9fFWPUpl-LoRJ2poo0pS4jPOB3QrGpNGpvYzE97PJowc1YAV4Wo0ntO-fF2U43RQQ2jUYPQCACoZy9T-EGNGPjWU" 
                      alt="Kinetic Shoe" 
                      class="img-fluid floating-img"
-                     style="max-width: 80%; transform: rotate(-15deg); filter: drop-shadow(0 50px 80px rgba(0,0,0,0.2));">
+                     style="max-width: 80%; transform: rotate(-15deg); filter: drop-shadow(0 50px 80px rgba(0,0,0,0.2)); margin-bottom: 30px;">
                 <div class="mt-5 text-uppercase">
-                    <h2 class="font-headline fs-1 fw-bold mb-3">CHẠY THEO CÁCH CỦA BẠN.</h2>
-                    <p class="text-secondary small tracking-widest">[ KINETIC PRECISION ENGINEERED ]</p>
+                    <h2 class="font-headline fs-1 fw-bold mb-3">@Localizer["HeroTagline"]</h2>
                 </div>
             </div>
         </div>
@@ -29,8 +28,8 @@
         <div class="col-12 col-lg-5 d-flex align-items-center justify-content-center bg-white shadow-lg z-2">
             <div class="w-100 p-4 p-md-5" style="max-width: 450px;">
                 <div class="mb-5">
-                    <h2 class="fw-bold fs-2 mb-2">Chào mừng trở lại.</h2>
-                    <p class="text-secondary small">Vui lòng đăng nhập để tiếp tục trải nghiệm cùng Kinetic.</p>
+                    <h2 class="fw-bold fs-2 mb-2">@Localizer["WelcomeBack"]</h2>
+                    <p class="text-secondary small">@Localizer["LoginSubtitle"]</p>
                 </div>
 
                 @if (TempData["SuccessMessage"] != null)
@@ -45,9 +44,9 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
                     <div class="mb-4">
-                        <label asp-for="Identifier" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Email hoặc Tên đăng nhập</label>
+                        <label asp-for="Identifier" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["EmailOrUsername"]</label>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
-                             <span class="input-group-text bg-transparent border-0 text-secondary p-0 me-2"><span class="material-symbols-outlined fs-5">mail</span></span>
+                             <span class="input-group-text bg-transparent border-0 text-secondary p-0 me-2"><i class="fa-solid fa-envelope fs-6"></i></span>
                              <input asp-for="Identifier" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="name@example.com">
                         </div>
                         <span asp-validation-for="Identifier" class="text-danger small mt-1 d-block"></span>
@@ -55,11 +54,11 @@
                     
                     <div class="mb-4">
                         <div class="d-flex justify-content-between">
-                            <label asp-for="Password" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Mật khẩu</label>
-                            <a asp-action="ForgotPassword" class="text-decoration-none text-primary small fw-bold">Quên mật khẩu?</a>
+                            <label asp-for="Password" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["Password"]</label>
+                            <a asp-action="ForgotPassword" class="text-decoration-none text-primary small fw-bold" tabindex="-1" >@Localizer["ForgotPassword"]</a>
                         </div>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
-                             <span class="input-group-text bg-transparent border-0 text-secondary p-0 me-2"><span class="material-symbols-outlined fs-5">lock</span></span>
+                             <span class="input-group-text bg-transparent border-0 text-secondary p-0 me-2"><i class="fa-solid fa-lock fs-6"></i></span>
                              <input asp-for="Password" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="••••••••">
                         </div>
                         <span asp-validation-for="Password" class="text-danger small mt-1 d-block"></span>
@@ -67,32 +66,32 @@
 
                     <div class="form-check mb-4">
                         <input asp-for="RememberMe" class="form-check-input shadow-none" type="checkbox">
-                        <label asp-for="RememberMe" class="form-check-label small text-secondary">Ghi nhớ đăng nhập</label>
+                        <label asp-for="RememberMe" class="form-check-label small text-secondary">@Localizer["RememberMe"]</label>
                     </div>
 
-                    <button type="submit" class="btn btn-kinetic-primary w-100 py-3 mb-4 rounded-3 fw-bold">ĐĂNG NHẬP NGAY</button>
+                    <button type="submit" class="btn btn-kinetic-primary w-100 py-3 mb-4 rounded-3 fw-bold">@Localizer["LoginButton"]</button>
                     
                     <div class="position-relative text-center my-4">
                         <hr class="text-secondary opacity-25">
-                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-secondary small">Hoặc đăng nhập với</span>
+                        <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-secondary small">@Localizer["OrLoginWith"]</span>
                     </div>
 
                     <div class="row g-2 mb-4">
                         <div class="col-6">
                             <button type="button" class="btn btn-outline-light border text-dark w-100 py-2 small fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2">
-                                <img src="https://www.google.com/favicon.ico" width="16" alt="Google"> Google
+                                <i class="fa-brands fa-google"></i> Google
                             </button>
                         </div>
                         <div class="col-6">
                             <button type="button" class="btn btn-outline-light border text-dark w-100 py-2 small fw-bold rounded-3 d-flex align-items-center justify-content-center gap-2">
-                                <img src="https://www.facebook.com/favicon.ico" width="16" alt="Facebook"> Facebook
+                                <i class="fa-brands fa-facebook"></i> Facebook
                             </button>
                         </div>
                     </div>
                 </form>
 
                 <p class="text-center text-secondary small mt-5">
-                    Chưa có tài khoản? <a asp-action="Register" class="text-primary text-decoration-none fw-bold">Đăng ký thành viên</a>
+                    @Localizer["NoAccount"] <a asp-action="Register" class="text-primary text-decoration-none fw-bold">@Localizer["RegisterLink"]</a>
                 </p>
             </div>
         </div>

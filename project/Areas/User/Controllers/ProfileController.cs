@@ -49,7 +49,7 @@ namespace project.Areas.User.Controllers
         public async Task<IActionResult> UpdateInfo(string fullName, string? phoneNumber)
         {
             var userId = GetUserId();
-            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account", new { area = "" });
 
             var user = await _context.Users.FindAsync(userId);
             if (user != null)
@@ -60,7 +60,7 @@ namespace project.Areas.User.Controllers
                 
                 await _context.SaveChangesAsync();
                 
-                // Update Session
+                // Update Session for Header sync
                 HttpContext.Session.SetString("UserFullName", user.FullName);
                 
                 TempData["SuccessMessage"] = "Cập nhật thông tin thành công.";
@@ -74,7 +74,7 @@ namespace project.Areas.User.Controllers
         public async Task<IActionResult> UpdateAvatar(string avatarUrl)
         {
             var userId = GetUserId();
-            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account", new { area = "" });
 
             var user = await _context.Users.FindAsync(userId);
             if (user != null)
@@ -84,8 +84,8 @@ namespace project.Areas.User.Controllers
                 
                 await _context.SaveChangesAsync();
                 
-                // Update Session
-                HttpContext.Session.SetString("UserAvatar", user.AvatarUrl);
+                // Update Session for Header sync
+                HttpContext.Session.SetString("UserAvatar", user.AvatarUrl ?? "");
                 
                 TempData["SuccessMessage"] = "Cập nhật ảnh đại diện thành công.";
             }
@@ -98,7 +98,7 @@ namespace project.Areas.User.Controllers
         public async Task<IActionResult> ChangePassword(string currentPassword, string newPassword)
         {
             var userId = GetUserId();
-            if (string.IsNullOrEmpty(userId)) return Unauthorized();
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account", new { area = "" });
 
             var user = await _context.Users.FindAsync(userId);
             if (user != null)

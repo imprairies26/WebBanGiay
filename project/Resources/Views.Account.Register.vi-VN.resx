@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Đăng ký thành viên</value>
+  </data>
+  <data name="HeroTaglineReg" xml:space="preserve">
+    <value>Gia nhập cộng đồng.</value>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>[ KINETIC ELITE MEMBERSHIP ]</value>
+  </data>
+  <data name="WelcomeReg" xml:space="preserve">
+    <value>Tạo tài khoản mới.</value>
+  </data>
+  <data name="RegisterSubtitle" xml:space="preserve">
+    <value>Trở thành thành viên để nhận nhiều ưu đãi độc quyền từ Kinetic.</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Họ và Tên</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Xác nhận mật khẩu</value>
+  </data>
+  <data name="TermsAgree" xml:space="preserve">
+    <value>Tôi đồng ý với các</value>
+  </data>
+  <data name="TermsLink" xml:space="preserve">
+    <value>Điều khoản &amp; Chính sách của Kinetic.</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>ĐĂNG KÝ NGAY</value>
+  </data>
+  <data name="AlreadyAccount" xml:space="preserve">
+    <value>Đã có tài khoản?</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+</root>

@@ -1,19 +1,19 @@
+@using System.Linq
 @model project.Models.Cart
 @{
     ViewData["Title"] = "Thanh toán";
-    decimal subtotal = Model.CartItems.Sum(ci => (ci.ProductVariant.Product.SalePrice ?? ci.ProductVariant.Product.BasePrice) * ci.Quantity);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var totalAmount = Model?.CartItems.Sum(item => (item.ProductVariant.Product.SalePrice ?? item.ProductVariant.Product.BasePrice) * item.Quantity) ?? 0;
 }
 
 <div class="container-fluid max-width-1440 py-5 px-4 mt-5">
-    <form id="checkout-form" asp-area="User" asp-controller="Checkout" asp-action="PlaceOrder" method="post">
+    <form asp-action="PlaceOrder" method="post" id="checkout-form">
+        @Html.AntiForgeryToken()
         <div class="row g-5">
-            <!-- Left Column: Shipping & Payment -->
-            <div class="col-12 col-lg-7">
+            <!-- Left: Checkout Form -->
+            <div class="col-lg-8">
                 <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm mb-4">
-                    <h2 class="font-headline fs-4 fw-bold mb-4 d-flex align-items-center gap-2">
-                        <span class="material-symbols-outlined text-primary">local_shipping</span>
-                        Thông tin giao hàng
-                    </h2>
+                    <h2 class="font-headline fs-4 fw-bold mb-4">Thông tin giao hàng</h2>
                     
                     <div class="row g-4">
                         <div class="col-12">
@@ -22,11 +22,11 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Số điện thoại</label>
-                            <input type="tel" name="phoneNumber" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập số điện thoại" required>
+                            <input type="tel" name="phoneNumber" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="0xxx xxx xxx" required>
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Địa chỉ Email (Tùy chọn)</label>
-                            <input type="email" name="email" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập email">
+                            <input type="email" name="email" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="name@example.com">
                         </div>
                         <div class="col-12">
                             <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Địa chỉ nhận hàng</label>
@@ -40,106 +40,102 @@
                 </div>
 
                 <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm">
-                    <h2 class="font-headline fs-4 fw-bold mb-4 d-flex align-items-center gap-2">
-                        <span class="material-symbols-outlined text-primary">payments</span>
-                        Phương thức thanh toán
-                    </h2>
+                    <h2 class="font-headline fs-4 fw-bold mb-4">Phương thức thanh toán</h2>
                     
                     <div class="d-flex flex-column gap-3">
-                        <div class="payment-option p-3 rounded-3 border bg-light cursor-pointer transition-all active-border">
-                            <div class="form-check custom-check mb-0">
-                                <input class="form-check-input" type="radio" name="paymentMethod" id="pay-cod" value="COD" checked>
-                                <label class="form-check-label d-flex align-items-center gap-3 w-100 cursor-pointer" for="pay-cod">
-                                    <span class="material-symbols-outlined fs-2 text-secondary">local_shipping</span>
-                                    <div>
-                                        <span class="d-block fw-bold">Thanh toán khi nhận hàng (COD)</span>
-                                        <span class="small text-secondary">Thanh toán bằng tiền mặt khi shipper giao hàng đến</span>
-                                    </div>
-                                </label>
-                            </div>
+                        <div class="form-check custom-option-check p-0">
+                            <input class="btn-check" type="radio" name="paymentMethod" id="pay-cod" value="COD" checked>
+                            <label class="btn btn-outline-light border text-start w-100 p-4 rounded-4 d-flex align-items-center gap-3" for="pay-cod">
+                                <div class="icon-box bg-primary text-white rounded-3 d-flex align-items-center justify-content-center" style="width:48px; height:48px;">
+                                    <i class="fa-solid fa-truck-fast fs-4"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <span class="d-block fw-bold">Thanh toán khi nhận hàng (COD)</span>
+                                    <span class="small text-secondary">Thanh toán bằng tiền mặt khi shipper giao hàng đến</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check text-primary check-icon"></i>
+                            </label>
                         </div>
-                        
-                        <div class="payment-option p-3 rounded-3 border bg-light cursor-pointer transition-all">
-                            <div class="form-check custom-check mb-0">
-                                <input class="form-check-input" type="radio" name="paymentMethod" id="pay-bank" value="BANK_TRANSFER">
-                                <label class="form-check-label d-flex align-items-center gap-3 w-100 cursor-pointer" for="pay-bank">
-                                    <span class="material-symbols-outlined fs-2 text-secondary">account_balance</span>
-                                    <div>
-                                        <span class="d-block fw-bold">Chuyển khoản ngân hàng</span>
-                                        <span class="small text-secondary">Thông tin chuyển khoản sẽ hiển thị sau khi đặt hàng</span>
-                                    </div>
-                                </label>
-                            </div>
+
+                        <div class="form-check custom-option-check p-0">
+                            <input class="btn-check" type="radio" name="paymentMethod" id="pay-bank" value="BankTransfer">
+                            <label class="btn btn-outline-light border text-start w-100 p-4 rounded-4 d-flex align-items-center gap-3" for="pay-bank">
+                                <div class="icon-box bg-dark text-white rounded-3 d-flex align-items-center justify-content-center" style="width:48px; height:48px;">
+                                    <i class="fa-solid fa-building-columns fs-4"></i>
+                                </div>
+                                <div class="flex-grow-1">
+                                    <span class="d-block fw-bold">Chuyển khoản ngân hàng</span>
+                                    <span class="small text-secondary">Thông tin chuyển khoản sẽ hiển thị sau khi đặt hàng</span>
+                                </div>
+                                <i class="fa-solid fa-circle-check text-primary check-icon"></i>
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Right Column: Order Summary -->
-            <div class="col-12 col-lg-5">
+            <!-- Right: Order Summary -->
+            <div class="col-lg-4">
                 <div class="sticky-top" style="top: 120px;">
                     <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
                         <h2 class="font-headline fs-4 fw-bold mb-4">Đơn hàng của bạn</h2>
                         
-                        <div class="cart-items-summary mb-4" style="max-height: 300px; overflow-y: auto;">
-                            @foreach (var item in Model.CartItems)
-                            {
-                                var product = item.ProductVariant.Product;
-                                var variant = item.ProductVariant;
-                                var price = product.SalePrice ?? product.BasePrice;
-                                var mainImage = product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl 
-                                               ?? product.ProductImages.FirstOrDefault()?.ImageUrl 
-                                               ?? "https://via.placeholder.com/100x100?text=IMG";
+                        <div class="order-items-list mb-4 overflow-auto" style="max-height: 400px;">
+                            @if (Model != null) {
+                                @foreach (var item in Model.CartItems)
+                                {
+                                    var product = item.ProductVariant.Product;
+                                    var mainImage = product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl ?? product.ProductImages.FirstOrDefault()?.ImageUrl ?? "https://via.placeholder.com/150";
+                                    var price = product.SalePrice ?? product.BasePrice;
 
-                                <div class="d-flex align-items-center gap-3 mb-3 pb-3 border-bottom border-secondary-subtle">
-                                    <div class="position-relative bg-white rounded p-1 border" style="width: 70px; height: 70px; flex-shrink: 0;">
-                                        <img src="@mainImage" class="img-fluid" style="mix-blend-mode: multiply;">
-                                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size: 0.7rem;">@item.Quantity</span>
+                                    <div class="d-flex align-items-center gap-3 mb-3">
+                                        <div class="position-relative">
+                                            <img src="@mainImage" class="rounded-3 border" style="width:64px; height:64px; object-fit:cover;">
+                                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark" style="font-size:0.6rem">@item.Quantity</span>
+                                        </div>
+                                        <div class="flex-grow-1 min-width-0">
+                                            <h6 class="small fw-bold mb-0 text-truncate">@product.Name</h6>
+                                            <p class="text-secondary mb-0" style="font-size:0.75rem">Size: @item.ProductVariant.Size / @item.ProductVariant.Color</p>
+                                        </div>
+                                        <span class="small fw-bold">@((price * item.Quantity).ToString("N0"))đ</span>
                                     </div>
-                                    <div class="flex-grow-1 min-width-0">
-                                        <div class="fw-bold fs-6 text-truncate">@product.Name</div>
-                                        <div class="text-secondary small">Size: @variant.Size / @variant.Color</div>
-                                    </div>
-                                    <div class="fw-bold">@((price * item.Quantity).ToString("N0"))đ</div>
-                                </div>
+                                }
                             }
                         </div>
 
-                        <!-- Promotion Code -->
-                        <div class="mb-4">
+                        <div class="promo-section mb-4 pt-4 border-top border-light">
                             <label class="form-label small text-uppercase tracking-wider fw-bold text-secondary">Mã giảm giá</label>
                             <div class="d-flex gap-2">
-                                <input type="text" id="promo-code-input" name="promoCode" class="form-control bg-light border-0 py-2 px-3 rounded-pill shadow-none" placeholder="Nhập mã ưu đãi">
+                                <input type="text" id="promo-code-input" name="promoCode" class="form-control bg-light border-0 py-2 px-3 rounded-pill shadow-none" placeholder="Nhập mã ưu đãi">       
                                 <button type="button" onclick="applyPromo()" class="btn btn-dark rounded-pill px-4 py-2 small">Áp dụng</button>
                             </div>
-                            <div id="promo-message" class="mt-2 small d-none"></div>
+                            <div id="promo-message" class="small mt-2"></div>
                         </div>
 
-                        <div class="d-flex justify-content-between mb-2 text-secondary">
-                            <span>Tạm tính</span>
-                            <span>@subtotal.ToString("N0")đ</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 text-secondary">
-                            <span>Phí vận chuyển</span>
-                            <span class="text-success fw-bold">Miễn phí</span>
-                        </div>
-                        <div id="discount-row" class="d-flex justify-content-between mb-3 text-danger d-none">
-                            <span>Giảm giá</span>
-                            <span id="discount-amount">0đ</span>
-                        </div>
-                        
-                        <hr class="border-secondary-subtle mb-4">
-                        
-                        <div class="d-flex justify-content-between mb-4 font-headline fw-bold fs-3 align-items-center">
-                            <span>Tổng tiền</span>
-                            <span id="final-total" class="text-primary">@subtotal.ToString("N0")đ</span>
+                        <div class="summary-details d-flex flex-column gap-2 mb-4 pt-4 border-top border-light">
+                            <div class="d-flex justify-content-between small">
+                                <span class="text-secondary">Tạm tính</span>
+                                <span class="fw-bold">@totalAmount.ToString("N0")đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between small">
+                                <span class="text-secondary">Phí vận chuyển</span>
+                                <span class="text-success fw-bold">Miễn phí</span>
+                            </div>
+                            <div class="d-flex justify-content-between small text-danger" id="discount-row" style="display:none !important">
+                                <span>Giảm giá</span>
+                                <span id="discount-amount">-0đ</span>
+                            </div>
+                            <div class="d-flex justify-content-between fs-5 fw-bold mt-2 pt-2 border-top border-light">
+                                <span>Tổng cộng</span>
+                                <span class="text-primary" id="final-amount">@totalAmount.ToString("N0")đ</span>
+                            </div>
                         </div>
 
                         <button type="submit" class="btn btn-kinetic-primary w-100 py-3 shadow-sm fs-5 fw-bold">ĐẶT HÀNG NGAY</button>
-                    </div>
-                    
-                    <div class="text-center">
-                        <p class="text-secondary small">Bằng cách nhấp vào "Đặt hàng ngay", bạn đồng ý với <a href="#" class="text-dark border-bottom text-decoration-none">Điều khoản & Điều kiện</a> của KINETIC.</p>
+                        
+                        <div class="mt-4 text-center">
+                            <p class="text-secondary small">Bằng cách nhấp vào "Đặt hàng ngay", bạn đồng ý với <a href="#" class="text-dark border-bottom text-decoration-none">Điều khoản & Điều kiện</a> của KINETIC.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -147,60 +143,48 @@
     </form>
 </div>
 
-<style>
-    .payment-option:hover {
-        border-color: var(--kinetic-primary) !important;
-    }
-    .payment-option.active-border {
-        border-color: var(--kinetic-primary) !important;
-        background-color: white !important;
-    }
-    .cursor-pointer { cursor: pointer; }
-    .transition-all { transition: all 0.2s ease; }
-</style>
-
 @section Scripts {
     <script>
-        const subtotal = @subtotal;
-
-        function applyPromo() {
+        async function applyPromo() {
             const code = document.getElementById('promo-code-input').value;
             const messageEl = document.getElementById('promo-message');
-            const discountRow = document.getElementById('discount-row');
-            const discountAmount = document.getElementById('discount-amount');
-            const finalTotal = document.getElementById('final-total');
-
+            const total = @totalAmount;
+            
             if (!code) return;
 
-            fetch('@Url.Action("ValidatePromo", "Checkout", new { area = "User" })', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `code=${code}&currentTotal=${subtotal}`
-            })
-            .then(res => res.json())
-            .then(data => {
-                messageEl.classList.remove('d-none', 'text-success', 'text-danger');
-                if (data.success) {
-                    messageEl.innerText = 'Áp dụng mã thành công!';
-                    messageEl.classList.add('text-success');
-                    discountRow.classList.remove('d-none');
-                    discountAmount.innerText = '-' + data.discount.toLocaleString() + 'đ';
-                    finalTotal.innerText = data.finalTotal.toLocaleString() + 'đ';
-                } else {
-                    messageEl.innerText = data.message;
-                    messageEl.classList.add('text-danger');
-                    discountRow.classList.add('d-none');
-                    finalTotal.innerText = subtotal.toLocaleString() + 'đ';
-                }
-            });
-        }
+            try {
+                const formData = new FormData();
+                formData.append('code', code);
+                formData.append('currentTotal', total);
+                
+                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
 
-        // Visual selection for payment methods
-        document.querySelectorAll('input[name="paymentMethod"]').forEach(radio => {
-            radio.addEventListener('change', (e) => {
-                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('active-border'));
-                e.target.closest('.payment-option').classList.add('active-border');
-            });
-        });
+                const response = await fetch('/User/Checkout/ValidatePromo', {
+                    method: 'POST',
+                    headers: {
+                        'RequestVerificationToken': token
+                    },
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.success) {
+                    messageEl.className = 'small mt-2 text-success';
+                    messageEl.innerText = 'Áp dụng mã thành công!';
+                    
+                    document.getElementById('discount-row').style.setProperty('display', 'flex', 'important');
+                    document.getElementById('discount-amount').innerText = '-' + data.discount.toLocaleString() + 'đ';
+                    document.getElementById('final-amount').innerText = data.finalTotal.toLocaleString() + 'đ';
+                } else {
+                    messageEl.className = 'small mt-2 text-danger';
+                    messageEl.innerText = data.message;
+                    
+                    document.getElementById('discount-row').style.setProperty('display', 'none', 'important');
+                    document.getElementById('final-amount').innerText = total.toLocaleString() + 'đ';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
     </script>
 }

@@ -1,0 +1,171 @@
+@model project.Models.Order
+@{
+    ViewData["Title"] = Localizer["OrderDetailTitle"] + Model.Id.ToString();
+    ViewData["ActiveNav"] = "Orders";
+}
+
+<div class="mb-4 d-flex align-items-center justify-content-between">
+    <div class="d-flex align-items-center gap-3">
+        <a asp-action="Index" class="btn btn-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center border" style="width:40px; height:40px;">
+            <i class="fa-solid fa-arrow-left text-dark"></i>
+        </a>
+        <h1 class="font-headline fs-3 fw-bold mb-0">@Localizer["OrderDetailTitleUpper"]@Model.Id</h1>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Left Column: Details & Items -->
+    <div class="col-lg-8">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
+            <h3 class="font-headline fs-5 mb-4">@Localizer["OrderStatusHeader"]</h3>
+            <form asp-action="UpdateStatus" method="post">
+                <input type="hidden" name="id" value="@Model.Id" />
+                <div class="row g-3">
+                    <div class="col-md-5">
+                        <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["ShippingStatus"]</label>
+                        <select name="orderStatus" class="form-select bg-light border-0 shadow-none rounded-3 py-2">
+                            <option value="Pending" selected="@(Model.OrderStatus == "Pending")">@Localizer["StatusPending"]</option>
+                            <option value="Processing" selected="@(Model.OrderStatus == "Processing")">@Localizer["StatusProcessing"]</option>
+                            <option value="Shipped" selected="@(Model.OrderStatus == "Shipped")">@Localizer["StatusShipped"]</option>
+                            <option value="Delivered" selected="@(Model.OrderStatus == "Delivered")">@Localizer["StatusDelivered"]</option>
+                            <option value="Cancelled" selected="@(Model.OrderStatus == "Cancelled")">@Localizer["StatusCancelled"]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5">
+                        <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["PaymentStatus"]</label>
+                        <select name="paymentStatus" class="form-select bg-light border-0 shadow-none rounded-3 py-2">
+                            <option value="Pending" selected="@(Model.PaymentStatus == "Pending")">@Localizer["PaymentPending"]</option>
+                            <option value="Paid" selected="@(Model.PaymentStatus == "Paid")">@Localizer["PaymentPaid"]</option>
+                            <option value="Failed" selected="@(Model.PaymentStatus == "Failed")">@Localizer["PaymentFailed"]</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100 rounded-3 py-2">@Localizer["UpdateBtn"]</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="glass-card p-0 rounded-4 border border-white shadow-sm overflow-hidden">
+            <div class="p-4 border-bottom border-light">
+                <h3 class="font-headline fs-5 mb-0">@Localizer["Products"] (@Model.OrderDetails.Count)</h3>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-nowrap">
+                    <thead class="bg-surface-low text-secondary small text-uppercase">
+                        <tr>
+                            <th class="py-3 px-4">@Localizer["ColProduct"]</th>
+                            <th class="py-3">@Localizer["ColCategory"]</th>
+                            <th class="py-3 text-end">@Localizer["ColUnitPrice"]</th>
+                            <th class="py-3 text-center">@Localizer["ColQty"]</th>
+                            <th class="py-3 text-end px-4">@Localizer["ColTotal"]</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.OrderDetails)
+                        {
+                            <tr>
+                                <td class="px-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div class="fw-bold">@item.ProductVariant?.Product?.Name</div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="small">
+                                        <span class="text-secondary">@Localizer["Size"]:</span> @item.ProductVariant?.Size <br/>
+                                        <span class="text-secondary">@Localizer["Color"]:</span> @item.ProductVariant?.Color
+                                    </div>
+                                </td>
+                                <td class="text-end">@item.UnitPrice.ToString("N0")đ</td>
+                                <td class="text-center">x@(item.Quantity)</td>
+                                <td class="text-end fw-bold px-4 text-primary">@((item.UnitPrice * item.Quantity).ToString("N0"))đ</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="p-4 bg-light text-end">
+                <div class="d-flex justify-content-end align-items-center gap-5 mb-2">
+                    <span class="text-secondary fw-bold">@Localizer["SubTotal"]</span>
+                    <span>@Model.TotalAmount.ToString("N0")đ</span>
+                </div>
+                <div class="d-flex justify-content-end align-items-center gap-5 mb-3">
+                    <span class="text-secondary fw-bold">@Localizer["Discount"]</span>
+                    <span class="text-danger">-@Model.DiscountAmount.ToString("N0")đ</span>
+                </div>
+                <div class="d-flex justify-content-end align-items-center gap-5">
+                    <span class="text-dark fw-bold fs-5">@Localizer["GrandTotal"]</span>
+                    <span class="text-primary fw-bold fs-4">@Model.FinalAmount.ToString("N0")đ</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Right Column: Customer & Info -->
+    <div class="col-lg-4">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
+            <h3 class="font-headline fs-5 mb-4">@Localizer["CustomerHeader"]</h3>
+            @if (Model.User != null)
+            {
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <img src="@(string.IsNullOrEmpty(Model.User.AvatarUrl) ? "https://ui-avatars.com/api/?name=" + Uri.EscapeDataString(Model.User.FullName) : Model.User.AvatarUrl)" 
+                         class="rounded-circle border" style="width: 50px; height: 50px; object-fit: cover;">
+                    <div>
+                        <div class="fw-bold fs-6">@Model.User.FullName</div>
+                        <div class="small text-secondary">@Model.User.Email</div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="mb-4 text-secondary fst-italic">@Localizer["GuestCustomer"]</div>
+            }
+
+            <h6 class="fw-bold text-uppercase small text-secondary mb-2">@Localizer["DeliverTo"]</h6>
+            <p class="small bg-light p-3 rounded-3 mb-0">
+                @if (!string.IsNullOrEmpty(Model.ShippingAddress))
+                {
+                    @Model.ShippingAddress
+                }
+                else
+                {
+                    <span class="text-secondary fst-italic">@Localizer["InStore"]</span>
+                }
+            </p>
+        </div>
+
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm">
+            <h3 class="font-headline fs-5 mb-4">@Localizer["OtherInfo"]</h3>
+            <div class="mb-3">
+                <div class="small text-secondary fw-bold text-uppercase mb-1">@Localizer["PaymentMethod"]</div>
+                <div class="fw-bold">@Model.PaymentMethod</div>
+            </div>
+            <div class="mb-3">
+                <div class="small text-secondary fw-bold text-uppercase mb-1">@Localizer["SalesChannel"]</div>
+                <div>
+                    @if (Model.OrderType == "POS")
+                    {
+                        <span class="badge bg-dark rounded-pill">@Localizer["PosChannel"]</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-primary rounded-pill">@Localizer["WebChannel"]</span>
+                    }
+                </div>
+            </div>
+            @if (Model.Staff != null)
+            {
+                <div class="mb-3">
+                    <div class="small text-secondary fw-bold text-uppercase mb-1">@Localizer["Staff"]</div>
+                    <div class="fw-bold">@Model.Staff.FullName</div>
+                </div>
+            }
+            <div class="mb-0">
+                <div class="small text-secondary fw-bold text-uppercase mb-1">@Localizer["CustomerNote"]</div>
+                <p class="small bg-light p-3 rounded-3 mb-0">
+                    @(string.IsNullOrEmpty(Model.CustomerNote) ? Localizer["NoNote"].Value : Model.CustomerNote)
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

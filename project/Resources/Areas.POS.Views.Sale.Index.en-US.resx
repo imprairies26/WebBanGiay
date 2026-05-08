@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="PosTitle" xml:space="preserve">
+    <value>Point of Sale</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Search product name or barcode...</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="NewArrival" xml:space="preserve">
+    <value>New Arrival</value>
+  </data>
+  <data name="ReadyToScan" xml:space="preserve">
+    <value>Ready to scan barcode...</value>
+  </data>
+  <data name="CurrentOrder" xml:space="preserve">
+    <value>Current Order</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
+  </data>
+  <data name="PayAndPrint" xml:space="preserve">
+    <value>PAY &amp; PRINT</value>
+  </data>
+  <data name="NoProductsFound" xml:space="preserve">
+    <value>No products found.</value>
+  </data>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>No products in cart</value>
+  </data>
+  <data name="PleaseSelectProduct" xml:space="preserve">
+    <value>Please select a product!</value>
+  </data>
+  <data name="CheckoutSuccess" xml:space="preserve">
+    <value>Checkout successful! Printing receipt...</value>
+  </data>
+</root>

@@ -1,17 +1,18 @@
 @{
-    ViewData["Title"] = "404 - Không tìm thấy trang";
+    ViewData["Title"] = "Không tìm thấy trang";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid py-5 mt-5 text-center" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
-    <div>
-        <h1 class="font-headline fw-bold" style="font-size: 10rem; line-height: 1; color: var(--kinetic-surface-low);">404</h1>
-        <div class="glass-card p-5 rounded-4 border border-white shadow-sm" style="margin-top: -50px; position: relative; z-index: 1;">
-            <h2 class="font-headline fs-1 fw-bold mb-3">PAGES NOT FOUND.</h2>
-            <p class="text-secondary fs-5 mb-5">Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển.</p>
-            <div class="d-flex gap-3 justify-content-center">
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+            <div class="mb-5">
+                <h1 class="display-1 fw-bold text-dark opacity-10" style="font-size: 10rem;">404</h1>
+            </div>
+            <h2 class="fw-bold font-headline mb-4">TRANG KHÔNG TỒN TẠI</h2>
+            <p class="text-secondary fs-5 mb-5">Xin lỗi, trang bạn đang tìm kiếm không tồn tại hoặc đã bị di chuyển khỏi hệ thống KINETIC.</p>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
                 <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3">QUAY LẠI CỬA HÀNG</a>
-                <a href="#" onclick="history.back()" class="btn btn-kinetic-secondary px-5 py-3">TRỞ LẠI</a>
             </div>
         </div>
     </div>

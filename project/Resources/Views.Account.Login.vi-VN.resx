@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="LoginTitle" xml:space="preserve">
+    <value>Đăng nhập</value>
+  </data>
+  <data name="HeroTagline" xml:space="preserve">
+    <value>CỨ ĐI ĐI - CÒN LẠI ĐỂ CHÚNG TÔI LO</value>
+  </data>
+  <data name="WelcomeBack" xml:space="preserve">
+    <value>Chào mừng trở lại.</value>
+  </data>
+  <data name="LoginSubtitle" xml:space="preserve">
+    <value>Vui lòng đăng nhập để tiếp tục trải nghiệm cùng Kinetic.</value>
+  </data>
+  <data name="EmailOrUsername" xml:space="preserve">
+    <value>Email hoặc Tên đăng nhập</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Mật khẩu</value>
+  </data>
+  <data name="ForgotPassword" xml:space="preserve">
+    <value>Quên mật khẩu?</value>
+  </data>
+  <data name="RememberMe" xml:space="preserve">
+    <value>Ghi nhớ đăng nhập</value>
+  </data>
+  <data name="LoginButton" xml:space="preserve">
+    <value>ĐĂNG NHẬP NGAY</value>
+  </data>
+  <data name="OrLoginWith" xml:space="preserve">
+    <value>Hoặc đăng nhập với</value>
+  </data>
+  <data name="NoAccount" xml:space="preserve">
+    <value>Chưa có tài khoản?</value>
+  </data>
+  <data name="RegisterLink" xml:space="preserve">
+    <value>Đăng ký thành viên</value>
+  </data>
+</root>

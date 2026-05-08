@@ -1,45 +1,31 @@
 @model project.Models.Order
 @{
     ViewData["Title"] = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container py-5 text-center" style="max-width: 800px; margin-top: 50px;">
-    <div class="glass-card p-5 rounded-4 border border-white shadow-sm">
-        <div class="mb-4">
-            <span class="material-symbols-outlined text-success display-1">check_circle</span>
-        </div>
-        <h1 class="font-headline fs-1 fw-bold mb-3">Cảm ơn bạn đã đặt hàng!</h1>
-        <p class="text-secondary fs-5 mb-5">Đơn hàng <span class="text-dark fw-bold">#@Model.Id</span> của bạn đã được tiếp nhận và đang được xử lý.</p>
-        
-        <div class="row g-4 mb-5 text-start">
-            <div class="col-md-6">
-                <div class="p-3 bg-light rounded-3">
-                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Thông tin nhận hàng</span>
-                    <span class="fw-bold d-block">@Model.ShippingAddress</span>
-                </div>
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+            <div class="mb-4">
+                <i class="fa-solid fa-circle-check text-success" style="font-size: 5rem;"></i>
             </div>
-            <div class="col-md-6">
-                <div class="p-3 bg-light rounded-3">
-                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Phương thức thanh toán</span>
-                    <span class="fw-bold d-block">@(Model.PaymentMethod == "COD" ? "Thanh toán khi nhận hàng" : "Chuyển khoản ngân hàng")</span>
-                    @if (Model.PaymentMethod == "BANK_TRANSFER")
-                    {
-                        <div class="mt-2 p-2 bg-white rounded border border-warning small">
-                            <span class="d-block text-warning fw-bold">Nội dung chuyển khoản:</span>
-                            <span>KINETIC @Model.Id</span>
-                        </div>
-                    }
-                </div>
+            
+            <h2 class="fw-bold mb-4">Cảm ơn bạn đã tin chọn KINETIC!</h2>
+            <p class="text-secondary fs-5 mb-4">Đơn hàng của bạn đã được tiếp nhận và đang được xử lý. Chúng tôi sẽ gửi email xác nhận và thông tin theo dõi vận chuyển cho bạn sớm nhất.</p>
+            
+            <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-5 bg-light">
+                <span class="text-secondary small d-block">Mã đơn hàng:</span>
+                <h4 class="fw-bold text-primary mb-0">#@Model.Id</h4>
             </div>
-        </div>
 
-        <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
-            <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3 shadow-sm">TIẾP TỤC MUA SẮM</a>
-            <a href="#" class="btn btn-kinetic-secondary px-5 py-3">XEM CHI TIẾT ĐƠN HÀNG</a>
+            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-5 py-3">TIẾP TỤC MUA SẮM</a>
+                <a asp-area="User" asp-controller="Profile" asp-action="Index" class="btn btn-kinetic-secondary px-5 py-3">XEM ĐƠN HÀNG</a>
+            </div>
         </div>
     </div>
-    
-    <div class="mt-5 text-secondary small">
-        <p>Một email xác nhận đã được gửi đến địa chỉ email của bạn. Nếu có bất kỳ thắc mắc nào, vui lòng liên hệ với bộ phận hỗ trợ của chúng tôi tại <span class="text-dark">support@kinetic.com</span></p>
+    <div class="text-center mt-5">
+        <p class="text-secondary small">Cần hỗ trợ? <a href="#" class="text-dark fw-bold">Liên hệ chúng tôi</a></p>
     </div>
 </div>

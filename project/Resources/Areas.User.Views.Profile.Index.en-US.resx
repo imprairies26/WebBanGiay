@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ProfileTitle" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="OrderHistory" xml:space="preserve">
+    <value>Order History</value>
+  </data>
+  <data name="AccountSettings" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="Security" xml:space="preserve">
+    <value>Security</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>Logout</value>
+  </data>
+  <data name="NoOrders" xml:space="preserve">
+    <value>You don't have any orders yet.</value>
+  </data>
+  <data name="ShopNow" xml:space="preserve">
+    <value>Shop Now</value>
+  </data>
+  <data name="OrderNo" xml:space="preserve">
+    <value>Order #</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
+  </data>
+  <data name="Qty" xml:space="preserve">
+    <value>Qty</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Payment:</value>
+  </data>
+  <data name="InvoiceDetails" xml:space="preserve">
+    <value>Invoice Details</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="EmailCannotChange" xml:space="preserve">
+    <value>Email (Cannot change)</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>SAVE CHANGES</value>
+  </data>
+  <data name="SecurityPassword" xml:space="preserve">
+    <value>Security &amp; Password</value>
+  </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="ConfirmNewPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="ChangePasswordBtn" xml:space="preserve">
+    <value>CHANGE PASSWORD</value>
+  </data>
+  <data name="UpdateAvatar" xml:space="preserve">
+    <value>Update Avatar</value>
+  </data>
+  <data name="ImageLink" xml:space="preserve">
+    <value>Image Link (URL)</value>
+  </data>
+  <data name="ImageLinkPlaceholder" xml:space="preserve">
+    <value>Paste image link from Cloud or Social Media...</value>
+  </data>
+  <data name="ImageLinkNote" xml:space="preserve">
+    <value>Note: Currently the system only supports updating via public URL links.</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+</root>

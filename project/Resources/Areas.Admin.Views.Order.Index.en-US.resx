@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="OrderMgmtTitle" xml:space="preserve">
+    <value>Order Management</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Order ID, customer name, email...</value>
+  </data>
+  <data name="AllStatus" xml:space="preserve">
+    <value>All Status</value>
+  </data>
+  <data name="StatusPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="StatusProcessing" xml:space="preserve">
+    <value>Processing</value>
+  </data>
+  <data name="StatusShipped" xml:space="preserve">
+    <value>Shipped</value>
+  </data>
+  <data name="StatusDelivered" xml:space="preserve">
+    <value>Delivered</value>
+  </data>
+  <data name="StatusCancelled" xml:space="preserve">
+    <value>Cancelled</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>FILTER</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>RESET</value>
+  </data>
+  <data name="ColOrderNo" xml:space="preserve">
+    <value>Order No</value>
+  </data>
+  <data name="ColCustomer" xml:space="preserve">
+    <value>Customer</value>
+  </data>
+  <data name="ColOrderDate" xml:space="preserve">
+    <value>Order Date</value>
+  </data>
+  <data name="ColTotal" xml:space="preserve">
+    <value>Total Amount</value>
+  </data>
+  <data name="ColPayment" xml:space="preserve">
+    <value>Payment</value>
+  </data>
+  <data name="ColStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="ColAction" xml:space="preserve">
+    <value>Action</value>
+  </data>
+  <data name="GuestCustomer" xml:space="preserve">
+    <value>Guest Customer</value>
+  </data>
+  <data name="PaymentPaid" xml:space="preserve">
+    <value>Paid</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Pending</value>
+  </data>
+  <data name="PaymentError" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="ActionDetail" xml:space="preserve">
+    <value>Detail</value>
+  </data>
+  <data name="NoOrders" xml:space="preserve">
+    <value>No orders found.</value>
+  </data>
+</root>

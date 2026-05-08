@@ -1,92 +1,112 @@
+@model project.Models.AdminDashboardViewModel
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = Localizer["Dashboard"] + " - KINETIC Admin";
     ViewData["ActiveNav"] = "Dashboard";
 }
 
-<h1 class="font-headline fs-3 fw-bold mb-5">Business Overview</h1>
+<div class="mb-5">
+    <h1 class="font-headline fs-3 fw-bold mb-1">@Localizer["DashboardTitle"]</h1>
+    <p class="text-secondary small">@Localizer["DashboardDesc"]</p>
+</div>
 
-<!-- Stats Grid -->
+<!-- Stats Cards -->
 <div class="row g-4 mb-5">
-    <div class="col-12 col-md-3">
-        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
-            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Revenue</p>
-            <h3 class="fs-2 fw-bold text-dark m-0">$12,450</h3>
-            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +12.5%</p>
+    <div class="col-md-3">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="bg-primary-subtle p-2 rounded-3">
+                    <i class="fa-solid fa-dollar-sign text-primary fs-5"></i>
+                </div>
+                <span class="text-success small fw-bold"><i class="fa-solid fa-arrow-trend-up pe-1"></i>+12%</span>
+            </div>
+            <span class="text-secondary small fw-bold text-uppercase tracking-wider">@Localizer["Revenue"]</span>
+            <h2 class="fw-bold fs-3 mt-2 mb-0">@Model.TotalRevenue.ToString("N0")đ</h2>
         </div>
     </div>
-    <div class="col-12 col-md-3">
-        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
-            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Orders</p>
-            <h3 class="fs-2 fw-bold text-dark m-0">86</h3>
-            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_up</span> +5.2%</p>
+    <div class="col-md-3">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="bg-dark p-2 rounded-3">
+                    <i class="fa-solid fa-box text-white fs-5"></i>
+                </div>
+                <span class="text-success small fw-bold"><i class="fa-solid fa-arrow-trend-up pe-1"></i>+5%</span>
+            </div>
+            <span class="text-secondary small fw-bold text-uppercase tracking-wider">@Localizer["NewOrders"]</span>
+            <h2 class="fw-bold fs-3 mt-2 mb-0">@Model.TotalOrders</h2>
         </div>
     </div>
-    <div class="col-12 col-md-3">
-        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
-            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Total Users</p>
-            <h3 class="fs-2 fw-bold text-dark m-0">124</h3>
+    <div class="col-md-3">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="bg-info-subtle p-2 rounded-3">
+                    <i class="fa-solid fa-users text-info fs-5"></i>
+                </div>
+            </div>
+            <span class="text-secondary small fw-bold text-uppercase tracking-wider">@Localizer["Customers"]</span>
+            <h2 class="fw-bold fs-3 mt-2 mb-0">@Model.TotalCustomers</h2>
         </div>
     </div>
-    <div class="col-12 col-md-3">
-        <div class="bg-white p-4 rounded-4 shadow-sm border border-secondary-subtle">
-            <p class="text-secondary small font-headline text-uppercase fw-bold mb-2">Cancellations</p>
-            <h3 class="fs-2 fw-bold text-danger m-0">3</h3>
-            <p class="small text-success mt-2 mb-0 align-items-center d-flex"><span class="material-symbols-outlined fs-6 pe-1">trending_down</span> -2.4%</p>
+    <div class="col-md-3">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
+            <div class="d-flex justify-content-between align-items-start mb-3">
+                <div class="bg-warning-subtle p-2 rounded-3">
+                    <i class="fa-solid fa-warehouse text-warning fs-5"></i>
+                </div>
+            </div>
+            <span class="text-secondary small fw-bold text-uppercase tracking-wider">@Localizer["Products"]</span>
+            <h2 class="fw-bold fs-3 mt-2 mb-0">@Model.TotalProducts</h2>
         </div>
     </div>
 </div>
 
-<!-- Recent Transactions -->
-<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-4">
-    <h4 class="font-headline fs-5 fw-bold mb-4">Recent Transactions</h4>
-    <div class="table-responsive">
-        <table class="table table-borderless table-hover align-middle">
-            <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
-                <tr>
-                    <th class="py-3 rounded-start">Order ID</th>
-                    <th class="py-3">Customer</th>
-                    <th class="py-3">Date</th>
-                    <th class="py-3">Status</th>
-                    <th class="py-3 rounded-end text-end">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="fw-bold bg-white text-secondary"><small>ORD-12345</small></td>
-                    <td class="bg-white">user@test.com</td>
-                    <td class="text-secondary small bg-white">2024-01-15</td>
-                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
-                    <td class="fw-bold text-end bg-white">$180.00</td>
-                </tr>
-                <tr>
-                    <td class="fw-bold bg-white text-secondary"><small>ORD-67890</small></td>
-                    <td class="bg-white">john@example.com</td>
-                    <td class="text-secondary small bg-white">2024-01-20</td>
-                    <td class="bg-white"><span class="badge bg-warning text-dark">Processing</span></td>
-                    <td class="fw-bold text-end bg-white">$260.00</td>
-                </tr>
-                <tr>
-                    <td class="fw-bold bg-white text-secondary"><small>POS-54321</small></td>
-                    <td class="bg-white">Store Walk-in</td>
-                    <td class="text-secondary small bg-white">2024-01-22</td>
-                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
-                    <td class="fw-bold text-end bg-white">$150.00</td>
-                </tr>
-                <tr>
-                    <td class="fw-bold bg-white text-secondary"><small>ORD-11223</small></td>
-                    <td class="bg-white">sarah@example.com</td>
-                    <td class="text-secondary small bg-white">2024-01-23</td>
-                    <td class="bg-white"><span class="badge bg-warning text-dark">Processing</span></td>
-                    <td class="fw-bold text-end bg-white">$320.00</td>
-                </tr>
-                <tr>
-                    <td class="fw-bold bg-white text-secondary"><small>POS-99887</small></td>
-                    <td class="bg-white">Store Walk-in</td>
-                    <td class="text-secondary small bg-white">2024-01-24</td>
-                    <td class="bg-white"><span class="badge bg-success">Completed</span></td>
-                    <td class="fw-bold text-end bg-white">$210.00</td>
-                </tr>
-            </tbody>
-        </table>
+<div class="row g-5">
+    <div class="col-lg-8">
+        <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm bg-white h-100">
+            <div class="d-flex justify-content-between align-items-center mb-5">
+                <h3 class="font-headline fs-5 mb-0">@Localizer["OrderDistribution"]</h3>
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-light border rounded-pill px-3" type="button">@Localizer["Last7Days"]</button>
+                </div>
+            </div>
+            <div style="height: 350px;" class="d-flex align-items-center justify-content-center bg-light rounded-4 border-dashed">
+                <div class="text-center">
+                    <i class="fa-solid fa-chart-simple display-4 text-secondary opacity-25 mb-3"></i>
+                    <p class="text-secondary mb-0">@Localizer["ChartSyncing"]</p>
+                    <small class="text-secondary opacity-50">Online: @Model.OnlineOrders | POS: @Model.PosOrders</small>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
+            <h3 class="font-headline fs-5 mb-4">@Localizer["RecentOrders"]</h3>
+            <div class="list-group list-group-flush">
+                @foreach (var order in Model.RecentOrders)
+                {
+                    <div class="list-group-item bg-transparent border-0 px-0 py-3 d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                                <i class="fa-solid fa-receipt text-secondary small"></i>
+                            </div>
+                            <div>
+                                <span class="d-block small fw-bold">#@order.Id</span>
+                                <small class="text-secondary">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</small>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <span class="d-block small fw-bold text-primary">@order.FinalAmount.ToString("N0")đ</span>
+                            <span class="badge @(order.OrderStatus == "PENDING" ? "bg-warning" : "bg-success") rounded-pill" style="font-size: 0.6rem;">@order.OrderStatus</span>
+                        </div>
+                    </div>
+                }
+            </div>
+            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn btn-link text-dark text-decoration-none w-100 mt-3 small fw-bold">@Localizer["ViewAll"] <i class="fa-solid fa-chevron-right ps-1"></i></a>
+        </div>
     </div>
 </div>
+
+<style>
+    .border-dashed {
+        border: 2px dashed rgba(0,0,0,0.05) !important;
+    }
+</style>

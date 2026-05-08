@@ -8,8 +8,8 @@ namespace project.Models
         public int CompletedOrders { get; set; }
         public decimal TotalRevenue { get; set; }
         public int OnlineOrders { get; set; }
-        public int POSOrders { get; set; }
-        public int TotalUsers { get; set; }
+        public int PosOrders { get; set; }
+        public int TotalCustomers { get; set; }
         public int TotalProducts { get; set; }
         public List<Order> RecentOrders { get; set; } = new List<Order>();
     }

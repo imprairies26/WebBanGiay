@@ -1,134 +1,126 @@
 @model project.Models.Cart
 @{
     ViewData["Title"] = "Giỏ hàng";
-    ViewData["ActiveNav"] = "Shop";
-    decimal subtotal = Model.CartItems.Sum(ci => (ci.ProductVariant.Product.SalePrice ?? ci.ProductVariant.Product.BasePrice) * ci.Quantity);
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var totalAmount = Model?.CartItems.Sum(item => item.ProductVariant.Product.BasePrice * item.Quantity) ?? 0;
 }
 
-<div class="container-fluid max-width-1440 py-5 px-4">
-    <div class="d-flex justify-content-between align-items-center mb-5">
+<div class="container-fluid max-width-1440 py-5 px-4 mt-5">
+    <div class="mb-5">
         <h1 class="font-headline fs-2 fw-bold mb-0">Giỏ hàng của bạn</h1>
-        <span class="text-secondary">(@Model.CartItems.Sum(ci => ci.Quantity) sản phẩm)</span>
     </div>
 
-    @if (!Model.CartItems.Any())
+    @if (Model == null || Model.CartItems.Count == 0)
     {
-        <div class="text-center py-5 bg-surface-lowest rounded-4">
-            <span class="material-symbols-outlined display-1 text-secondary opacity-25 mb-4">shopping_cart_off</span>
-            <h3 class="text-secondary">Giỏ hàng của bạn đang trống</h3>
+        <div class="text-center py-5">
+            <div class="display-1 text-secondary opacity-25 mb-4">
+                <i class="fa-solid fa-bag-shopping"></i>
+            </div>
+            <h3 class="text-secondary">Giỏ hàng của bạn đang trống</h3>  
             <p class="text-secondary mb-5">Hãy tiếp tục mua sắm để tìm cho mình đôi giày ưng ý nhất!</p>
-            <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3">TIẾP TỤC MUA SẮM</a>
+            <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-5 py-3">QUAY LẠI CỬA HÀNG</a>
         </div>
     }
     else
     {
         <div class="row g-5">
-            <!-- Cart Items -->
-            <div class="col-12 col-lg-8">
-                @foreach (var item in Model.CartItems)
-                {
-                    var product = item.ProductVariant.Product;
-                    var variant = item.ProductVariant;
-                    var price = product.SalePrice ?? product.BasePrice;
-                    var mainImage = product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl 
-                                   ?? product.ProductImages.FirstOrDefault()?.ImageUrl 
-                                   ?? "https://via.placeholder.com/200x200?text=No+Image";
+            <!-- List Items -->
+            <div class="col-lg-8">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead class="bg-light border-0 small text-uppercase fw-bold text-secondary">
+                            <tr>
+                                <th class="py-3 px-4 border-0">Sản phẩm</th>
+                                <th class="py-3 border-0">Kích thước</th>
+                                <th class="py-3 border-0">Số lượng</th>
+                                <th class="py-3 border-0 text-end px-4">Tổng cộng</th>
+                            </tr>
+                        </thead>
+                        <tbody class="border-top-0">
+                            @foreach (var item in Model.CartItems)
+                            {
+                                var product = item.ProductVariant.Product;
+                                var mainImage = product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl ?? product.ProductImages.FirstOrDefault()?.ImageUrl ?? "https://via.placeholder.com/150";
 
-                    <div class="d-flex flex-column flex-md-row gap-4 align-items-center bg-surface-lowest p-4 rounded-4 mb-3 border border-transparent hover-border-primary transition-all">
-                        <div class="bg-white d-flex align-items-center justify-content-center rounded-3 p-2" style="width: 140px; height: 140px;">
-                            <img src="@mainImage" alt="@product.Name" class="img-fluid" style="mix-blend-mode: multiply;">
-                        </div>
-                        <div class="flex-grow-1 w-100">
-                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                <div>
-                                    <h4 class="font-headline fs-5 fw-bold mb-1">@product.Name</h4>
-                                    <p class="text-secondary small mb-0">@product.Category.Name / @variant.Color / Size: @variant.Size</p>
-                                </div>
-                                <div class="text-end">
-                                    <span class="fw-bold fs-5">@price.ToString("N0")đ</span>
-                                    @if (product.SalePrice.HasValue && product.SalePrice < product.BasePrice)
-                                    {
-                                        <br/>
-                                        <small class="text-secondary text-decoration-line-through">@product.BasePrice.ToString("N0")đ</small>
-                                    }
-                                </div>
-                            </div>
-                            
-                            <div class="d-flex justify-content-between align-items-center mt-4">
-                                <div class="d-flex align-items-center bg-white border rounded-pill px-2">
-                                    <form asp-action="UpdateQuantity" method="post" class="d-inline">
-                                        <input type="hidden" name="cartItemId" value="@item.Id" />
-                                        <input type="hidden" name="quantity" value="@(item.Quantity - 1)" />
-                                        <button type="submit" class="btn btn-sm btn-link text-dark text-decoration-none p-2" @(item.Quantity <= 1 ? "disabled" : "")>
-                                            <span class="material-symbols-outlined fs-6">remove</span>
-                                        </button>
-                                    </form>
-                                    
-                                    <span class="mx-3 fw-bold" style="min-width: 20px; text-align: center;">@item.Quantity</span>
-                                    
-                                    <form asp-action="UpdateQuantity" method="post" class="d-inline">
-                                        <input type="hidden" name="cartItemId" value="@item.Id" />
-                                        <input type="hidden" name="quantity" value="@(item.Quantity + 1)" />
-                                        <button type="submit" class="btn btn-sm btn-link text-dark text-decoration-none p-2" @(item.Quantity >= variant.StockQuantity ? "disabled" : "")>
-                                            <span class="material-symbols-outlined fs-6">add</span>
-                                        </button>
-                                    </form>
-                                </div>
-                                
-                                <form asp-action="Remove" method="post">
-                                    <input type="hidden" name="cartItemId" value="@item.Id" />
-                                    <button type="submit" class="btn btn-link text-secondary p-0 text-decoration-none small hover-danger d-flex align-items-center gap-1">
-                                        <span class="material-symbols-outlined fs-5">delete</span>
-                                        <span>Xóa</span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                }
-                
-                <div class="mt-4">
-                    <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-link text-dark text-decoration-none d-flex align-items-center gap-2 p-0">
-                        <span class="material-symbols-outlined">arrow_back</span>
-                        <span>Tiếp tục mua sắm</span>
-                    </a>
+                                <tr>
+                                    <td class="py-4 px-4">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="cart-img-container rounded-3 border overflow-hidden bg-surface-low" style="width: 100px; height: 100px;">
+                                                <img src="@mainImage" alt="@product.Name" class="img-fluid">
+                                            </div>
+                                            <div>
+                                                <h5 class="fs-6 fw-bold mb-1">@product.Name</h5>
+                                                <p class="text-secondary small mb-0">Màu: @item.ProductVariant.Color</p>
+                                                <p class="text-primary small fw-bold">@item.ProductVariant.Product.BasePrice.ToString("N0")đ</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-light text-dark border px-3 py-2">@item.ProductVariant.Size</span>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center gap-2">
+                                            <form asp-action="UpdateQuantity" method="post" class="d-flex align-items-center gap-2">
+                                                <input type="hidden" name="cartItemId" value="@item.Id" />
+                                                <button type="submit" name="quantity" value="@(item.Quantity - 1)" class="btn btn-sm btn-outline-secondary rounded-circle p-0 d-flex align-items-center justify-content-center @(item.Quantity <= 1 ? "disabled" : "")" style="width:28px; height:28px;"><i class="fa-solid fa-minus fs-6"></i></button>
+                                                <span class="fw-bold px-2">@item.Quantity</span>
+                                                <button type="submit" name="quantity" value="@(item.Quantity + 1)" class="btn btn-sm btn-outline-secondary rounded-circle p-0 d-flex align-items-center justify-content-center" style="width:28px; height:28px;"><i class="fa-solid fa-plus fs-6"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                    <td class="text-end px-4">
+                                        <div class="fw-bold text-dark mb-1">@((item.ProductVariant.Product.BasePrice * item.Quantity).ToString("N0"))đ</div>
+                                        <form asp-action="Remove" method="post">
+                                            <input type="hidden" name="cartItemId" value="@item.Id" />
+                                            <button type="submit" class="btn btn-link text-danger small p-0 text-decoration-none border-0 bg-transparent">
+                                                <i class="fa-solid fa-trash-can me-1"></i>
+                                                <span>Xóa</span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
             <!-- Summary -->
-            <div class="col-12 col-lg-4">
-                <div class="bg-surface-lowest p-4 rounded-4 sticky-top border border-white shadow-sm" style="top: 120px;">
-                    <h3 class="font-headline fs-5 fw-bold mb-4">Tổng cộng</h3>
+            <div class="col-lg-4">
+                <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm sticky-top" style="top: 120px;">
+                    <h3 class="font-headline fs-4 fw-bold mb-4">Tóm tắt đơn hàng</h3>
                     
-                    <div class="d-flex justify-content-between mb-3 text-secondary">
-                        <span>Tạm tính</span>
-                        <span>@subtotal.ToString("N0")đ</span>
+                    <div class="d-flex flex-column gap-3 mb-4">
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">Tạm tính</span>
+                            <span class="fw-bold">@totalAmount.ToString("N0")đ</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">Phí vận chuyển</span>
+                            <span class="text-success fw-bold">Miễn phí</span>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <span class="text-secondary">Giảm giá</span>
+                            <span class="text-danger fw-bold">-0đ</span>
+                        </div>
                     </div>
-                    <div class="d-flex justify-content-between mb-3 text-secondary">
-                        <span>Phí vận chuyển</span>
-                        <span class="text-success fw-bold">Miễn phí</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-4 text-secondary">
-                        <span>Giảm giá</span>
-                        <span>0đ</span>
-                    </div>
-                    
-                    <hr class="border-secondary-subtle mb-4">
-                    
-                    <div class="d-flex justify-content-between mb-4 font-headline fw-bold fs-4">
-                        <span>Thành tiền</span>
-                        <span class="text-primary">@subtotal.ToString("N0")đ</span>
+
+                    <div class="pt-4 border-top border-secondary-subtle mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fs-5 fw-bold">Thành tiền</span>
+                            <span class="fs-4 fw-bold text-primary">@totalAmount.ToString("N0")đ</span>
+                        </div>
                     </div>
 
                     <a asp-area="User" asp-controller="Checkout" asp-action="Index" class="btn btn-kinetic-primary w-100 py-3 mt-2 shadow-sm">TIẾN HÀNH THANH TOÁN</a>
                     
-                    <div class="mt-4 p-3 rounded-3 bg-white border border-secondary-subtle small text-secondary">
-                        <div class="d-flex gap-2 mb-2">
-                            <span class="material-symbols-outlined fs-5 text-success">verified_user</span>
+                    <div class="mt-4 pt-4 border-top border-light d-flex flex-column gap-3">
+                        <div class="d-flex align-items-center gap-3 text-secondary small">
+                            <i class="fa-solid fa-shield-check fs-5 text-success"></i>
                             <span>Thanh toán an toàn 100%</span>
                         </div>
-                        <div class="d-flex gap-2">
-                            <span class="material-symbols-outlined fs-5 text-success">local_shipping</span>
+                        <div class="d-flex align-items-center gap-3 text-secondary small">
+                            <i class="fa-solid fa-truck-fast fs-5 text-primary"></i>
                             <span>Giao hàng nhanh từ 2-4 ngày</span>
                         </div>
                     </div>
@@ -137,15 +129,3 @@
         </div>
     }
 </div>
-
-<style>
-    .hover-border-primary:hover {
-        border-color: var(--kinetic-primary) !important;
-    }
-    .hover-danger:hover {
-        color: #dc3545 !important;
-    }
-    .transition-all {
-        transition: all 0.3s ease;
-    }
-</style>

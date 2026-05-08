@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="RegisterTitle" xml:space="preserve">
+    <value>Register Member</value>
+  </data>
+  <data name="HeroTaglineReg" xml:space="preserve">
+    <value>JOIN THE COMMUNITY.</value>
+  </data>
+  <data name="HeroSubtitle" xml:space="preserve">
+    <value>[ KINETIC ELITE MEMBERSHIP ]</value>
+  </data>
+  <data name="WelcomeReg" xml:space="preserve">
+    <value>Create new account.</value>
+  </data>
+  <data name="RegisterSubtitle" xml:space="preserve">
+    <value>Become a member to receive exclusive offers from Kinetic.</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Full Name</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="ConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="TermsAgree" xml:space="preserve">
+    <value>I agree to the</value>
+  </data>
+  <data name="TermsLink" xml:space="preserve">
+    <value>Terms &amp; Policies</value>
+  </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>REGISTER NOW</value>
+  </data>
+  <data name="AlreadyAccount" xml:space="preserve">
+    <value>Already have an account?</value>
+  </data>
+  <data name="LoginLink" xml:space="preserve">
+    <value>Login</value>
+  </data>
+</root>

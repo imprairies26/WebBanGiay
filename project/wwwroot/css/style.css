@@ -1,28 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Epilogue:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100..900&family=Montserrat:wght@100..900&family=Space+Mono:wght@400;700&display=swap');
 
 :root {
-  --kinetic-primary: #FF5A00; /* Electric Orange */
-  --kinetic-primary-container: #FF8A50;
-  --kinetic-surface: #FAFAF9;
-  --kinetic-surface-low: #F5F5F4;
-  --kinetic-surface-lowest: #ffffff;
-  --kinetic-on-surface: #0C0A09; /* Deep Stone */
-  --kinetic-secondary: #78716C;
-  --kinetic-secondary-container: #E7E5E4;
-  
-  --bs-body-font-family: 'Be Vietnam Pro', sans-serif;
-  --bs-heading-font-family: 'Be Vietnam Pro', sans-serif;
-  --bs-mono-font-family: 'Space Mono', monospace;
-  
-  --bs-body-bg: var(--kinetic-surface);
-  --bs-body-color: var(--kinetic-on-surface);
-  --bs-primary: var(--kinetic-primary);
-  --bs-primary-rgb: 255, 90, 0;
-
-  --ambient-shadow: 0 10px 30px -10px rgba(12, 10, 9, 0.08);
-  --ambient-shadow-hover: 0 30px 60px -15px rgba(12, 10, 9, 0.12);
-  --premium-glass: rgba(255, 255, 255, 0.75);
+    --kinetic-primary: #FF5A00; /* Electric Orange */
+    --kinetic-primary-container: #FF8A50;
+    --kinetic-surface: #FAFAF9;
+    --kinetic-surface-low: #F5F5F4;
+    --kinetic-surface-lowest: #ffffff;
+    --kinetic-on-surface: #0C0A09; /* Deep Stone */
+    --kinetic-secondary: #78716C;
+    --kinetic-secondary-container: #E7E5E4;
+    --bs-body-font-family: 'Be Vietnam Pro', sans-serif;
+    --bs-heading-font-family: 'Montserrat', sans-serif;
+    --bs-mono-font-family: 'Space Mono', monospace;
+    --bs-body-bg: var(--kinetic-surface);
+    --bs-body-color: var(--kinetic-on-surface);
+    --bs-primary: var(--kinetic-primary);
+    --bs-primary-rgb: 255, 90, 0;
+    --ambient-shadow: 0 10px 30px -10px rgba(12, 10, 9, 0.08);
+    --ambient-shadow-hover: 0 30px 60px -15px rgba(12, 10, 9, 0.12);
+    --premium-glass: rgba(255, 255, 255, 0.75);
 }
 
 body {
@@ -31,6 +27,11 @@ body {
   color: var(--bs-body-color);
   -webkit-font-smoothing: antialiased;
   letter-spacing: -0.01em;
+  padding-top: 80px; /* offset for fixed navbar */
+}
+
+body.no-padding-top {
+  padding-top: 0 !important;
 }
 
 h1, h2, h3, h4, h5, h6, .font-headline {
@@ -38,6 +39,47 @@ h1, h2, h3, h4, h5, h6, .font-headline {
   font-weight: 800;
   letter-spacing: -0.03em;
   text-transform: uppercase;
+}
+
+/* User Header Specifics */
+.user-avatar-nav {
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+.user-avatar-nav:hover {
+    background-color: var(--kinetic-on-surface) !important;
+    color: white !important;
+    border-color: var(--kinetic-on-surface) !important;
+}
+.user-avatar-nav:hover span {
+    color: white !important;
+}
+
+/* Navigation Links */
+.nav-kinetic-link {
+  color: var(--kinetic-secondary);
+  font-family: var(--bs-heading-font-family);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+}
+.nav-kinetic-link:hover, .nav-kinetic-link.active {
+  color: var(--kinetic-on-surface);
+}
+.nav-kinetic-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  background-color: var(--kinetic-primary);
+  border-radius: 50%;
 }
 
 /* Search Bar Styles */
@@ -114,6 +156,12 @@ h1, h2, h3, h4, h5, h6, .font-headline {
   transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
+.glass-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
 /* Base Buttons */
 .btn-kinetic-primary {
   background: var(--kinetic-primary);
@@ -188,11 +236,10 @@ h1, h2, h3, h4, h5, h6, .font-headline {
 }
 
 .kinetic-card-img-container img {
-  mix-blend-mode: multiply;
   filter: drop-shadow(0 15px 20px rgba(0,0,0,0.1));
-  object-fit: contain;
+  object-fit: cover;
   width: 100%;
-  height: auto;
+  height: 100%;
   transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
@@ -202,51 +249,33 @@ h1, h2, h3, h4, h5, h6, .font-headline {
 
 /* Floating Action btn */
 .quick-add-btn {
-  width: 54px;
-  height: 54px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background: var(--kinetic-on-surface);
-  color: #fff;
+  background: var(--kinetic-surface);
+  color: var(--kinetic-on-surface);
   display: flex;
   align-items: center;
   justify-content: center;
   border: none;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: var(--ambient-shadow);
   transition: all 0.3s ease;
 }
-
 .quick-add-btn:hover {
   background: var(--kinetic-primary);
-  transform: scale(1.1);
+  color: white;
 }
-
 .kinetic-card .quick-add-container {
   opacity: 0;
-  transform: translate(-50%, 20px);
-  transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition: opacity 0.3s ease;
   position: absolute;
-  bottom: 2rem;
+  bottom: 1.5rem;
   left: 50%;
+  transform: translateX(-50%);
   z-index: 5;
 }
-
 .kinetic-card:hover .quick-add-container {
   opacity: 1;
-  transform: translate(-50%, 0);
-}
-
-/* Navigation Links */
-.nav-kinetic-link {
-  color: var(--kinetic-secondary);
-  font-family: var(--bs-heading-font-family);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.7rem;
-  letter-spacing: 0.15em;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.3s ease;
-  padding: 0.5rem 0;
 }
 
 /* Sectioning Backgrounds */
@@ -277,72 +306,7 @@ h1, h2, h3, h4, h5, h6, .font-headline {
   background: transparent;
 }
 
-/* Floating Action btn (quick add) */
-.quick-add-btn {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--kinetic-surface);
-  color: var(--kinetic-on-surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  box-shadow: var(--ambient-shadow);
-  transition: all 0.3s ease;
-}
-.quick-add-btn:hover {
-  background: var(--kinetic-primary);
-  color: white;
-}
-.kinetic-card .quick-add-container {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  position: absolute;
-  bottom: 1.5rem;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.kinetic-card:hover .quick-add-container {
-  opacity: 1;
-}
-
-/* Layout Utilities */
-body {
-  padding-top: 80px; /* offset for fixed navbar */
-}
-
-body.no-padding-top {
-  padding-top: 0 !important;
-}
-
-/* Helper for nav underlines */
-.nav-kinetic-link {
-  color: var(--kinetic-secondary);
-  font-family: var(--bs-heading-font-family);
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 0.875rem;
-  position: relative;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-.nav-kinetic-link:hover, .nav-kinetic-link.active {
-  color: var(--kinetic-on-surface);
-}
-.nav-kinetic-link.active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
-  background-color: var(--kinetic-primary);
-  border-radius: 50%;
-}
-
-/* Extra Utility Classes */
+/* Utility Classes */
 .tracking-wide {
   letter-spacing: 0.05em;
 }
@@ -365,7 +329,6 @@ body.no-padding-top {
   cursor: pointer;
 }
 
-/* Hover Lift for POS cards */
 .hover-lift {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -374,14 +337,7 @@ body.no-padding-top {
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
 
-/* Admin sidebar active item */
-.admin-sidebar .list-group-item.active {
-  background-color: #212529 !important;
-  color: #fff !important;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-}
-
+/* Admin Sidebar */
 .admin-sidebar .list-group-item {
   border: 0;
   border-radius: 0 9999px 9999px 0 !important;
@@ -389,9 +345,20 @@ body.no-padding-top {
   font-family: var(--bs-heading-font-family);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  transition: all 0.2s ease;
 }
 
-/* Rounded-4 for Bootstrap compat */
-.rounded-4 {
-  border-radius: 0.5rem !important;
+.admin-sidebar .list-group-item.active {
+  background-color: var(--kinetic-on-surface) !important;
+  color: #fff !important;
+  font-weight: 700;
+}
+
+/* Animations */
+.animate-fade-in {
+    animation: fadeIn 0.4s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }

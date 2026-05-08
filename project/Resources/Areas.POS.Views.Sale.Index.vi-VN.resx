@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="PosTitle" xml:space="preserve">
+    <value>Điểm Bán Hàng</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Tìm tên hoặc mã vạch sản phẩm...</value>
+  </data>
+  <data name="All" xml:space="preserve">
+    <value>Tất cả</value>
+  </data>
+  <data name="NewArrival" xml:space="preserve">
+    <value>Hàng mới</value>
+  </data>
+  <data name="ReadyToScan" xml:space="preserve">
+    <value>Sẵn sàng quét mã sản phẩm...</value>
+  </data>
+  <data name="CurrentOrder" xml:space="preserve">
+    <value>Đơn Hàng</value>
+  </data>
+  <data name="ClearAll" xml:space="preserve">
+    <value>Xóa tất cả</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Tạm tính</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Giảm giá</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="PayAndPrint" xml:space="preserve">
+    <value>THANH TOÁN &amp; IN HÓA ĐƠN</value>
+  </data>
+  <data name="NoProductsFound" xml:space="preserve">
+    <value>Không tìm thấy sản phẩm.</value>
+  </data>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>Chưa có sản phẩm nào</value>
+  </data>
+  <data name="PleaseSelectProduct" xml:space="preserve">
+    <value>Vui lòng chọn sản phẩm!</value>
+  </data>
+  <data name="CheckoutSuccess" xml:space="preserve">
+    <value>Thanh toán thành công! Đang in hóa đơn...</value>
+  </data>
+</root>

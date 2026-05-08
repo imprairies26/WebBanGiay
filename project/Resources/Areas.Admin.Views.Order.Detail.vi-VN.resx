@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="OrderDetailTitle" xml:space="preserve">
+    <value>Chi tiết đơn hàng #</value>
+  </data>
+  <data name="OrderDetailTitleUpper" xml:space="preserve">
+    <value>CHI TIẾT ĐƠN HÀNG #</value>
+  </data>
+  <data name="OrderStatusHeader" xml:space="preserve">
+    <value>Trạng thái đơn hàng</value>
+  </data>
+  <data name="ShippingStatus" xml:space="preserve">
+    <value>Trạng thái vận chuyển</value>
+  </data>
+  <data name="StatusPending" xml:space="preserve">
+    <value>Chờ xử lý</value>
+  </data>
+  <data name="StatusProcessing" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="StatusShipped" xml:space="preserve">
+    <value>Đang giao</value>
+  </data>
+  <data name="StatusDelivered" xml:space="preserve">
+    <value>Đã giao</value>
+  </data>
+  <data name="StatusCancelled" xml:space="preserve">
+    <value>Đã hủy</value>
+  </data>
+  <data name="PaymentStatus" xml:space="preserve">
+    <value>Trạng thái thanh toán</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Chờ thanh toán</value>
+  </data>
+  <data name="PaymentPaid" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="PaymentFailed" xml:space="preserve">
+    <value>Thanh toán thất bại</value>
+  </data>
+  <data name="UpdateBtn" xml:space="preserve">
+    <value>Cập nhật</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="ColProduct" xml:space="preserve">
+    <value>Sản phẩm</value>
+  </data>
+  <data name="ColCategory" xml:space="preserve">
+    <value>Phân loại</value>
+  </data>
+  <data name="ColUnitPrice" xml:space="preserve">
+    <value>Đơn giá</value>
+  </data>
+  <data name="ColQty" xml:space="preserve">
+    <value>SL</value>
+  </data>
+  <data name="ColTotal" xml:space="preserve">
+    <value>Thành tiền</value>
+  </data>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
+  </data>
+  <data name="Color" xml:space="preserve">
+    <value>Màu</value>
+  </data>
+  <data name="SubTotal" xml:space="preserve">
+    <value>Tạm tính:</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Giảm giá:</value>
+  </data>
+  <data name="GrandTotal" xml:space="preserve">
+    <value>TỔNG CỘNG:</value>
+  </data>
+  <data name="CustomerHeader" xml:space="preserve">
+    <value>Khách hàng</value>
+  </data>
+  <data name="GuestCustomer" xml:space="preserve">
+    <value>Khách vãng lai</value>
+  </data>
+  <data name="DeliverTo" xml:space="preserve">
+    <value>Giao hàng đến</value>
+  </data>
+  <data name="InStore" xml:space="preserve">
+    <value>Mua tại cửa hàng (POS)</value>
+  </data>
+  <data name="OtherInfo" xml:space="preserve">
+    <value>Thông tin khác</value>
+  </data>
+  <data name="PaymentMethod" xml:space="preserve">
+    <value>Phương thức thanh toán</value>
+  </data>
+  <data name="SalesChannel" xml:space="preserve">
+    <value>Kênh bán</value>
+  </data>
+  <data name="PosChannel" xml:space="preserve">
+    <value>Tại cửa hàng (POS)</value>
+  </data>
+  <data name="WebChannel" xml:space="preserve">
+    <value>Website Online</value>
+  </data>
+  <data name="Staff" xml:space="preserve">
+    <value>Nhân viên phục vụ (POS)</value>
+  </data>
+  <data name="CustomerNote" xml:space="preserve">
+    <value>Ghi chú của khách</value>
+  </data>
+  <data name="NoNote" xml:space="preserve">
+    <value>Không có ghi chú</value>
+  </data>
+</root>

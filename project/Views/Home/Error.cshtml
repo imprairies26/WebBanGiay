@@ -3,11 +3,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container-fluid py-5 mt-5 text-center" style="min-height: 70vh; display: flex; align-items: center; justify-content: center;">
-    <div style="max-width: 600px;">
-        <span class="material-symbols-outlined text-danger display-1 mb-4">report_problem</span>
-        <h1 class="font-headline fs-1 fw-bold mb-3">SYSTEM ERROR.</h1>
-        <p class="text-secondary fs-5 mb-5">Đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn. Vui lòng thử lại sau hoặc liên hệ bộ phận hỗ trợ.</p>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3">QUAY LẠI TRANG CHỦ</a>
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+            <div class="mb-5">
+                <i class="fa-solid fa-triangle-exclamation text-danger display-1 opacity-25"></i>
+            </div>
+            <h1 class="display-4 fw-bold font-headline mb-3">RẤT TIẾC!</h1>
+            <p class="text-secondary fs-5 mb-0">Đã có lỗi xảy ra trong quá trình xử lý yêu cầu của bạn. Đội ngũ kỹ thuật của KINETIC đã được thông báo.</p>
+            <div class="mt-5">
+                <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-kinetic-primary px-5 py-3">QUAY LẠI CỬA HÀNG</a>
+            </div>
+        </div>
     </div>
 </div>

@@ -187,6 +187,7 @@ namespace project.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            TempData.Clear(); // Xóa TempData để tránh thông báo cũ hiển thị lại
             return RedirectToAction("Index", "Home", new { area = "User" });
         }
     }

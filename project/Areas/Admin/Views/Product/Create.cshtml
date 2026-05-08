@@ -1,0 +1,206 @@
+@model project.Models.Product
+@{
+    ViewData["Title"] = "Thêm sản phẩm mới";
+    ViewData["ActiveNav"] = "Products";
+    var categories = ViewBag.Categories as List<project.Models.Category>;
+}
+
+<div class="mb-4 d-flex align-items-center gap-3">
+    <a asp-action="Index" class="btn btn-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center border" style="width:40px; height:40px;">
+        <i class="fa-solid fa-arrow-left text-dark"></i>
+    </a>
+    <h1 class="font-headline fs-3 fw-bold mb-0">THÊM SẢN PHẨM MỚI</h1>
+</div>
+
+<form asp-action="Create" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+
+    <div class="row g-4">
+        <!-- Thông tin cơ bản -->
+        <div class="col-lg-8">
+            <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm mb-4">
+                <h3 class="font-headline fs-5 mb-4">Thông tin cơ bản</h3>
+                
+                <div class="mb-4">
+                    <label asp-for="Name" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Tên sản phẩm</label>
+                    <input asp-for="Name" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" placeholder="Nhập tên sản phẩm (Ví dụ: Nike Air Max 2024)" required>
+                    <span asp-validation-for="Name" class="text-danger small"></span>
+                </div>
+
+                <div class="row g-4 mb-4">
+                    <div class="col-md-6">
+                        <label asp-for="CategoryId" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Danh mục</label>
+                        <select asp-for="CategoryId" class="form-select bg-light border-0 py-3 px-4 rounded-3 shadow-none" required>
+                            <option value="">-- Chọn danh mục --</option>
+                            @if (categories != null)
+                            {
+                                @foreach (var cat in categories)
+                                {
+                                    <option value="@cat.Id">@cat.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Trạng thái ban đầu</label>
+                        <div class="d-flex gap-4 mt-2">
+                            <div class="form-check custom-check">
+                                <input class="form-check-input shadow-none" type="checkbox" asp-for="IsActive" id="isActive" checked>
+                                <label class="form-check-label" for="isActive">Mở bán ngay</label>
+                            </div>
+                            <div class="form-check custom-check">
+                                <input class="form-check-input shadow-none" type="checkbox" asp-for="IsFeatured" id="isFeatured">
+                                <label class="form-check-label" for="isFeatured">Sản phẩm nổi bật</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-0">
+                    <label asp-for="Description" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Mô tả sản phẩm</label>
+                    <textarea asp-for="Description" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none" rows="5" placeholder="Mô tả chi tiết về sản phẩm, công nghệ, chất liệu..."></textarea>
+                </div>
+            </div>
+
+            <!-- Biến thể sản phẩm (Size/Color/Stock) -->
+            <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="font-headline fs-5 mb-0">Biến thể & Kho hàng</h3>
+                    <button type="button" class="btn btn-sm btn-dark rounded-pill px-3" onclick="addVariant()">+ Thêm biến thể</button>
+                </div>
+                
+                <div id="variants-container">
+                    <div class="variant-row row g-3 mb-3 p-3 bg-light rounded-3 position-relative align-items-end">
+                        <div class="col-md-4">
+                            <label class="small fw-bold text-secondary mb-1">Màu sắc</label>
+                            <input type="text" name="ProductVariants[0].Color" class="form-control form-control-sm border-0 shadow-none rounded-2" placeholder="Ví dụ: Trắng" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small fw-bold text-secondary mb-1">Kích thước</label>
+                            <input type="text" name="ProductVariants[0].Size" class="form-control form-control-sm border-0 shadow-none rounded-2" placeholder="Ví dụ: 40" required>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="small fw-bold text-secondary mb-1">Số lượng tồn</label>
+                            <input type="number" name="ProductVariants[0].StockQuantity" class="form-control form-control-sm border-0 shadow-none rounded-2" value="10" min="0" required>
+                        </div>
+                        <div class="col-md-2 text-end">
+                            <button type="button" class="btn btn-sm btn-outline-danger border-0 p-1" onclick="this.closest('.variant-row').remove()">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Giá & Hình ảnh -->
+        <div class="col-lg-4">
+            <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
+                <h3 class="font-headline fs-5 mb-4">Giá bán</h3>
+                <div class="mb-4">
+                    <label asp-for="BasePrice" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Giá gốc (VNĐ)</label>
+                    <input asp-for="BasePrice" type="number" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none fw-bold text-primary" placeholder="0" required>
+                </div>
+                <div class="mb-0">
+                    <label asp-for="SalePrice" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Giá khuyến mãi (Tùy chọn)</label>
+                    <input asp-for="SalePrice" type="number" class="form-control bg-light border-0 py-3 px-4 rounded-3 shadow-none fw-bold text-danger" placeholder="0">
+                </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-4 border border-white shadow-sm">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="font-headline fs-5 mb-0">Hình ảnh</h3>
+                    <button type="button" class="btn btn-sm btn-outline-dark rounded-pill" onclick="addImage()">Thêm</button>
+                </div>
+
+                <div id="images-container">
+                    <div class="mb-3 p-3 bg-light rounded-3">
+                        <div class="d-flex gap-3 align-items-start">
+                            <div class="flex-grow-1">
+                                <input type="text" name="ProductImages[0].ImageUrl" class="form-control form-control-sm border-0 mb-2 shadow-none" placeholder="Dán link ảnh (URL)" required>
+                                <div class="form-check form-switch small">
+                                    <input class="form-check-input shadow-none" type="checkbox" name="ProductImages[0].IsMain" value="true" checked>
+                                    <label class="form-check-label">Ảnh chính</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-kinetic-primary w-100 py-3 fw-bold shadow">TẠO SẢN PHẨM</button>
+                <a asp-action="Index" class="btn btn-light w-100 py-3 mt-2 rounded-pill small fw-bold">HỦY BỎ</a>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        let variantIndex = 1;
+        let imageIndex = 1;
+
+        function addVariant() {
+            const container = document.getElementById('variants-container');
+            const html = `
+                <div class="variant-row row g-3 mb-3 p-3 bg-light rounded-3 position-relative align-items-end animate-fade-in">
+                    <div class="col-md-4">
+                        <label class="small fw-bold text-secondary mb-1">Màu sắc</label>
+                        <input type="text" name="ProductVariants[${variantIndex}].Color" class="form-control form-control-sm border-0 shadow-none rounded-2" placeholder="Ví dụ: Đen" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small fw-bold text-secondary mb-1">Kích thước</label>
+                        <input type="text" name="ProductVariants[${variantIndex}].Size" class="form-control form-control-sm border-0 shadow-none rounded-2" placeholder="42" required>
+                    </div>
+                    <div class="col-md-3">
+                        <label class="small fw-bold text-secondary mb-1">Số lượng</label>
+                        <input type="number" name="ProductVariants[${variantIndex}].StockQuantity" class="form-control form-control-sm border-0 shadow-none rounded-2" value="10" required>
+                    </div>
+                    <div class="col-md-2 text-end">
+                        <button type="button" class="btn btn-sm btn-outline-danger border-0 p-1" onclick="this.closest('.variant-row').remove()">
+                            <i class="fa-solid fa-trash-can"></i>
+                        </button>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+            variantIndex++;
+        }
+
+        function addImage() {
+            const container = document.getElementById('images-container');
+            const html = `
+                <div class="mb-3 p-3 bg-light rounded-3 animate-fade-in">
+                    <div class="d-flex gap-3 align-items-start">
+                        <div class="flex-grow-1">
+                            <input type="text" name="ProductImages[${imageIndex}].ImageUrl" class="form-control form-control-sm border-0 mb-2 shadow-none" placeholder="Dán link ảnh (URL)" required>
+                            <div class="form-check form-switch small">
+                                <input class="form-check-input shadow-none" type="checkbox" name="ProductImages[${imageIndex}].IsMain" value="true">
+                                <label class="form-check-label">Ảnh chính</label>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-sm btn-outline-danger border-0" onclick="this.closest('.mb-3').remove()">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </div>
+                </div>`;
+            container.insertAdjacentHTML('beforeend', html);
+            imageIndex++;
+        }
+
+        document.querySelector('form').addEventListener('submit', function() {
+            document.querySelectorAll('#variants-container .variant-row').forEach((row, index) => {
+                row.querySelectorAll('input').forEach(input => {
+                    input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
+                });
+            });
+            document.querySelectorAll('#images-container > div').forEach((row, index) => {
+                row.querySelectorAll('input').forEach(input => {
+                    if (input.name) {
+                        input.name = input.name.replace(/\[\d+\]/, `[${index}]`);
+                    }
+                });
+            });
+        });
+    </script>
+}

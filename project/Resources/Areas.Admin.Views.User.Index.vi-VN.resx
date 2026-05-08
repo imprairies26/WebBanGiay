@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Quản lý người dùng</value>
+  </data>
+  <data name="ManageUsersTitle" xml:space="preserve">
+    <value>QUẢN LÝ NGƯỜI DÙNG</value>
+  </data>
+  <data name="SearchPlaceholder" xml:space="preserve">
+    <value>Tìm tên hoặc email...</value>
+  </data>
+  <data name="AllRoles" xml:space="preserve">
+    <value>Tất cả vai trò</value>
+  </data>
+  <data name="Filter" xml:space="preserve">
+    <value>LỌC</value>
+  </data>
+  <data name="Reset" xml:space="preserve">
+    <value>RESET</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Vai trò</value>
+  </data>
+  <data name="JoinDate" xml:space="preserve">
+    <value>Ngày tham gia</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>Trạng thái</value>
+  </data>
+  <data name="Action" xml:space="preserve">
+    <value>Hành động</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Đang hoạt động</value>
+  </data>
+  <data name="Locked" xml:space="preserve">
+    <value>Đã khóa</value>
+  </data>
+  <data name="ChangeRole" xml:space="preserve">
+    <value>Thay đổi vai trò</value>
+  </data>
+  <data name="UserLabel" xml:space="preserve">
+    <value>Người dùng</value>
+  </data>
+  <data name="NewRole" xml:space="preserve">
+    <value>Vai trò mới</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Hủy</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Lưu thay đổi</value>
+  </data>
+</root>

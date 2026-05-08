@@ -1,0 +1,124 @@
+@model List<project.Models.Order>
+@{
+    ViewData["Title"] = Localizer["OrderMgmtTitle"];
+    ViewData["ActiveNav"] = "Orders";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="font-headline fs-3 fw-bold mb-0 text-uppercase">@Localizer["OrderMgmtTitle"]</h1>
+</div>
+
+<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-3 mb-4">
+    <form method="get" asp-action="Index">
+        <div class="row g-3 align-items-center">
+            <div class="col-12 col-md-5">
+                <div class="input-group bg-light rounded-pill px-3 py-1 border-0">
+                    <span class="input-group-text bg-transparent border-0 text-secondary"><i class="fa-solid fa-magnifying-glass fs-6"></i></span>
+                    <input type="text" name="search" value="@Context.Request.Query["search"]" class="form-control bg-transparent border-0 shadow-none small" placeholder="@Localizer["SearchPlaceholder"]">
+                </div>
+            </div>
+            <div class="col-12 col-md-3">
+                <select name="status" class="form-select bg-light border-0 rounded-pill px-4 shadow-none small">
+                    <option value="">@Localizer["AllStatus"]</option>
+                    <option value="Pending" selected="@(Context.Request.Query["status"] == "Pending")">@Localizer["StatusPending"]</option>
+                    <option value="Processing" selected="@(Context.Request.Query["status"] == "Processing")">@Localizer["StatusProcessing"]</option>
+                    <option value="Shipped" selected="@(Context.Request.Query["status"] == "Shipped")">@Localizer["StatusShipped"]</option>
+                    <option value="Delivered" selected="@(Context.Request.Query["status"] == "Delivered")">@Localizer["StatusDelivered"]</option>
+                    <option value="Cancelled" selected="@(Context.Request.Query["status"] == "Cancelled")">@Localizer["StatusCancelled"]</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 d-flex gap-2">
+                <button type="submit" class="btn btn-primary bg-primary border-0 rounded-pill flex-grow-1 fw-bold small">@Localizer["Filter"]</button>
+                <a asp-action="Index" class="btn btn-light border rounded-pill px-4 small">@Localizer["Reset"]</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-0 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 text-nowrap">
+            <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
+                <tr>
+                    <th class="py-3 px-4">@Localizer["ColOrderNo"]</th>
+                    <th class="py-3">@Localizer["ColCustomer"]</th>
+                    <th class="py-3">@Localizer["ColOrderDate"]</th>
+                    <th class="py-3">@Localizer["ColTotal"]</th>
+                    <th class="py-3">@Localizer["ColPayment"]</th>
+                    <th class="py-3">@Localizer["ColStatus"]</th>
+                    <th class="py-3 text-end px-4">@Localizer["ColAction"]</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td class="px-4 fw-bold">#@order.Id</td>
+                        <td>
+                            @if (order.User != null)
+                            {
+                                <div class="fw-bold">@order.User.FullName</div>
+                                <div class="small text-secondary">@order.User.Email</div>
+                            }
+                            else
+                            {
+                                <span class="text-secondary fst-italic">@Localizer["GuestCustomer"]</span>
+                            }
+                        </td>
+                        <td class="small text-secondary">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td class="fw-bold text-primary">@order.FinalAmount.ToString("N0")đ</td>
+                        <td>
+                            @if (order.PaymentStatus == "Paid")
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">@Localizer["PaymentPaid"]</span>
+                            }
+                            else if (order.PaymentStatus == "Pending")
+                            {
+                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill">@Localizer["PaymentPending"]</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill">@Localizer["PaymentError"]</span>
+                            }
+                        </td>
+                        <td>
+                            @if (order.OrderStatus == "Pending")
+                            {
+                                <span class="badge bg-warning text-dark rounded-pill">@Localizer["StatusPending"]</span>
+                            }
+                            else if (order.OrderStatus == "Processing")
+                            {
+                                <span class="badge bg-info rounded-pill">@Localizer["StatusProcessing"]</span>
+                            }
+                            else if (order.OrderStatus == "Shipped")
+                            {
+                                <span class="badge bg-primary rounded-pill">@Localizer["StatusShipped"]</span>
+                            }
+                            else if (order.OrderStatus == "Delivered")
+                            {
+                                <span class="badge bg-success rounded-pill">@Localizer["StatusDelivered"]</span>
+                            }
+                            else if (order.OrderStatus == "Cancelled")
+                            {
+                                <span class="badge bg-danger rounded-pill">@Localizer["StatusCancelled"]</span>
+                            }
+                        </td>
+                        <td class="text-end px-4">
+                            <a asp-action="Detail" asp-route-id="@order.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3">@Localizer["ActionDetail"]</a>
+                        </td>
+                    </tr>
+                }
+                
+                @if(!Model.Any())
+                {
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-secondary">
+                            <i class="fa-solid fa-box-open fs-1 mb-3 opacity-50"></i>
+                            <p class="mb-0">@Localizer["NoOrders"]</p>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,46 +1,41 @@
 @model project.Models.Product
 @{
-    ViewData["Title"] = Model.Name;
-    ViewData["ActiveNav"] = "Shop";
-    var mainImage = Model.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl 
-                   ?? Model.ProductImages.FirstOrDefault()?.ImageUrl 
-                   ?? "https://via.placeholder.com/800x800?text=No+Image";
-    var subImages = Model.ProductImages.Where(i => !i.IsMain).OrderBy(i => i.SortOrder).ToList();
-    var availableColors = Model.ProductVariants.Select(v => v.Color).Distinct().ToList();
+    ViewData["Title"] = Model.Name + " - KINETIC";
+    var mainImage = Model.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl ?? Model.ProductImages.FirstOrDefault()?.ImageUrl ?? "https://via.placeholder.com/600x600";
+    var subImages = Model.ProductImages.Where(i => i.ImageUrl != mainImage).ToList();
 }
 
-<!-- PRODUCT DETAIL SECTION -->
-<div class="container-fluid max-width-1440 py-5 px-4">
+<div class="container-fluid max-width-1440 py-5 px-4 mt-5">
     <!-- Breadcrumb -->
-    <div class="mb-5">
-        <a asp-area="User" asp-controller="Home" asp-action="Index" class="text-decoration-none text-secondary small text-uppercase font-headline">Shop</a>
-        <span class="text-secondary mx-2">/</span>
-        <a asp-area="User" asp-controller="Home" asp-action="Index" asp-route-categories="@Model.CategoryId" class="text-decoration-none text-secondary small text-uppercase font-headline">@Model.Category.Name</a>
-        <span class="text-secondary mx-2">/</span>
-        <span class="text-dark small text-uppercase font-headline fw-bold">@Model.Name</span>
-    </div>
+    <nav aria-label="breadcrumb" class="mb-5">
+        <ol class="breadcrumb small text-uppercase tracking-wider">
+            <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index" class="text-secondary text-decoration-none">Cửa hàng</a></li>
+            <li class="breadcrumb-item text-secondary"><a href="#" class="text-secondary text-decoration-none">@Model.Category.Name</a></li>
+            <li class="breadcrumb-item active fw-bold text-dark" aria-current="page">@Model.Name</li>
+        </ol>
+    </nav>
 
     <div class="row g-5">
-        <!-- Image Gallery -->
-        <div class="col-12 col-md-7">
-            <div class="product-gallery">
-                <div class="bg-surface-lowest d-flex align-items-center justify-content-center p-5 mb-4 rounded-4 main-image-container" style="min-height: 500px; border: 1px solid rgba(0,0,0,0.05);">
-                    <img id="main-product-image" src="@mainImage" alt="@Model.Name" class="img-fluid" style="mix-blend-mode: multiply; filter: drop-shadow(0 30px 40px rgba(0,0,0,0.15)); max-height: 600px;">
+        <!-- Gallery -->
+        <div class="col-lg-7">
+            <div class="product-gallery position-sticky" style="top: 120px;">
+                <div class="main-image-container bg-surface-low rounded-4 mb-3 overflow-hidden d-flex align-items-center justify-content-center p-5" style="aspect-ratio: 1/1;">
+                    <img id="main-image" src="@mainImage" alt="@Model.Name" class="img-fluid" style="filter: drop-shadow(0 30px 50px rgba(0,0,0,0.15));">
                 </div>
                 
-                @if (subImages.Count > 0)
+                @if (subImages.Any())
                 {
                     <div class="row g-3">
                         <div class="col-3">
-                            <div class="gallery-thumb active rounded-3 overflow-hidden border cursor-pointer" onclick="updateMainImage('@mainImage', this)">
-                                <img src="@mainImage" class="img-fluid" style="mix-blend-mode: multiply;">
+                            <div class="thumbnail-item rounded-3 border active-thumb cursor-pointer overflow-hidden p-2 bg-light" onclick="changeImage('@mainImage', this)">
+                                <img src="@mainImage" class="img-fluid">
                             </div>
                         </div>
                         @foreach (var img in subImages)
                         {
                             <div class="col-3">
-                                <div class="gallery-thumb rounded-3 overflow-hidden border cursor-pointer" onclick="updateMainImage('@img.ImageUrl', this)">
-                                    <img src="@img.ImageUrl" class="img-fluid" style="mix-blend-mode: multiply;">
+                                <div class="thumbnail-item rounded-3 border cursor-pointer overflow-hidden p-2 bg-light" onclick="changeImage('@img.ImageUrl', this)">
+                                    <img src="@img.ImageUrl" class="img-fluid">
                                 </div>
                             </div>
                         }
@@ -49,53 +44,46 @@
             </div>
         </div>
 
-        <!-- Details -->
-        <div class="col-12 col-md-5">
-            <div class="sticky-top" style="top: 100px;">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div>
-                        <h1 class="font-headline display-5 fw-bold mb-1">@Model.Name</h1>
-                        <p class="text-secondary mb-0 text-uppercase small tracking-widest font-headline">@Model.Category.Name</p>
+        <!-- Info -->
+        <div class="col-lg-5">
+            <div class="product-info-card p-2">
+                <div class="mb-4">
+                    <span class="badge bg-dark text-white rounded-pill px-3 py-2 mb-3 text-uppercase small tracking-widest" style="font-family: 'Space Mono';">@Model.Category.Name</span>
+                    <h1 class="display-5 fw-bold font-headline mb-2">@Model.Name</h1>
+                    <div class="d-flex align-items-center gap-3">
+                        @if (Model.SalePrice.HasValue && Model.SalePrice < Model.BasePrice)
+                        {
+                            <span class="fs-2 fw-bold text-primary">@Model.SalePrice.Value.ToString("N0")đ</span>
+                            <span class="fs-4 text-secondary text-decoration-line-through">@Model.BasePrice.ToString("N0")đ</span>
+                            <span class="badge bg-danger rounded-pill">-@(Math.Round((1 - Model.SalePrice.Value / Model.BasePrice) * 100))%</span>
+                        }
+                        else
+                        {
+                            <span class="fs-2 fw-bold text-primary">@Model.BasePrice.ToString("N0")đ</span>
+                        }
                     </div>
-                    @if (Model.IsFeatured)
-                    {
-                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-2 font-headline small tracking-widest text-uppercase">Exclusive</span>
-                    }
-                </div>
-                
-                <div class="my-4">
-                    @if (Model.SalePrice.HasValue && Model.SalePrice < Model.BasePrice)
-                    {
-                        <span class="fs-2 fw-bold font-headline text-danger">@Model.SalePrice.Value.ToString("N0")đ</span>
-                        <span class="ms-3 text-secondary text-decoration-line-through fs-5">@Model.BasePrice.ToString("N0")đ</span>
-                    }
-                    else
-                    {
-                        <span class="fs-2 fw-bold font-headline text-dark">@Model.BasePrice.ToString("N0")đ</span>
-                    }
                 </div>
 
-                <div class="mb-5 text-secondary small lh-lg" style="max-width: 500px;">
+                <p class="text-secondary mb-5 pb-4 border-bottom" style="line-height: 1.8;">
                     @Model.Description
-                </div>
+                </p>
 
-                <!-- SELECTION FORM -->
-                <form id="add-to-cart-form" asp-area="User" asp-controller="Cart" asp-action="Add" method="post">
-                    <input type="hidden" name="productId" value="@Model.Id" />
-                    <input type="hidden" id="selected-variant-id" name="variantId" value="" />
-                    
+                <form id="add-to-cart-form" asp-area="User" asp-controller="Cart" asp-action="AddToCart" method="post">
                     <!-- Color Selection -->
-                    <div class="mb-4">
-                        <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wider mb-3">Màu sắc: <span id="current-color-label" class="text-dark">Chọn màu</span></label>
-                        <div class="d-flex flex-wrap gap-3">
-                            @foreach (var color in availableColors)
+                    <div class="mb-5">
+                        <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Màu sắc</label>       
+                        <div class="d-flex gap-3 mt-2">
+                            @{
+                                var colors = Model.ProductVariants.Select(v => v.Color).Distinct().ToList();
+                                bool firstColor = true;
+                            }
+                            @foreach (var color in colors)
                             {
                                 <div class="color-option">
-                                    <input type="radio" name="color" value="@color" id="color-@color" class="btn-check" onchange="updateVariants()">
-                                    <label class="color-swatch-large" for="color-@color" data-bs-toggle="tooltip" title="@color">
-                                        <div class="color-swatch-inner" style="background: @color; border: 1px solid #e2e2e5;"></div>
-                                    </label>
+                                    <input type="radio" class="btn-check" name="color" id="c-@color" value="@color" @(firstColor ? "checked" : "") onchange="updateVariants()">
+                                    <label class="btn btn-outline-light border rounded-pill px-4 py-2 text-dark small fw-bold" for="c-@color">@color</label>
                                 </div>
+                                firstColor = false;
                             }
                         </div>
                     </div>
@@ -103,160 +91,89 @@
                     <!-- Size Selection -->
                     <div class="mb-5">
                         <div class="d-flex justify-content-between align-items-center mb-3">
-                            <label class="form-label font-headline small text-uppercase fw-bold text-secondary tracking-wider mb-0">Kích thước: <span id="current-size-label" class="text-dark">Chọn size</span></label>
-                            <a href="#" class="text-secondary small text-decoration-none border-bottom">Bảng size</a>
+                            <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Kích thước</label>
+                            <a href="#" class="text-decoration-underline small text-dark">Bảng size</a>
                         </div>
-                        <div id="size-options" class="d-flex flex-wrap gap-2">
-                            <!-- Populated via JS -->
-                            <p class="small text-secondary italic">Vui lòng chọn màu sắc trước</p>
+                        <div id="sizes-container" class="row g-2">
+                            <div class="col-12 text-secondary small italic">Vui lòng chọn màu sắc để xem kích thước còn hàng.</div>
                         </div>
                     </div>
 
-                    <!-- SKU & Stock Info -->
-                    <div id="variant-info" class="mb-4 d-none">
-                        <p class="small text-secondary mb-1">SKU: <span id="sku-label" class="text-dark fw-bold"></span></p>
-                        <p class="small text-secondary">Tình trạng: <span id="stock-label" class="fw-bold"></span></p>
-                    </div>
-
-                    <div class="d-flex gap-3">
-                        <button id="add-to-bag-btn" type="submit" class="btn btn-kinetic-primary flex-grow-1 py-3" disabled>Thêm vào giỏ hàng</button>
-                        <button type="button" class="btn btn-kinetic-secondary px-4 py-3"><span class="material-symbols-outlined">favorite</span></button>
+                    <div class="mb-5">
+                        <button type="submit" id="btn-submit" class="btn btn-kinetic-primary w-100 py-4 fs-5 fw-bold shadow-lg" disabled>
+                            THÊM VÀO GIỎ HÀNG
+                        </button>
                     </div>
                 </form>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Tech Specs / Details Section -->
-    <div class="row mt-5 pt-5 border-top border-secondary-subtle">
-        <div class="col-12 col-md-8">
-            <h3 class="font-headline fs-4 fw-bold mb-4">Chi tiết sản phẩm</h3>
-            <div class="row g-4">
-                <div class="col-6 col-md-4">
-                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Engineered for</span>
-                    <span class="fw-bold">High Performance</span>
-                </div>
-                <div class="col-6 col-md-4">
-                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Technology</span>
-                    <span class="fw-bold">Kinetic Aero Foam</span>
-                </div>
-                <div class="col-6 col-md-4">
-                    <span class="d-block text-secondary small text-uppercase tracking-wider mb-1">Materials</span>
-                    <span class="fw-bold">Recycled Mesh / Rubber</span>
+
+                <!-- Features -->
+                <div class="row g-4 mt-2">
+                    <div class="col-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light rounded-circle p-3">
+                                <i class="fa-solid fa-truck-fast text-dark"></i>
+                            </div>
+                            <div>
+                                <span class="d-block small fw-bold">Giao hàng miễn phí</span>
+                                <small class="text-secondary">Cho đơn hàng trên 2tr</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light rounded-circle p-3">
+                                <i class="fa-solid fa-rotate-left text-dark"></i>
+                            </div>
+                            <div>
+                                <span class="d-block small fw-bold">30 ngày đổi trả</span>
+                                <small class="text-secondary">Dễ dàng và nhanh chóng</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<style>
-    .gallery-thumb {
-        aspect-ratio: 1/1;
-        background: #f8f9fa;
-        padding: 10px;
-        transition: all 0.2s ease;
-    }
-    .gallery-thumb:hover, .gallery-thumb.active {
-        border-color: var(--kinetic-primary) !important;
-        opacity: 0.8;
-    }
-    .color-swatch-large {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        padding: 3px;
-        border: 2px solid transparent;
-        cursor: pointer;
-        transition: all 0.2s ease;
-    }
-    .btn-check:checked + .color-swatch-large {
-        border-color: var(--kinetic-primary);
-    }
-    .color-swatch-large .color-swatch-inner {
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-    }
-    .cursor-pointer { cursor: pointer; }
-</style>
-
 @section Scripts {
     <script>
-        const variants = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ProductVariants.Select(v => new { 
-            id = v.Id, 
-            size = v.Size, 
-            color = v.Color, 
-            sku = v.Sku, 
-            stock = v.StockQuantity 
-        })));
+        const variants = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model.ProductVariants.Select(v => new { v.Id, v.Color, v.Size, v.StockQuantity })));
 
-        function updateMainImage(url, el) {
-            document.getElementById('main-product-image').src = url;
-            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
-            el.classList.add('active');
+        function changeImage(url, thumb) {
+            document.getElementById('main-image').src = url;
+            document.querySelectorAll('.thumbnail-item').forEach(el => el.classList.remove('active-thumb'));
+            thumb.classList.add('active-thumb');
         }
 
         function updateVariants() {
-            const selectedColor = document.querySelector('input[name="color"]:checked')?.value;
-            const colorLabel = document.getElementById('current-color-label');
-            const sizeOptions = document.getElementById('size-options');
-            const variantInfo = document.getElementById('variant-info');
-            const addToBagBtn = document.getElementById('add-to-bag-btn');
+            const selectedColor = document.querySelector('input[name="color"]:checked').value;
+            const sizesContainer = document.getElementById('sizes-container');
+            const submitBtn = document.getElementById('btn-submit');
             
-            if (selectedColor) {
-                colorLabel.innerText = selectedColor;
-                
-                // Filter sizes for selected color
-                const availableSizes = variants.filter(v => v.color === selectedColor);
-                
-                let html = '';
-                availableSizes.forEach(v => {
-                    const isOutOfStock = v.stock <= 0;
-                    html += `
-                        <div class="size-option">
-                            <input type="radio" name="size" value="${v.size}" id="size-${v.id}" class="btn-check" onchange="selectVariant(${v.id})" ${isOutOfStock ? 'disabled' : ''}>
-                            <label class="btn btn-outline-secondary py-2 px-3 fw-bold ${isOutOfStock ? 'opacity-25' : ''}" for="size-${v.id}">${v.size}</label>
-                        </div>
-                    `;
-                });
-                sizeOptions.innerHTML = html;
-                
-                // Reset variant selection
-                document.getElementById('selected-variant-id').value = '';
-                document.getElementById('current-size-label').innerText = 'Chọn size';
-                variantInfo.classList.add('d-none');
-                addToBagBtn.disabled = true;
-            }
+            const availableSizes = variants.filter(v => v.Color === selectedColor);
+            
+            sizesContainer.innerHTML = availableSizes.map(v => `
+                <div class="col-3 col-md-2">
+                    <input type="radio" class="btn-check" name="variantId" id="v-${v.Id}" value="${v.Id}" ${v.StockQuantity === 0 ? 'disabled' : ''} onchange="enableSubmit()">
+                    <label class="btn btn-outline-secondary w-100 py-3 fw-bold ${v.StockQuantity === 0 ? 'opacity-25' : ''}" for="v-${v.Id}">
+                        ${v.Size}
+                        ${v.StockQuantity > 0 && v.StockQuantity < 5 ? `<small class="d-block text-danger" style="font-size:0.5rem">Chỉ còn ${v.StockQuantity}</small>` : ''}
+                    </label>
+                </div>
+            `).join('');
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "CHỌN KÍCH THƯỚC";
         }
 
-        function selectVariant(variantId) {
-            const variant = variants.find(v => v.id === variantId);
-            if (variant) {
-                document.getElementById('selected-variant-id').value = variant.id;
-                document.getElementById('current-size-label').innerText = variant.size;
-                document.getElementById('sku-label').innerText = variant.sku;
-                
-                const stockLabel = document.getElementById('stock-label');
-                if (variant.stock > 10) {
-                    stockLabel.innerText = 'Còn hàng';
-                    stockLabel.className = 'fw-bold text-success';
-                } else if (variant.stock > 0) {
-                    stockLabel.innerText = `Chỉ còn ${variant.stock} sản phẩm`;
-                    stockLabel.className = 'fw-bold text-warning';
-                } else {
-                    stockLabel.innerText = 'Hết hàng';
-                    stockLabel.className = 'fw-bold text-danger';
-                }
-                
-                document.getElementById('variant-info').classList.remove('d-none');
-                document.getElementById('add-to-bag-btn').disabled = (variant.stock <= 0);
-            }
+        function enableSubmit() {
+            const submitBtn = document.getElementById('btn-submit');
+            submitBtn.disabled = false;
+            submitBtn.innerText = "THÊM VÀO GIỎ HÀNG";
         }
 
-        // Initialize tooltips
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-            return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
+        // Initialize
+        document.addEventListener('DOMContentLoaded', updateVariants);
     </script>
 }

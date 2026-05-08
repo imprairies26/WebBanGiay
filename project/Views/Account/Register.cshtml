@@ -1,7 +1,7 @@
 @model project.Models.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Đăng ký thành viên";
+    ViewData["Title"] = Localizer["RegisterTitle"];
     Layout = "~/Views/Shared/_AuthLayout.cshtml";
 }
 
@@ -19,8 +19,8 @@
                      class="img-fluid floating-img"
                      style="max-width: 80%; transform: rotate(10deg); filter: drop-shadow(0 50px 80px rgba(0,0,0,0.2));">
                 <div class="mt-5">
-                    <h2 class="font-headline fs-1 fw-bold mb-3 text-uppercase">Gia nhập cộng đồng.</h2>
-                    <p class="text-secondary small tracking-widest">[ KINETIC ELITE MEMBERSHIP ]</p>
+                    <h2 class="font-headline fs-1 fw-bold mb-3 text-uppercase">@Localizer["HeroTaglineReg"]</h2>
+                    <p class="text-secondary small tracking-widest">@Localizer["HeroSubtitle"]</p>
                 </div>
             </div>
         </div>
@@ -29,8 +29,8 @@
         <div class="col-12 col-lg-5 d-flex align-items-center justify-content-center bg-white shadow-lg z-2">
             <div class="w-100 p-4 p-md-5" style="max-width: 450px;">
                 <div class="mb-5">
-                    <h2 class="fw-bold fs-2 mb-2">Tạo tài khoản mới.</h2>
-                    <p class="text-secondary small">Trở thành thành viên để nhận nhiều ưu đãi độc quyền từ Kinetic.</p>
+                    <h2 class="fw-bold fs-2 mb-2">@Localizer["WelcomeReg"]</h2>
+                    <p class="text-secondary small">@Localizer["RegisterSubtitle"]</p>
                 </div>
 
                 <form asp-action="Register" method="post">
@@ -38,7 +38,7 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger small mb-3"></div>
 
                     <div class="mb-4">
-                        <label asp-for="FullName" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Họ và Tên</label>
+                        <label asp-for="FullName" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["FullName"]</label>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
                              <input asp-for="FullName" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="Nguyễn Văn A">
                         </div>
@@ -46,7 +46,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="Email" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Email</label>
+                        <label asp-for="Email" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["Email"]</label>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
                              <input asp-for="Email" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="name@example.com">
                         </div>
@@ -54,7 +54,7 @@
                     </div>
                     
                     <div class="mb-4">
-                        <label asp-for="Password" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Mật khẩu</label>
+                        <label asp-for="Password" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["Password"]</label>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
                              <input asp-for="Password" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="••••••••">
                         </div>
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label asp-for="ConfirmPassword" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Xác nhận mật khẩu</label>
+                        <label asp-for="ConfirmPassword" class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["ConfirmPassword"]</label>
                         <div class="input-group bg-light rounded-3 px-3 py-1 border-0">
                              <input asp-for="ConfirmPassword" class="form-control bg-transparent border-0 shadow-none py-2" placeholder="••••••••">
                         </div>
@@ -71,14 +71,14 @@
 
                     <div class="form-check mb-4 small text-secondary">
                         <input class="form-check-input shadow-none" type="checkbox" id="terms" required>
-                        <label class="form-check-label" for="terms">Tôi đồng ý với các <a href="#" class="text-primary text-decoration-none fw-bold">Điều khoản & Chính sách</a> của Kinetic.</label>
+                        <label class="form-check-label" for="terms">@Localizer["TermsAgree"] <a href="#" class="text-primary text-decoration-none fw-bold">@Localizer["TermsLink"]</a></label>
                     </div>
 
-                    <button type="submit" class="btn btn-kinetic-primary w-100 py-3 mb-4 rounded-3 fw-bold">ĐĂNG KÝ NGAY</button>
+                    <button type="submit" class="btn btn-kinetic-primary w-100 py-3 mb-4 rounded-3 fw-bold">@Localizer["RegisterButton"]</button>
                 </form>
 
                 <p class="text-center text-secondary small mt-5">
-                    Đã có tài khoản? <a asp-action="Login" class="text-primary text-decoration-none fw-bold">Đăng nhập</a>
+                    @Localizer["AlreadyAccount"] <a asp-action="Login" class="text-primary text-decoration-none fw-bold">@Localizer["LoginLink"]</a>
                 </p>
             </div>
         </div>
