@@ -173,8 +173,8 @@ CREATE TABLE Orders (
     DiscountAmount  DECIMAL(18, 2) NOT NULL DEFAULT 0,
     FinalAmount     DECIMAL(18, 2) NOT NULL,
     PaymentMethod   NVARCHAR(50)   NOT NULL,
-    PaymentStatus   NVARCHAR(50)   NOT NULL DEFAULT 'Pending',
-    OrderStatus     NVARCHAR(50)   NOT NULL DEFAULT 'Pending',
+    PaymentStatus   NVARCHAR(50)   NOT NULL DEFAULT 'PENDING', 
+    OrderStatus     NVARCHAR(50)   NOT NULL DEFAULT 'PENDING',
     OrderType       NVARCHAR(20)   NOT NULL,
     ShippingAddress NVARCHAR(500)  NULL,
     CustomerNote    NVARCHAR(500)  NULL,
@@ -184,7 +184,9 @@ CREATE TABLE Orders (
     CONSTRAINT FK_Orders_Staff      FOREIGN KEY (StaffId) REFERENCES Users(Id),
     CONSTRAINT FK_Orders_Promotions FOREIGN KEY (PromotionId) REFERENCES Promotions(Id),
     CONSTRAINT CHK_Orders_Amounts   CHECK (TotalAmount >= 0 AND FinalAmount >= 0),
-    CONSTRAINT CHK_Orders_Type      CHECK (OrderType IN ('Online', 'POS')),
+    CONSTRAINT CHK_Orders_Type      CHECK (OrderType IN ('ONLINE', 'POS')),
+    CONSTRAINT CHK_Orders_Status    CHECK (OrderStatus IN ('PENDING', 'PROCESSING', 'SHIPPED', 'COMPLETED', 'CANCELLED')),
+    CONSTRAINT CHK_Orders_PaymentStatus CHECK (PaymentStatus IN ('PENDING', 'PAID', 'UNPAID', 'REFUNDED', 'FAILED')),
     CONSTRAINT CHK_Orders_Payment   CHECK (PaymentMethod IN ('COD', 'BankTransfer', 'Cash'))
 );
 
@@ -234,9 +236,9 @@ AS
 BEGIN
     SELECT 
         COUNT(*) AS TotalOrders,
-        SUM(CASE WHEN OrderStatus = 'Completed' THEN 1 ELSE 0 END) AS CompletedOrders,
-        SUM(CASE WHEN OrderStatus = 'Completed' THEN FinalAmount ELSE 0 END) AS TotalRevenue,
-        SUM(CASE WHEN OrderType = 'Online' THEN 1 ELSE 0 END) AS OnlineOrders,
+        SUM(CASE WHEN OrderStatus = 'COMPLETED' THEN 1 ELSE 0 END) AS CompletedOrders,
+        SUM(CASE WHEN OrderStatus = 'COMPLETED' THEN FinalAmount ELSE 0 END) AS TotalRevenue,
+        SUM(CASE WHEN OrderType = 'ONLINE' THEN 1 ELSE 0 END) AS OnlineOrders,
         SUM(CASE WHEN OrderType = 'POS' THEN 1 ELSE 0 END) AS POSOrders
     FROM Orders
     WHERE OrderDate BETWEEN @FromDate AND @ToDate;
@@ -263,3 +265,76 @@ BEGIN
     WHERE Code = @Code;
 END;
 GO
+
+select * from users;
+
+USE ShoesShop;
+GO
+
+-- =============================================
+-- 2. THÊM DỮ LIỆU DANH MỤC (CATEGORIES)
+-- =============================================
+INSERT INTO Categories (Name, Description) VALUES
+(N'Giày Thể Thao', N'Các loại giày chạy bộ, tập luyện, đá bóng và thể thao chuyên dụng'),
+(N'Giày Sneaker', N'Giày thời trang phong cách năng động, dạo phố'),
+(N'Giày Tây & Công Sở', N'Giày da bò thật, giày Oxford, Derby dành cho dân văn phòng và dự tiệc');
+GO
+
+-- =============================================
+-- 3. THÊM DỮ LIỆU BANNER (BANNERS)
+-- =============================================
+INSERT INTO Banners (ImageUrl, LinkUrl, SortOrder, IsActive) VALUES
+('https://example.com/images/banners/summer-sale.jpg', '/promotions/summer-2026', 1, 1),
+('https://example.com/images/banners/new-arrival.jpg', '/collections/new-arrivals', 2, 1);
+GO
+
+-- =============================================
+-- 4. THÊM SẢN PHẨM (PRODUCTS)
+-- =============================================
+INSERT INTO Products (CategoryId, Name, Description, BasePrice, SalePrice, SaleStartDate, SaleEndDate, IsFeatured) VALUES
+-- Id = 1 (Giày Thể Thao, Đang Sale)
+(1, N'Nike Air Zoom Pegasus 40', N'Dòng giày chạy bộ quốc dân với đệm React siêu êm ái và thoáng khí.', 3500000, 2800000, '2024-01-01', '2026-12-31', 1),
+-- Id = 2 (Giày Sneaker, Không Sale)
+(2, N'Adidas Superstar Đen Trắng', N'Mẫu sneaker huyền thoại mũi sò không bao giờ lỗi thời.', 2500000, NULL, NULL, NULL, 1),
+-- Id = 3 (Giày Tây, Đang Sale)
+(3, N'Giày Oxford Nam Da Bò Cao Cấp', N'Làm từ da bò nguyên tấm, đế cao su khâu đế chắc chắn.', 1800000, 1500000, '2026-05-01', '2026-06-30', 0);
+GO
+
+-- =============================================
+-- 5. THÊM HÌNH ẢNH SẢN PHẨM (PRODUCT IMAGES)
+-- =============================================
+INSERT INTO ProductImages (ProductId, ImageUrl, IsMain, SortOrder) VALUES
+(1, 'https://example.com/images/nike-pegasus-40-main.jpg', 1, 1),
+(1, 'https://example.com/images/nike-pegasus-40-side.jpg', 0, 2),
+(2, 'https://example.com/images/adidas-superstar-main.jpg', 1, 1),
+(3, 'https://example.com/images/oxford-shoes-main.jpg', 1, 1),
+(3, 'https://example.com/images/oxford-shoes-detail.jpg', 0, 2);
+GO
+
+-- =============================================
+-- 6. THÊM BIẾN THỂ SẢN PHẨM (PRODUCT VARIANTS)
+-- =============================================
+INSERT INTO ProductVariants (ProductId, Size, Color, SKU, StockQuantity) VALUES
+-- Các biến thể cho Nike (ProductId = 1)
+(1, '40', N'Đen', 'NK-PEG40-BLK-40', 50),  -- Id = 1
+(1, '41', N'Đen', 'NK-PEG40-BLK-41', 35),  -- Id = 2
+(1, '40', N'Trắng', 'NK-PEG40-WHT-40', 20),-- Id = 3
+
+-- Các biến thể cho Adidas (ProductId = 2)
+(2, '39', N'Trắng sọc đen', 'AD-SUP-WHT-39', 100), -- Id = 4
+(2, '40', N'Trắng sọc đen', 'AD-SUP-WHT-40', 80),  -- Id = 5
+
+-- Các biến thể cho Giày Tây (ProductId = 3)
+(3, '42', N'Nâu', 'OXF-BRN-42', 15); -- Id = 6
+GO
+
+-- =============================================
+-- 7. THÊM KHUYẾN MÃI (PROMOTIONS)
+-- =============================================
+INSERT INTO Promotions (Code, DiscountPercent, DiscountAmount, MinOrderValue, StartDate, ExpirationDate, UsageLimit, UsedCount, IsActive) VALUES
+-- Khuyến mãi giảm 10%
+('WELCOME10', 10, NULL, 500000, '2024-01-01', '2026-12-31', 1000, 150, 1), -- Id = 1
+-- Khuyến mãi giảm thẳng 50.000đ
+('GIAM50K', NULL, 50000, 1000000, '2026-05-01', '2026-06-01', 500, 10, 1); -- Id = 2
+GO
+
