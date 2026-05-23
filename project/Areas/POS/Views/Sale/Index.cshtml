@@ -64,44 +64,87 @@
 @section Scripts {
     <script>
         let cart = [];
+        let allProducts = [];
         const searchInput = document.getElementById('product-search');
         const resultsContainer = document.getElementById('search-results');
         const cartContainer = document.getElementById('pos-cart-items');
 
+        // Load all products on start
+        async function loadAllProducts() {
+            try {
+                const res = await fetch('/POS/Sale/GetAllProducts');
+                allProducts = await res.json();
+                renderSearchResults(allProducts);
+            } catch (e) {
+                console.error("Failed to load products", e);
+            }
+        }
+
         searchInput.addEventListener('input', (e) => {
-            const query = e.target.value;
-            if (query.length < 2) return;
-
-            fetch(`/POS/Sale/SearchProducts?query=${query}`)
-                .then(res => res.json())
-                .then(products => {
-                    renderSearchResults(products);
-                });
-        });
-
-        function renderSearchResults(products) {
-            if (products.length === 0) {
-                resultsContainer.innerHTML = '<div class="col-12 text-center py-5 text-secondary">@Localizer["NoProductsFound"]</div>';
+            const query = e.target.value.toLowerCase();
+            if (!query) {
+                renderSearchResults(allProducts);
                 return;
             }
 
-            resultsContainer.innerHTML = products.map(p => `
-                <div class="col-6 col-md-4 col-xl-3">
-                    <div class="glass-card p-3 rounded-4 border border-white shadow-sm hover-lift cursor-pointer h-100" onclick="addToCart('${p.id}', '${p.name}', ${p.price}, '${p.image}')">
-                        <img src="${p.image}" class="img-fluid mb-3 rounded-3 bg-white p-2" style="aspect-ratio:1/1; object-fit:contain; ">
-                        <h4 class="small fw-bold mb-1 text-truncate">${p.name}</h4>
-                        <p class="text-primary fw-bold mb-0">${p.price.toLocaleString()}đ</p>
-                    </div>
-                </div>
-            `).join('');
+            const filtered = allProducts.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                p.sku.toLowerCase().includes(query)
+            );
+            renderSearchResults(filtered);
+        });
+
+        function renderSearchResults(products) {
+            resultsContainer.innerHTML = '';
+            if (products.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'col-12 text-center py-5 text-secondary';
+                empty.textContent = '@Localizer["NoProductsFound"]';
+                resultsContainer.appendChild(empty);
+                return;
+            }
+
+            products.forEach(p => {
+                const col = document.createElement('div');
+                col.className = 'col-6 col-md-4 col-xl-3 mb-4';
+                
+                const card = document.createElement('div');
+                card.className = 'glass-card p-3 rounded-4 border border-white shadow-sm hover-lift cursor-pointer h-100 d-flex flex-column';
+                card.onclick = () => addToCart(p.id, p.name, p.price, p.image, p.size, p.color);
+                
+                const img = document.createElement('img');
+                img.src = p.image || '/Data/blank_avatar.webp';
+                img.className = 'img-fluid mb-3 rounded-3 bg-white p-2';
+                img.style.aspectRatio = '1/1';
+                img.style.objectFit = 'contain';
+                
+                const title = document.createElement('h4');
+                title.className = 'small fw-bold mb-1 text-truncate';
+                title.textContent = p.name;
+
+                const variant = document.createElement('div');
+                variant.className = 'small text-secondary mb-2';
+                variant.textContent = `${p.size} | ${p.color}`;
+                
+                const price = document.createElement('p');
+                price.className = 'text-primary fw-bold mt-auto mb-0';
+                price.textContent = `${p.price.toLocaleString()}đ`;
+                
+                card.appendChild(img);
+                card.appendChild(title);
+                card.appendChild(variant);
+                card.appendChild(price);
+                col.appendChild(card);
+                resultsContainer.appendChild(col);
+            });
         }
 
-        function addToCart(id, name, price, image) {
+        function addToCart(id, name, price, image, size, color) {
             const existing = cart.find(item => item.id === id);
             if (existing) {
                 existing.quantity++;
             } else {
-                cart.push({ id, name, price, image, quantity: 1 });
+                cart.push({ id, name, price, image, size, color, quantity: 1 });
             }
             updateCartUI();
         }
@@ -126,46 +169,127 @@
         }
 
         function updateCartUI() {
+            cartContainer.innerHTML = '';
             if (cart.length === 0) {
-                cartContainer.innerHTML = '<div class="text-center py-5 text-secondary opacity-50"><p>@Localizer["EmptyCart"]</p></div>';
+                const empty = document.createElement('div');
+                empty.className = 'text-center py-5 text-secondary opacity-50';
+                empty.innerHTML = '<p>@Localizer["EmptyCart"]</p>';
+                cartContainer.appendChild(empty);
                 document.getElementById('pos-subtotal').innerText = '0đ';
                 document.getElementById('pos-total').innerText = '0đ';
                 return;
             }
 
-            cartContainer.innerHTML = cart.map(item => `
-                <div class="d-flex align-items-center gap-3 mb-4 pb-3 border-bottom border-light">
-                    <img src="${item.image}" class="rounded bg-light p-1" style="width:50px; height:50px; object-fit:contain; ">
-                    <div class="flex-grow-1 min-width-0">
-                        <div class="small fw-bold text-truncate">${item.name}</div>
-                        <div class="d-flex align-items-center gap-3 mt-2">
-                            <div class="d-flex align-items-center gap-2">
-                                <button class="btn btn-sm p-0 btn-minus" onclick="updateQuantity('${item.id}', -1)"><i class="fa-solid fa-minus fs-6"></i></button>
-                                <span class="small fw-bold px-1">${item.quantity}</span>
-                                <button class="btn btn-sm p-0 btn-plus" onclick="updateQuantity('${item.id}', 1)"><i class="fa-solid fa-plus fs-6"></i></button>
-                            </div>
-                            <span class="small text-primary fw-bold">${(item.price * item.quantity).toLocaleString()}đ</span>
-                        </div>
-                    </div>
-                    <button class="btn btn-sm text-danger p-0 btn-remove" onclick="removeFromCart('${item.id}')"><i class="fa-solid fa-xmark fs-5"></i></button>
-                </div>
-            `).join('');
+            cart.forEach(item => {
+                const row = document.createElement('div');
+                row.className = 'd-flex align-items-center gap-3 mb-4 pb-3 border-bottom border-light';
+                
+                const img = document.createElement('img');
+                img.src = item.image || '/Data/blank_avatar.webp';
+                img.className = 'rounded bg-light p-1';
+                img.style.width = '50px';
+                img.style.height = '50px';
+                img.style.objectFit = 'contain';
+                
+                const info = document.createElement('div');
+                info.className = 'flex-grow-1 min-width-0';
+                
+                const name = document.createElement('div');
+                name.className = 'small fw-bold text-truncate';
+                name.textContent = item.name;
+
+                const variant = document.createElement('div');
+                variant.className = 'text-secondary';
+                variant.style.fontSize = '0.7rem';
+                variant.textContent = `${item.size} / ${item.color}`;
+                
+                const actions = document.createElement('div');
+                actions.className = 'd-flex align-items-center gap-3 mt-1';
+                
+                const qtyWrap = document.createElement('div');
+                qtyWrap.className = 'd-flex align-items-center gap-2';
+                
+                const btnMinus = document.createElement('button');
+                btnMinus.className = 'btn btn-sm p-0 border-0 bg-transparent';
+                btnMinus.innerHTML = '<i class="fa-solid fa-circle-minus text-secondary opacity-50"></i>';
+                btnMinus.onclick = () => updateQuantity(item.id, -1);
+                
+                const qty = document.createElement('span');
+                qty.className = 'small fw-bold px-1';
+                qty.textContent = item.quantity;
+                
+                const btnPlus = document.createElement('button');
+                btnPlus.className = 'btn btn-sm p-0 border-0 bg-transparent';
+                btnPlus.innerHTML = '<i class="fa-solid fa-circle-plus text-primary"></i>';
+                btnPlus.onclick = () => updateQuantity(item.id, 1);
+                
+                const itemTotal = document.createElement('span');
+                itemTotal.className = 'small text-primary fw-bold';
+                itemTotal.textContent = `${(item.price * item.quantity).toLocaleString()}đ`;
+                
+                qtyWrap.appendChild(btnMinus);
+                qtyWrap.appendChild(qty);
+                qtyWrap.appendChild(btnPlus);
+                actions.appendChild(qtyWrap);
+                actions.appendChild(itemTotal);
+                info.appendChild(name);
+                info.appendChild(variant);
+                info.appendChild(actions);
+                
+                const btnRemove = document.createElement('button');
+                btnRemove.className = 'btn btn-sm text-danger p-0 border-0 bg-transparent';
+                btnRemove.innerHTML = '<i class="fa-solid fa-trash-can small"></i>';
+                btnRemove.onclick = () => removeFromCart(item.id);
+                
+                row.appendChild(img);
+                row.appendChild(info);
+                row.appendChild(btnRemove);
+                cartContainer.appendChild(row);
+            });
 
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
             document.getElementById('pos-subtotal').innerText = subtotal.toLocaleString() + 'đ';
             document.getElementById('pos-total').innerText = subtotal.toLocaleString() + 'đ';
         }
 
-        function checkout() {
+        async function checkout() {
             if (cart.length === 0) {
                 alert('@Localizer["PleaseSelectProduct"]');
                 return;
             }
-            alert('@Localizer["CheckoutSuccess"]');
-            clearCart();
+
+            const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const requestData = {
+                items: cart.map(i => ({ variantId: i.id, quantity: i.quantity, unitPrice: i.price })),
+                totalAmount: totalAmount,
+                discountAmount: 0,
+                finalAmount: totalAmount,
+                paymentMethod: 'Cash'
+            };
+
+            try {
+                const res = await fetch('/POS/Sale/PlaceOrder', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestData)
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    alert('@Localizer["CheckoutSuccess"]' + ' ID: #' + data.orderId);
+                    clearCart();
+                    loadAllProducts(); // Refresh stock
+                } else {
+                    alert('Lỗi: ' + data.message);
+                }
+            } catch (e) {
+                alert('Có lỗi xảy ra khi thanh toán.');
+                console.error(e);
+            }
         }
 
-        // Initialize empty state
-        updateCartUI();
+        // Initialize
+        loadAllProducts();
     </script>
 }

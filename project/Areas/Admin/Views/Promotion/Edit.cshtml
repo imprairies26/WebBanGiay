@@ -1,0 +1,117 @@
+@model project.Models.Promotion
+@{
+    ViewData["Title"] = "Chỉnh sửa mã giảm giá";
+    ViewData["ActiveNav"] = "Promotions";
+    bool isPercent = Model.DiscountPercent.HasValue;
+}
+
+<div class="mb-4 d-flex align-items-center gap-3">
+    <a asp-action="Index" class="btn btn-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center border" style="width:40px; height:40px;">
+        <i class="fa-solid fa-arrow-left text-dark"></i>
+    </a>
+    <h1 class="font-headline fs-3 fw-bold mb-0 text-uppercase">CHỈNH SỬA MÃ: @Model.Code</h1>
+</div>
+
+<div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm bg-white">
+    <form asp-action="Edit" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="UsedCount" />
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label asp-for="Code" class="form-label small text-uppercase fw-bold text-secondary">Mã giảm giá</label>
+                <input asp-for="Code" class="form-control bg-light border-0 py-2 px-3 rounded-3 shadow-none" placeholder="Ví dụ: KINETIC2025" required>
+                <span asp-validation-for="Code" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="IsActive" class="form-label small text-uppercase fw-bold text-secondary d-block">Trạng thái</label>
+                <div class="form-check form-switch mt-2">
+                    <input asp-for="IsActive" class="form-check-input" type="checkbox">
+                    <label class="form-check-label small" for="IsActive">Kích hoạt mã này</label>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label small text-uppercase fw-bold text-secondary">Loại giảm giá</label>
+                <div class="d-flex gap-4 mt-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="discountType" id="typePercent" value="percent" @(isPercent ? "checked" : "") onclick="toggleDiscountFields()">
+                        <label class="form-check-label small" for="typePercent">Phần trăm (%)</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="discountType" id="typeAmount" value="amount" @(!isPercent ? "checked" : "") onclick="toggleDiscountFields()">
+                        <label class="form-check-label small" for="typeAmount">Số tiền cố định (đ)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 @(isPercent ? "" : "d-none")" id="percentField">
+                <label asp-for="DiscountPercent" class="form-label small text-uppercase fw-bold text-secondary">Phần trăm giảm</label>
+                <div class="input-group">
+                    <input asp-for="DiscountPercent" type="number" class="form-control bg-light border-0 py-2 px-3 rounded-start-3 shadow-none" placeholder="10">
+                    <span class="input-group-text bg-light border-0 rounded-end-3">%</span>
+                </div>
+                <span asp-validation-for="DiscountPercent" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6 @(!isPercent ? "" : "d-none")" id="amountField">
+                <label asp-for="DiscountAmount" class="form-label small text-uppercase fw-bold text-secondary">Số tiền giảm</label>
+                <div class="input-group">
+                    <input asp-for="DiscountAmount" type="number" class="form-control bg-light border-0 py-2 px-3 rounded-start-3 shadow-none" placeholder="50000">
+                    <span class="input-group-text bg-light border-0 rounded-end-3">đ</span>
+                </div>
+                <span asp-validation-for="DiscountAmount" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="MinOrderValue" class="form-label small text-uppercase fw-bold text-secondary">Đơn hàng tối thiểu (đ)</label>
+                <input asp-for="MinOrderValue" type="number" class="form-control bg-light border-0 py-2 px-3 rounded-3 shadow-none">
+                <span asp-validation-for="MinOrderValue" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="UsageLimit" class="form-label small text-uppercase fw-bold text-secondary">Giới hạn lượt dùng</label>
+                <input asp-for="UsageLimit" type="number" class="form-control bg-light border-0 py-2 px-3 rounded-3 shadow-none" placeholder="Bỏ trống nếu không giới hạn">
+                <span asp-validation-for="UsageLimit" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="StartDate" class="form-label small text-uppercase fw-bold text-secondary">Ngày bắt đầu</label>
+                <input asp-for="StartDate" type="date" class="form-control bg-light border-0 py-2 px-3 rounded-3 shadow-none" required value="@Model.StartDate.ToString("yyyy-MM-dd")">
+                <span asp-validation-for="StartDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="ExpirationDate" class="form-label small text-uppercase fw-bold text-secondary">Ngày hết hạn</label>
+                <input asp-for="ExpirationDate" type="date" class="form-control bg-light border-0 py-2 px-3 rounded-3 shadow-none" required value="@Model.ExpirationDate.ToString("yyyy-MM-dd")">
+                <span asp-validation-for="ExpirationDate" class="text-danger small"></span>
+            </div>
+
+            <div class="col-12 mt-5">
+                <button type="submit" class="btn btn-primary bg-primary border-0 rounded-pill px-5 py-3 fw-bold">LƯU THAY ĐỔI</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        function toggleDiscountFields() {
+            const isPercent = document.getElementById('typePercent').checked;
+            const percentField = document.getElementById('percentField');
+            const amountField = document.getElementById('amountField');
+            const percentInput = document.getElementById('DiscountPercent');
+            const amountInput = document.getElementById('DiscountAmount');
+
+            if (isPercent) {
+                percentField.classList.remove('d-none');
+                amountField.classList.add('d-none');
+                amountInput.value = '';
+            } else {
+                percentField.classList.add('d-none');
+                amountField.classList.remove('d-none');
+                percentInput.value = '';
+            }
+        }
+    </script>
+}

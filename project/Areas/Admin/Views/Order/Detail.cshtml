@@ -24,19 +24,19 @@
                     <div class="col-md-5">
                         <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["ShippingStatus"]</label>
                         <select name="orderStatus" class="form-select bg-light border-0 shadow-none rounded-3 py-2">
-                            <option value="Pending" selected="@(Model.OrderStatus == "Pending")">@Localizer["StatusPending"]</option>
-                            <option value="Processing" selected="@(Model.OrderStatus == "Processing")">@Localizer["StatusProcessing"]</option>
-                            <option value="Shipped" selected="@(Model.OrderStatus == "Shipped")">@Localizer["StatusShipped"]</option>
-                            <option value="Delivered" selected="@(Model.OrderStatus == "Delivered")">@Localizer["StatusDelivered"]</option>
-                            <option value="Cancelled" selected="@(Model.OrderStatus == "Cancelled")">@Localizer["StatusCancelled"]</option>
+                            <option value="PENDING" selected="@(Model.OrderStatus == "PENDING")">@Localizer["StatusPending"]</option>
+                            <option value="PROCESSING" selected="@(Model.OrderStatus == "PROCESSING")">@Localizer["StatusProcessing"]</option>
+                            <option value="SHIPPED" selected="@(Model.OrderStatus == "SHIPPED")">@Localizer["StatusShipped"]</option>
+                            <option value="COMPLETED" selected="@(Model.OrderStatus == "COMPLETED")">@Localizer["StatusDelivered"]</option>
+                            <option value="CANCELLED" selected="@(Model.OrderStatus == "CANCELLED")">@Localizer["StatusCancelled"]</option>
                         </select>
                     </div>
                     <div class="col-md-5">
                         <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">@Localizer["PaymentStatus"]</label>
                         <select name="paymentStatus" class="form-select bg-light border-0 shadow-none rounded-3 py-2">
-                            <option value="Pending" selected="@(Model.PaymentStatus == "Pending")">@Localizer["PaymentPending"]</option>
-                            <option value="Paid" selected="@(Model.PaymentStatus == "Paid")">@Localizer["PaymentPaid"]</option>
-                            <option value="Failed" selected="@(Model.PaymentStatus == "Failed")">@Localizer["PaymentFailed"]</option>
+                            <option value="PENDING" selected="@(Model.PaymentStatus == "PENDING")">@Localizer["PaymentPending"]</option>
+                            <option value="PAID" selected="@(Model.PaymentStatus == "PAID")">@Localizer["PaymentPaid"]</option>
+                            <option value="FAILED" selected="@(Model.PaymentStatus == "FAILED")">@Localizer["PaymentFailed"]</option>
                         </select>
                     </div>
                     <div class="col-md-2 d-flex align-items-end">

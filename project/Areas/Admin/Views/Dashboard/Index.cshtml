@@ -60,7 +60,7 @@
 </div>
 
 <div class="row g-5">
-    <div class="col-lg-8">
+    <div class="col-lg-7">
         <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm bg-white h-100">
             <div class="d-flex justify-content-between align-items-center mb-5">
                 <h3 class="font-headline fs-5 mb-0">@Localizer["OrderDistribution"]</h3>
@@ -68,15 +68,48 @@
                     <button class="btn btn-sm btn-light border rounded-pill px-3" type="button">@Localizer["Last7Days"]</button>
                 </div>
             </div>
-            <div style="height: 350px;" class="d-flex align-items-center justify-content-center bg-light rounded-4 border-dashed">
-                <div class="text-center">
-                    <i class="fa-solid fa-chart-simple display-4 text-secondary opacity-25 mb-3"></i>
-                    <p class="text-secondary mb-0">@Localizer["ChartSyncing"]</p>
-                    <small class="text-secondary opacity-50">Online: @Model.OnlineOrders | POS: @Model.PosOrders</small>
-                </div>
+            <div style="height: 350px;">
+                <canvas id="orderChart"></canvas>
             </div>
         </div>
     </div>
+...
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const ctx = document.getElementById('orderChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Online Orders', 'POS Orders'],
+                datasets: [{
+                    data: [@Model.OnlineOrders, @Model.PosOrders],
+                    backgroundColor: ['#2563eb', '#1e293b'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            usePointStyle: true,
+                            padding: 20,
+                            font: {
+                                family: 'Be Vietnam Pro',
+                                size: 12
+                            }
+                        }
+                    }
+                },
+                cutout: '70%'
+            }
+        });
+    </script>
+}
     <div class="col-lg-4">
         <div class="glass-card p-4 rounded-4 border border-white shadow-sm h-100">
             <h3 class="font-headline fs-5 mb-4">@Localizer["RecentOrders"]</h3>
@@ -95,7 +128,9 @@
                         </div>
                         <div class="text-end">
                             <span class="d-block small fw-bold text-primary">@order.FinalAmount.ToString("N0")đ</span>
-                            <span class="badge @(order.OrderStatus == "PENDING" ? "bg-warning" : "bg-success") rounded-pill" style="font-size: 0.6rem;">@order.OrderStatus</span>
+                            <span class="badge @OrderConstants.GetBadgeClass(order.OrderStatus) rounded-pill" style="font-size: 0.6rem;">
+                                @Localizer[order.OrderStatus[0] + order.OrderStatus.Substring(1).ToLower()]
+                            </span>
                         </div>
                     </div>
                 }

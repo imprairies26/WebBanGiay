@@ -1,13 +1,13 @@
 @model project.Models.Cart
 @{
-    ViewData["Title"] = "Giỏ hàng";
+    ViewData["Title"] = Localizer["CartTitle"];
     Layout = "~/Views/Shared/_Layout.cshtml";
     var totalAmount = Model?.CartItems.Sum(item => item.ProductVariant.Product.BasePrice * item.Quantity) ?? 0;
 }
 
 <div class="container-fluid max-width-1440 py-5 px-4 mt-5">
     <div class="mb-5">
-        <h1 class="font-headline fs-2 fw-bold mb-0">Giỏ hàng của bạn</h1>
+        <h1 class="font-headline fs-2 fw-bold mb-0">@Localizer["YourCart"]</h1>
     </div>
 
     @if (Model == null || Model.CartItems.Count == 0)
@@ -16,9 +16,9 @@
             <div class="display-1 text-secondary opacity-25 mb-4">
                 <i class="fa-solid fa-bag-shopping"></i>
             </div>
-            <h3 class="text-secondary">Giỏ hàng của bạn đang trống</h3>  
-            <p class="text-secondary mb-5">Hãy tiếp tục mua sắm để tìm cho mình đôi giày ưng ý nhất!</p>
-            <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-5 py-3">QUAY LẠI CỬA HÀNG</a>
+            <h3 class="text-secondary">@Localizer["EmptyCart"]</h3>  
+            <p class="text-secondary mb-5">@Localizer["EmptyCartSub"]</p>
+            <a asp-area="User" asp-controller="Home" asp-action="Index" class="btn btn-dark rounded-pill px-5 py-3">@Localizer["BackToShop"]</a>
         </div>
     }
     else
@@ -30,10 +30,10 @@
                     <table class="table table-hover align-middle">
                         <thead class="bg-light border-0 small text-uppercase fw-bold text-secondary">
                             <tr>
-                                <th class="py-3 px-4 border-0">Sản phẩm</th>
-                                <th class="py-3 border-0">Kích thước</th>
-                                <th class="py-3 border-0">Số lượng</th>
-                                <th class="py-3 border-0 text-end px-4">Tổng cộng</th>
+                                <th class="py-3 px-4 border-0">@Localizer["Product"]</th>
+                                <th class="py-3 border-0">@Localizer["Size"]</th>
+                                <th class="py-3 border-0">@Localizer["Quantity"]</th>
+                                <th class="py-3 border-0 text-end px-4">@Localizer["Total"]</th>
                             </tr>
                         </thead>
                         <tbody class="border-top-0">
@@ -50,7 +50,7 @@
                                             </div>
                                             <div>
                                                 <h5 class="fs-6 fw-bold mb-1">@product.Name</h5>
-                                                <p class="text-secondary small mb-0">Màu: @item.ProductVariant.Color</p>
+                                                <p class="text-secondary small mb-0">@Localizer["Color"]: @item.ProductVariant.Color</p>
                                                 <p class="text-primary small fw-bold">@item.ProductVariant.Product.BasePrice.ToString("N0")đ</p>
                                             </div>
                                         </div>
@@ -74,7 +74,7 @@
                                             <input type="hidden" name="cartItemId" value="@item.Id" />
                                             <button type="submit" class="btn btn-link text-danger small p-0 text-decoration-none border-0 bg-transparent">
                                                 <i class="fa-solid fa-trash-can me-1"></i>
-                                                <span>Xóa</span>
+                                                <span>@Localizer["Remove"]</span>
                                             </button>
                                         </form>
                                     </td>
@@ -88,40 +88,40 @@
             <!-- Summary -->
             <div class="col-lg-4">
                 <div class="glass-card p-4 p-md-5 rounded-4 border border-white shadow-sm sticky-top" style="top: 120px;">
-                    <h3 class="font-headline fs-4 fw-bold mb-4">Tóm tắt đơn hàng</h3>
+                    <h3 class="font-headline fs-4 fw-bold mb-4">@Localizer["OrderSummary"]</h3>
                     
                     <div class="d-flex flex-column gap-3 mb-4">
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">Tạm tính</span>
+                            <span class="text-secondary">@Localizer["Subtotal"]</span>
                             <span class="fw-bold">@totalAmount.ToString("N0")đ</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">Phí vận chuyển</span>
-                            <span class="text-success fw-bold">Miễn phí</span>
+                            <span class="text-secondary">@Localizer["Shipping"]</span>
+                            <span class="text-success fw-bold">@Localizer["Free"]</span>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <span class="text-secondary">Giảm giá</span>
+                            <span class="text-secondary">@Localizer["Discount"]</span>
                             <span class="text-danger fw-bold">-0đ</span>
                         </div>
                     </div>
 
                     <div class="pt-4 border-top border-secondary-subtle mb-4">
                         <div class="d-flex justify-content-between align-items-center">
-                            <span class="fs-5 fw-bold">Thành tiền</span>
+                            <span class="fs-5 fw-bold">@Localizer["TotalAmount"]</span>
                             <span class="fs-4 fw-bold text-primary">@totalAmount.ToString("N0")đ</span>
                         </div>
                     </div>
 
-                    <a asp-area="User" asp-controller="Checkout" asp-action="Index" class="btn btn-kinetic-primary w-100 py-3 mt-2 shadow-sm">TIẾN HÀNH THANH TOÁN</a>
+                    <a asp-area="User" asp-controller="Checkout" asp-action="Index" class="btn btn-kinetic-primary w-100 py-3 mt-2 shadow-sm">@Localizer["Checkout"]</a>
                     
                     <div class="mt-4 pt-4 border-top border-light d-flex flex-column gap-3">
                         <div class="d-flex align-items-center gap-3 text-secondary small">
                             <i class="fa-solid fa-shield-check fs-5 text-success"></i>
-                            <span>Thanh toán an toàn 100%</span>
+                            <span>@Localizer["SafePayment"]</span>
                         </div>
                         <div class="d-flex align-items-center gap-3 text-secondary small">
                             <i class="fa-solid fa-truck-fast fs-5 text-primary"></i>
-                            <span>Giao hàng nhanh từ 2-4 ngày</span>
+                            <span>@Localizer["FastShipping"]</span>
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,112 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@model project.Models.Order
+@{
+    ViewData["Title"] = Localizer["OrderDetailTitle"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container py-5 mt-5" style="max-width: 1000px;">
+    <div class="mb-4 d-flex align-items-center gap-3">
+        <a asp-action="Index" class="btn btn-white rounded-circle shadow-sm p-2 d-flex align-items-center justify-content-center border" style="width:40px; height:40px;">
+            <i class="fa-solid fa-arrow-left text-dark"></i>
+        </a>
+        <h1 class="font-headline fs-3 fw-bold mb-0">@Localizer["OrderDetailHeader"] #@Model.Id</h1>
+    </div>
+
+    <div class="row g-4">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <div class="glass-card p-0 rounded-4 border border-white shadow-sm overflow-hidden mb-4">
+                <div class="p-4 border-bottom border-light d-flex justify-content-between align-items-center">
+                    <h3 class="font-headline fs-5 mb-0">@Localizer["Products"] (@Model.OrderDetails.Count)</h3>
+                    <span class="badge @OrderConstants.GetBadgeClass(Model.OrderStatus) rounded-pill px-3 py-2">
+                         @Localizer["Status" + Model.OrderStatus[0] + Model.OrderStatus.Substring(1).ToLower()]
+                    </span>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <tbody>
+                            @foreach (var item in Model.OrderDetails)
+                            {
+                                var img = item.ProductVariant.Product.ProductImages.FirstOrDefault(i => i.IsMain)?.ImageUrl ?? "https://via.placeholder.com/80";
+                                <tr>
+                                    <td style="width: 80px;" class="ps-4 py-3">
+                                        <img src="@img" class="rounded-3 border bg-light" style="width: 64px; height: 64px; object-fit: cover;">
+                                    </td>
+                                    <td class="py-3">
+                                        <div class="fw-bold">@item.ProductName</div>
+                                        <div class="small text-secondary">
+                                            @Localizer["Size"]: @item.Size | @Localizer["Color"]: @item.Color
+                                        </div>
+                                    </td>
+                                    <td class="text-end py-3">
+                                        <div class="small text-secondary">@item.Quantity x @item.UnitPrice.ToString("N0")đ</div>
+                                        <div class="fw-bold">@((item.Quantity * item.UnitPrice).ToString("N0"))đ</div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 bg-surface-lowest">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-secondary">@Localizer["Subtotal"]</span>
+                        <span>@Model.TotalAmount.ToString("N0")đ</span>
+                    </div>
+                    @if (Model.DiscountAmount > 0)
+                    {
+                        <div class="d-flex justify-content-between mb-2 text-danger">
+                            <span>@Localizer["Discount"]</span>
+                            <span>-@Model.DiscountAmount.ToString("N0")đ</span>
+                        </div>
+                    }
+                    <div class="d-flex justify-content-between mb-2 text-success">
+                        <span>@Localizer["Shipping"]</span>
+                        <span>@Localizer["Free"]</span>
+                    </div>
+                    <div class="d-flex justify-content-between fw-bold fs-4 mt-3 pt-3 border-top">
+                        <span>@Localizer["Total"]</span>
+                        <span class="text-primary">@Model.FinalAmount.ToString("N0")đ</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sidebar Info -->
+        <div class="col-lg-4">
+            <div class="glass-card p-4 rounded-4 border border-white shadow-sm mb-4">
+                <h4 class="font-headline fs-6 fw-bold mb-3 text-uppercase tracking-wider">@Localizer["ShippingInfo"]</h4>
+                <div class="mb-3">
+                    <div class="small text-secondary fw-bold mb-1">@Localizer["Recipient"]</div>
+                    <p class="mb-0">@Model.ShippingAddress</p>
+                </div>
+                <div>
+                    <div class="small text-secondary fw-bold mb-1">@Localizer["OrderDate"]</div>
+                    <p class="mb-0">@Model.OrderDate.ToString("dd/MM/yyyy HH:mm")</p>
+                </div>
+            </div>
+
+            <div class="glass-card p-4 rounded-4 border border-white shadow-sm">
+                <h4 class="font-headline fs-6 fw-bold mb-3 text-uppercase tracking-wider">@Localizer["PaymentInfo"]</h4>
+                <div class="mb-3">
+                    <div class="small text-secondary fw-bold mb-1">@Localizer["Method"]</div>
+                    <p class="mb-0">@Model.PaymentMethod</p>
+                </div>
+                <div class="mb-3">
+                    <div class="small text-secondary fw-bold mb-1">@Localizer["Status"]</div>
+                    <span class="badge @OrderConstants.GetBadgeClass(Model.PaymentStatus) rounded-pill px-3 py-2">
+                         @Localizer["Payment" + Model.PaymentStatus[0] + Model.PaymentStatus.Substring(1).ToLower()]
+                    </span>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.CustomerNote))
+                {
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="small text-secondary fw-bold mb-1">@Localizer["Note"]</div>
+                        <p class="small mb-0 italic">@Model.CustomerNote</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

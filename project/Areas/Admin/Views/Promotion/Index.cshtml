@@ -1,0 +1,114 @@
+@model List<project.Models.Promotion>
+@{
+    ViewData["Title"] = "Quản lý mã giảm giá";
+    ViewData["ActiveNav"] = "Promotions";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="font-headline fs-3 fw-bold mb-0">QUẢN LÝ MÃ GIẢM GIÁ</h1>
+    <a asp-action="Create" class="btn btn-dark rounded-pill px-4">THÊM MỚI</a>
+</div>
+
+<div class="bg-white rounded-4 shadow-sm border border-secondary-subtle p-0 overflow-hidden">
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0 text-nowrap">
+            <thead class="bg-surface-low text-secondary font-headline small text-uppercase">
+                <tr>
+                    <th class="py-3 px-4">Mã</th>
+                    <th class="py-3">Mức giảm</th>
+                    <th class="py-3">Đơn tối thiểu</th>
+                    <th class="py-3">Thời gian</th>
+                    <th class="py-3">Lượt dùng</th>
+                    <th class="py-3">Trạng thái</th>
+                    <th class="py-3 text-end px-4">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(!item.IsActive ? "opacity-50" : "")">
+                        <td class="px-4 fw-bold text-primary">@item.Code</td>
+                        <td>
+                            @if (item.DiscountPercent.HasValue)
+                            {
+                                <span class="fw-bold">-@item.DiscountPercent%</span>
+                            }
+                            else
+                            {
+                                <span class="fw-bold">-@item.DiscountAmount?.ToString("N0")đ</span>
+                            }
+                        </td>
+                        <td>@item.MinOrderValue.ToString("N0")đ</td>
+                        <td class="small">
+                            <div class="text-secondary">@item.StartDate.ToString("dd/MM/yyyy")</div>
+                            <div class="fw-bold">@item.ExpirationDate.ToString("dd/MM/yyyy")</div>
+                        </td>
+                        <td>
+                            <span class="fw-bold">@item.UsedCount</span> / @(item.UsageLimit?.ToString() ?? "∞")
+                        </td>
+                        <td>
+                            @if (item.IsActive && item.ExpirationDate >= DateTime.Now)
+                            {
+                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">Đang chạy</span>
+                            }
+                            else if (!item.IsActive)
+                            {
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill">Tạm dừng</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle rounded-pill">Hết hạn</span>
+                            }
+                        </td>
+                        <td class="text-end px-4">
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3">Sửa</a>
+                            <button type="button" class="btn btn-sm btn-outline-danger rounded-pill ms-2 btn-delete" 
+                                    data-id="@item.Id" data-name="@item.Code">Xóa</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-body p-4 text-center">
+                <i class="fa-solid fa-trash-can text-danger display-4 mb-3"></i>
+                <h4 class="fw-bold mb-2">Xác nhận xóa</h4>
+                <p class="text-secondary mb-4">Bạn có chắc chắn muốn xóa mã giảm giá <span id="delete-item-name" class="text-dark fw-bold"></span>? Hành động này không thể hoàn tác.</p>
+                <form id="delete-form" method="post" asp-action="Delete">
+                    <input type="hidden" name="id" id="delete-item-id" />
+                    <div class="d-flex gap-2">
+                        <button type="button" class="btn btn-light flex-grow-1 rounded-pill" data-bs-dismiss="modal">Hủy</button>
+                        <button type="submit" class="btn btn-danger flex-grow-1 rounded-pill">Xóa mã</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const deleteModal = new bootstrap.Modal(document.getElementById('deleteModal'));
+            const deleteItemName = document.getElementById('delete-item-name');
+            const deleteItemId = document.getElementById('delete-item-id');
+
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const name = this.getAttribute('data-name');
+                    
+                    deleteItemId.value = id;
+                    deleteItemName.textContent = name;
+                    deleteModal.show();
+                });
+            });
+        });
+    </script>
+}

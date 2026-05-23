@@ -20,11 +20,11 @@
             <div class="col-12 col-md-3">
                 <select name="status" class="form-select bg-light border-0 rounded-pill px-4 shadow-none small">
                     <option value="">@Localizer["AllStatus"]</option>
-                    <option value="Pending" selected="@(Context.Request.Query["status"] == "Pending")">@Localizer["StatusPending"]</option>
-                    <option value="Processing" selected="@(Context.Request.Query["status"] == "Processing")">@Localizer["StatusProcessing"]</option>
-                    <option value="Shipped" selected="@(Context.Request.Query["status"] == "Shipped")">@Localizer["StatusShipped"]</option>
-                    <option value="Delivered" selected="@(Context.Request.Query["status"] == "Delivered")">@Localizer["StatusDelivered"]</option>
-                    <option value="Cancelled" selected="@(Context.Request.Query["status"] == "Cancelled")">@Localizer["StatusCancelled"]</option>
+                    <option value="PENDING" selected="@(Context.Request.Query["status"] == "PENDING")">@Localizer["StatusPending"]</option>
+                    <option value="PROCESSING" selected="@(Context.Request.Query["status"] == "PROCESSING")">@Localizer["StatusProcessing"]</option>
+                    <option value="SHIPPED" selected="@(Context.Request.Query["status"] == "SHIPPED")">@Localizer["StatusShipped"]</option>
+                    <option value="COMPLETED" selected="@(Context.Request.Query["status"] == "COMPLETED")">@Localizer["StatusDelivered"]</option>
+                    <option value="CANCELLED" selected="@(Context.Request.Query["status"] == "CANCELLED")">@Localizer["StatusCancelled"]</option>
                 </select>
             </div>
             <div class="col-12 col-md-4 d-flex gap-2">
@@ -68,40 +68,14 @@
                         <td class="small text-secondary">@order.OrderDate.ToString("dd/MM/yyyy HH:mm")</td>
                         <td class="fw-bold text-primary">@order.FinalAmount.ToString("N0")đ</td>
                         <td>
-                            @if (order.PaymentStatus == "Paid")
-                            {
-                                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill">@Localizer["PaymentPaid"]</span>
-                            }
-                            else if (order.PaymentStatus == "Pending")
-                            {
-                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle rounded-pill">@Localizer["PaymentPending"]</span>
-                            }
-                            else
-                            {
-                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill">@Localizer["PaymentError"]</span>
-                            }
+                            <span class="badge @OrderConstants.GetBadgeClass(order.PaymentStatus) rounded-pill">
+                                @Localizer["Payment" + order.PaymentStatus[0] + order.PaymentStatus.Substring(1).ToLower()]
+                            </span>
                         </td>
                         <td>
-                            @if (order.OrderStatus == "Pending")
-                            {
-                                <span class="badge bg-warning text-dark rounded-pill">@Localizer["StatusPending"]</span>
-                            }
-                            else if (order.OrderStatus == "Processing")
-                            {
-                                <span class="badge bg-info rounded-pill">@Localizer["StatusProcessing"]</span>
-                            }
-                            else if (order.OrderStatus == "Shipped")
-                            {
-                                <span class="badge bg-primary rounded-pill">@Localizer["StatusShipped"]</span>
-                            }
-                            else if (order.OrderStatus == "Delivered")
-                            {
-                                <span class="badge bg-success rounded-pill">@Localizer["StatusDelivered"]</span>
-                            }
-                            else if (order.OrderStatus == "Cancelled")
-                            {
-                                <span class="badge bg-danger rounded-pill">@Localizer["StatusCancelled"]</span>
-                            }
+                            <span class="badge @OrderConstants.GetBadgeClass(order.OrderStatus) rounded-pill">
+                                @Localizer["Status" + order.OrderStatus[0] + order.OrderStatus.Substring(1).ToLower()]
+                            </span>
                         </td>
                         <td class="text-end px-4">
                             <a asp-action="Detail" asp-route-id="@order.Id" class="btn btn-sm btn-outline-dark rounded-pill px-3">@Localizer["ActionDetail"]</a>

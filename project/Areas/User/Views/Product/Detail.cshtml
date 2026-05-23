@@ -68,7 +68,7 @@
                     @Model.Description
                 </p>
 
-                <form id="add-to-cart-form" asp-area="User" asp-controller="Cart" asp-action="AddToCart" method="post">
+                <form id="add-to-cart-form" asp-area="User" asp-controller="Cart" asp-action="Add" method="post">
                     <!-- Color Selection -->
                     <div class="mb-5">
                         <label class="form-label small fw-bold text-secondary text-uppercase tracking-wider">Màu sắc</label>       
@@ -153,15 +153,37 @@
             
             const availableSizes = variants.filter(v => v.Color === selectedColor);
             
-            sizesContainer.innerHTML = availableSizes.map(v => `
-                <div class="col-3 col-md-2">
-                    <input type="radio" class="btn-check" name="variantId" id="v-${v.Id}" value="${v.Id}" ${v.StockQuantity === 0 ? 'disabled' : ''} onchange="enableSubmit()">
-                    <label class="btn btn-outline-secondary w-100 py-3 fw-bold ${v.StockQuantity === 0 ? 'opacity-25' : ''}" for="v-${v.Id}">
-                        ${v.Size}
-                        ${v.StockQuantity > 0 && v.StockQuantity < 5 ? `<small class="d-block text-danger" style="font-size:0.5rem">Chỉ còn ${v.StockQuantity}</small>` : ''}
-                    </label>
-                </div>
-            `).join('');
+            sizesContainer.innerHTML = ''; // Clear existing
+            availableSizes.forEach(v => {
+                const col = document.createElement('div');
+                col.className = 'col-3 col-md-2';
+                
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.className = 'btn-check';
+                input.name = 'variantId';
+                input.id = `v-${v.Id}`;
+                input.value = v.Id;
+                if (v.StockQuantity === 0) input.disabled = true;
+                input.onchange = enableSubmit;
+                
+                const label = document.createElement('label');
+                label.className = `btn btn-outline-secondary w-100 py-3 fw-bold ${v.StockQuantity === 0 ? 'opacity-25' : ''}`;
+                label.setAttribute('for', `v-${v.Id}`);
+                label.textContent = v.Size;
+                
+                if (v.StockQuantity > 0 && v.StockQuantity < 5) {
+                    const small = document.createElement('small');
+                    small.className = 'd-block text-danger';
+                    small.style.fontSize = '0.5rem';
+                    small.textContent = `Chỉ còn ${v.StockQuantity}`;
+                    label.appendChild(small);
+                }
+                
+                col.appendChild(input);
+                col.appendChild(label);
+                sizesContainer.appendChild(col);
+            });
 
             submitBtn.disabled = true;
             submitBtn.innerText = "CHỌN KÍCH THƯỚC";
