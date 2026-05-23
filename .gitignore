@@ -29,4 +29,7 @@ Thumbs.db
 
 .gemini/
 
-project/*.md
+report.md
+TASK.md
+gemini.md
+SESSION_SUMMARY.md
