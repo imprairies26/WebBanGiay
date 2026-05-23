@@ -25,6 +25,30 @@ namespace project.Areas.POS.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> GetAllProducts()
+        {
+            var variants = await _context.ProductVariants
+                .Include(v => v.Product)
+                .ThenInclude(p => p.ProductImages)
+                .Where(v => v.Product.IsActive && v.StockQuantity > 0)
+                .Select(v => new {
+                    id = v.Id,
+                    name = v.Product.Name,
+                    size = v.Size,
+                    color = v.Color,
+                    sku = v.Sku,
+                    price = v.Product.SalePrice ?? v.Product.BasePrice,
+                    stock = v.StockQuantity,
+                    image = v.Product.ProductImages.Any(i => i.IsMain) 
+                        ? v.Product.ProductImages.First(i => i.IsMain).ImageUrl 
+                        : (v.Product.ProductImages.Any() ? v.Product.ProductImages.First().ImageUrl : "/Data/blank_avatar.webp")
+                })
+                .ToListAsync();
+
+            return Json(variants);
+        }
+
+        [HttpGet]
         public async Task<IActionResult> SearchProduct(string query)
         {
             if (string.IsNullOrEmpty(query)) return Json(new List<object>());
@@ -69,9 +93,9 @@ namespace project.Areas.POS.Controllers
                     DiscountAmount = request.DiscountAmount,
                     FinalAmount = request.FinalAmount,
                     PaymentMethod = request.PaymentMethod,
-                    PaymentStatus = "COMPLETED",
-                    OrderStatus = "COMPLETED",
-                    OrderType = "POS",
+                    PaymentStatus = OrderConstants.Payment.PAID,
+                    OrderStatus = OrderConstants.Status.COMPLETED,
+                    OrderType = OrderConstants.Type.POS,
                     CustomerNote = "POS Order",
                     UpdatedAt = DateTime.Now
                 };

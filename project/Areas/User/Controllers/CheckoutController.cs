@@ -76,7 +76,7 @@ namespace project.Areas.User.Controllers
             if (!string.IsNullOrEmpty(promoCode))
             {
                 var promotion = await _context.Promotions.FirstOrDefaultAsync(p => p.Code == promoCode && p.IsActive && p.StartDate <= DateTime.Now && p.ExpirationDate >= DateTime.Now);
-                if (promotion != null && totalAmount >= promotion.MinOrderValue)
+                if (promotion != null && totalAmount >= promotion.MinOrderValue && (promotion.UsageLimit == null || promotion.UsedCount < promotion.UsageLimit))
                 {
                     promotionId = promotion.Id;
                     if (promotion.DiscountPercent.HasValue)
@@ -87,6 +87,9 @@ namespace project.Areas.User.Controllers
                     {
                         discountAmount = promotion.DiscountAmount.Value;
                     }
+                    
+                    // Increment usage count
+                    promotion.UsedCount++;
                 }
             }
 
@@ -105,9 +108,9 @@ namespace project.Areas.User.Controllers
                     DiscountAmount = discountAmount,
                     FinalAmount = finalAmount,
                     PaymentMethod = paymentMethod,
-                    PaymentStatus = "PENDING",
-                    OrderStatus = "PENDING",
-                    OrderType = "ONLINE",
+                    PaymentStatus = OrderConstants.Payment.PENDING,
+                    OrderStatus = OrderConstants.Status.PENDING,
+                    OrderType = OrderConstants.Type.ONLINE,
                     ShippingAddress = $"{fullName} | {phoneNumber} | {shippingAddress}",
                     CustomerNote = customerNote,
                     UpdatedAt = DateTime.Now
@@ -185,6 +188,9 @@ namespace project.Areas.User.Controllers
             
             if (promotion == null)
                 return Json(new { success = false, message = "Mã giảm giá không tồn tại hoặc đã hết hạn." });
+
+            if (promotion.UsageLimit.HasValue && promotion.UsedCount >= promotion.UsageLimit.Value)
+                return Json(new { success = false, message = "Mã giảm giá này đã hết lượt sử dụng." });
 
             if (currentTotal < promotion.MinOrderValue)
                 return Json(new { success = false, message = $"Đơn hàng tối thiểu {promotion.MinOrderValue:N0}đ để sử dụng mã này." });

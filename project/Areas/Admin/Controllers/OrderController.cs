@@ -68,11 +68,12 @@ namespace project.Areas.Admin.Controllers
             {
                 if (!string.IsNullOrEmpty(orderStatus))
                 {
-                    order.OrderStatus = orderStatus;
+                    // Map from UI values if they differ, but we should align UI values too
+                    order.OrderStatus = orderStatus.ToUpper(); 
                 }
                 if (!string.IsNullOrEmpty(paymentStatus))
                 {
-                    order.PaymentStatus = paymentStatus;
+                    order.PaymentStatus = paymentStatus.ToUpper();
                 }
                 order.UpdatedAt = DateTime.Now;
                 await _context.SaveChangesAsync();

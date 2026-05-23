@@ -5,7 +5,7 @@ using System.Text;
 using BCrypt.Net;
 using Microsoft.EntityFrameworkCore;
 
-namespace project.Controllers
+namespace project.Controllers.Web
 {
     public class AccountController : Controller
     {

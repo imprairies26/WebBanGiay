@@ -44,6 +44,24 @@ namespace project.Areas.User.Controllers
             return View(user);
         }
 
+        public async Task<IActionResult> OrderDetail(int id)
+        {
+            var userId = GetUserId();
+            if (string.IsNullOrEmpty(userId)) return RedirectToAction("Login", "Account", new { area = "" });
+
+            var order = await _context.Orders
+                .Include(o => o.OrderDetails)
+                    .ThenInclude(od => od.ProductVariant)
+                        .ThenInclude(pv => pv.Product)
+                            .ThenInclude(p => p.ProductImages)
+                .Include(o => o.Promotion)
+                .FirstOrDefaultAsync(o => o.Id == id && o.UserId == userId);
+
+            if (order == null) return NotFound();
+
+            return View(order);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateInfo(string fullName, string? phoneNumber)

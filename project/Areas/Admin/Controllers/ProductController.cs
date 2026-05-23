@@ -61,9 +61,10 @@ namespace project.Areas.Admin.Controllers
         public async Task<IActionResult> Create(Product product)
         {
             ModelState.Remove("Category");
+            // Remove validation for navigation properties to avoid IsValid = false
             foreach (var key in ModelState.Keys.ToList())
             {
-                if (key.EndsWith(".Product") || key.EndsWith(".Sku") || key.EndsWith(".CartItems") || key.EndsWith(".OrderDetails"))
+                if (key.Contains(".Product") || key.EndsWith(".Sku") || key.Contains(".CartItems") || key.Contains(".OrderDetails"))
                 {
                     ModelState.Remove(key);
                 }
@@ -73,19 +74,19 @@ namespace project.Areas.Admin.Controllers
             {
                 product.CreatedAt = DateTime.Now;
                 product.UpdatedAt = DateTime.Now;
-                product.IsActive = product.IsActive; // It's bound from view
 
-                // The view submits ProductImages and ProductVariants mapped within product object.
-                if (product.ProductImages != null)
+                // Process Images
+                if (product.ProductImages != null && product.ProductImages.Any())
                 {
-                    for (int i = 0; i < product.ProductImages.Count; i++)
+                    int i = 0;
+                    foreach (var img in product.ProductImages)
                     {
-                        var img = product.ProductImages.ElementAt(i);
-                        img.SortOrder = i;
+                        img.SortOrder = i++;
                     }
                 }
 
-                if (product.ProductVariants != null)
+                // Process Variants
+                if (product.ProductVariants != null && product.ProductVariants.Any())
                 {
                     foreach (var variant in product.ProductVariants)
                     {
@@ -101,9 +102,8 @@ namespace project.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            var categories = await _context.Categories.ToListAsync();
-            ViewBag.Categories = categories;
-            ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.CategoryId);
+            
+            ViewBag.Categories = await _context.Categories.ToListAsync();
             return View(product);
         }
 
@@ -118,9 +118,7 @@ namespace project.Areas.Admin.Controllers
 
             ViewData["Title"] = "Chỉnh sửa sản phẩm";
             ViewData["ActiveNav"] = "Products";
-            var categories = await _context.Categories.ToListAsync();
-            ViewBag.Categories = categories;
-            ViewBag.CategoryId = new SelectList(categories, "Id", "Name", product.CategoryId);
+            ViewBag.Categories = await _context.Categories.ToListAsync();
             return View(product);
         }
 
@@ -133,7 +131,7 @@ namespace project.Areas.Admin.Controllers
             ModelState.Remove("Category");
             foreach (var key in ModelState.Keys.ToList())
             {
-                if (key.EndsWith(".Product") || key.EndsWith(".Sku") || key.EndsWith(".CartItems") || key.EndsWith(".OrderDetails"))
+                if (key.Contains(".Product") || key.EndsWith(".Sku") || key.Contains(".CartItems") || key.Contains(".OrderDetails"))
                 {
                     ModelState.Remove(key);
                 }
@@ -150,6 +148,7 @@ namespace project.Areas.Admin.Controllers
                         
                     if (existingProduct == null) return NotFound();
 
+                    // Update basic info
                     existingProduct.Name = product.Name;
                     existingProduct.Description = product.Description;
                     existingProduct.BasePrice = product.BasePrice;
@@ -159,38 +158,41 @@ namespace project.Areas.Admin.Controllers
                     existingProduct.IsActive = product.IsActive;
                     existingProduct.UpdatedAt = DateTime.Now;
 
-                    // Update Images
+                    // Update Images: Clear and Re-add (Safely)
                     _context.ProductImages.RemoveRange(existingProduct.ProductImages);
                     if (product.ProductImages != null)
                     {
-                        for (int i = 0; i < product.ProductImages.Count; i++)
+                        int i = 0;
+                        foreach (var img in product.ProductImages)
                         {
-                            var img = product.ProductImages.ElementAt(i);
-                            img.Id = 0; // reset ID to add new
-                            img.ProductId = id;
-                            img.SortOrder = i;
-                            existingProduct.ProductImages.Add(img);
+                            existingProduct.ProductImages.Add(new ProductImage 
+                            { 
+                                ProductId = id,
+                                ImageUrl = img.ImageUrl,
+                                IsMain = img.IsMain,
+                                SortOrder = i++
+                            });
                         }
                     }
 
-                    // Update Variants
+                    // Update Variants: Clear and Re-add (Safely)
                     _context.ProductVariants.RemoveRange(existingProduct.ProductVariants);
                     if (product.ProductVariants != null)
                     {
                         foreach (var variant in product.ProductVariants)
                         {
-                            variant.Id = 0; // reset ID to add new
-                            variant.ProductId = id;
-                            variant.UpdatedAt = DateTime.Now;
-                            if (string.IsNullOrEmpty(variant.Sku))
+                            existingProduct.ProductVariants.Add(new ProductVariant
                             {
-                                variant.Sku = Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper();
-                            }
-                            existingProduct.ProductVariants.Add(variant);
+                                ProductId = id,
+                                Size = variant.Size,
+                                Color = variant.Color,
+                                Sku = string.IsNullOrEmpty(variant.Sku) ? Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper() : variant.Sku,
+                                StockQuantity = variant.StockQuantity,
+                                UpdatedAt = DateTime.Now
+                            });
                         }
                     }
 
-                    _context.Update(existingProduct);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -200,9 +202,8 @@ namespace project.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            var categoriesList = await _context.Categories.ToListAsync();
-            ViewBag.Categories = categoriesList;
-            ViewBag.CategoryId = new SelectList(categoriesList, "Id", "Name", product.CategoryId);
+            
+            ViewBag.Categories = await _context.Categories.ToListAsync();
             return View(product);
         }
 

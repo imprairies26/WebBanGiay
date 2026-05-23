@@ -31,10 +31,10 @@ namespace project.Areas.Admin.Controllers
             var viewModel = new AdminDashboardViewModel
             {
                 TotalOrders = await _context.Orders.CountAsync(),
-                CompletedOrders = await _context.Orders.CountAsync(o => o.OrderStatus == "COMPLETED"),
-                TotalRevenue = await _context.Orders.Where(o => o.OrderStatus == "COMPLETED").SumAsync(o => o.FinalAmount),
-                OnlineOrders = await _context.Orders.CountAsync(o => o.OrderType == "ONLINE"),
-                PosOrders = await _context.Orders.CountAsync(o => o.OrderType == "POS"),
+                CompletedOrders = await _context.Orders.CountAsync(o => o.OrderStatus == OrderConstants.Status.COMPLETED),
+                TotalRevenue = await _context.Orders.Where(o => o.OrderStatus == OrderConstants.Status.COMPLETED).SumAsync(o => o.FinalAmount),
+                OnlineOrders = await _context.Orders.CountAsync(o => o.OrderType == OrderConstants.Type.ONLINE),
+                PosOrders = await _context.Orders.CountAsync(o => o.OrderType == OrderConstants.Type.POS),
                 TotalCustomers = await _context.Users.CountAsync(u => u.RoleId == 3),
                 TotalProducts = await _context.Products.CountAsync(),
                 RecentOrders = recentOrders
