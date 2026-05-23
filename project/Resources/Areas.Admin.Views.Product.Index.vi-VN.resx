@@ -58,61 +58,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ManageUsers" xml:space="preserve">
-    <value>Quản lý người dùng</value>
+  <data name="ProductManagementTitle" xml:space="preserve">
+    <value>Quản lý sản phẩm</value>
   </data>
-  <data name="ManageUsersTitle" xml:space="preserve">
-    <value>QUẢN LÝ NGƯỜI DÙNG</value>
+  <data name="AddProduct" xml:space="preserve">
+    <value>+ Thêm sản phẩm</value>
   </data>
   <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Tìm tên hoặc email...</value>
+    <value>Tìm tên sản phẩm...</value>
   </data>
-  <data name="AllRoles" xml:space="preserve">
-    <value>Tất cả vai trò</value>
+  <data name="AllCategories" xml:space="preserve">
+    <value>Tất cả danh mục</value>
   </data>
   <data name="Filter" xml:space="preserve">
-    <value>LỌC</value>
+    <value>Lọc</value>
   </data>
   <data name="Reset" xml:space="preserve">
     <value>RESET</value>
   </data>
-  <data name="User" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="Category" xml:space="preserve">
+    <value>Danh mục</value>
   </data>
-  <data name="Role" xml:space="preserve">
-    <value>Vai trò</value>
+  <data name="Stock" xml:space="preserve">
+    <value>Tồn kho</value>
   </data>
-  <data name="JoinDate" xml:space="preserve">
-    <value>Ngày tham gia</value>
+  <data name="Price" xml:space="preserve">
+    <value>Giá bán</value>
   </data>
   <data name="Status" xml:space="preserve">
     <value>Trạng thái</value>
   </data>
-  <data name="Action" xml:space="preserve">
+  <data name="Actions" xml:space="preserve">
     <value>Hành động</value>
   </data>
+  <data name="Sale" xml:space="preserve">
+    <value>Sale</value>
+  </data>
   <data name="Active" xml:space="preserve">
-    <value>Đang hoạt động</value>
+    <value>Đang bán</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>Đã khóa</value>
+  <data name="Inactive" xml:space="preserve">
+    <value>Ngừng bán</value>
   </data>
-  <data name="ChangeRole" xml:space="preserve">
-    <value>Thay đổi vai trò</value>
+  <data name="Featured" xml:space="preserve">
+    <value>Nổi bật</value>
   </data>
-  <data name="UserLabel" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Edit" xml:space="preserve">
+    <value>Sửa</value>
   </data>
-  <data name="NewRole" xml:space="preserve">
-    <value>Vai trò mới</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Xóa</value>
+  </data>
+  <data name="ConfirmDelete" xml:space="preserve">
+    <value>Xác nhận xóa</value>
+  </data>
+  <data name="DeletePrompt" xml:space="preserve">
+    <value>Bạn có chắc chắn muốn ngừng bán sản phẩm</value>
   </data>
   <data name="Cancel" xml:space="preserve">
     <value>Hủy</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Lưu thay đổi</value>
   </data>
 </root>

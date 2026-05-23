@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="CheckoutTitle" xml:space="preserve">
+    <value>Thanh toán</value>
+  </data>
+  <data name="ShippingInfoHeader" xml:space="preserve">
+    <value>Thông tin giao hàng</value>
+  </data>
+  <data name="FullName" xml:space="preserve">
+    <value>Họ và tên người nhận</value>
+  </data>
+  <data name="FullNamePlaceholder" xml:space="preserve">
+    <value>Nhập họ và tên</value>
+  </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Số điện thoại</value>
+  </data>
+  <data name="EmailOptional" xml:space="preserve">
+    <value>Địa chỉ Email (Tùy chọn)</value>
+  </data>
+  <data name="ShippingAddress" xml:space="preserve">
+    <value>Địa chỉ nhận hàng</value>
+  </data>
+  <data name="ShippingAddressPlaceholder" xml:space="preserve">
+    <value>Số nhà, tên đường, phường/xã, quận/huyện, tỉnh/thành phố</value>
+  </data>
+  <data name="OrderNote" xml:space="preserve">
+    <value>Ghi chú đơn hàng (Tùy chọn)</value>
+  </data>
+  <data name="OrderNotePlaceholder" xml:space="preserve">
+    <value>Ví dụ: Giao giờ hành chính, gọi trước khi giao...</value>
+  </data>
+  <data name="PaymentMethodHeader" xml:space="preserve">
+    <value>Phương thức thanh toán</value>
+  </data>
+  <data name="PaymentCOD" xml:space="preserve">
+    <value>Thanh toán khi nhận hàng (COD)</value>
+  </data>
+  <data name="PaymentCODDesc" xml:space="preserve">
+    <value>Thanh toán bằng tiền mặt khi shipper giao hàng đến</value>
+  </data>
+  <data name="PaymentBank" xml:space="preserve">
+    <value>Chuyển khoản ngân hàng</value>
+  </data>
+  <data name="PaymentBankDesc" xml:space="preserve">
+    <value>Thông tin chuyển khoản sẽ hiển thị sau khi đặt hàng</value>
+  </data>
+  <data name="YourOrderHeader" xml:space="preserve">
+    <value>Đơn hàng của bạn</value>
+  </data>
+  <data name="PromoCode" xml:space="preserve">
+    <value>Mã giảm giá</value>
+  </data>
+  <data name="PromoPlaceholder" xml:space="preserve">
+    <value>Nhập mã ưu đãi</value>
+  </data>
+  <data name="ApplyBtn" xml:space="preserve">
+    <value>Áp dụng</value>
+  </data>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Tạm tính</value>
+  </data>
+  <data name="ShippingFee" xml:space="preserve">
+    <value>Phí vận chuyển</value>
+  </data>
+  <data name="Free" xml:space="preserve">
+    <value>Miễn phí</value>
+  </data>
+  <data name="Discount" xml:space="preserve">
+    <value>Giảm giá</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
+  </data>
+  <data name="PlaceOrderBtn" xml:space="preserve">
+    <value>ĐẶT HÀNG NGAY</value>
+  </data>
+  <data name="TermsAgreement" xml:space="preserve">
+    <value>Bằng cách nhấp vào "Đặt hàng ngay", bạn đồng ý với Điều khoản &amp; Điều kiện của KINETIC.</value>
+  </data>
+</root>

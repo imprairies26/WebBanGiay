@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -58,61 +58,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ManageUsers" xml:space="preserve">
-    <value>Quản lý người dùng</value>
+  <data name="CartTitle" xml:space="preserve">
+    <value>Shopping Cart</value>
   </data>
-  <data name="ManageUsersTitle" xml:space="preserve">
-    <value>QUẢN LÝ NGƯỜI DÙNG</value>
+  <data name="YourCart" xml:space="preserve">
+    <value>Your Shopping Cart</value>
   </data>
-  <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Tìm tên hoặc email...</value>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>Your cart is empty</value>
   </data>
-  <data name="AllRoles" xml:space="preserve">
-    <value>Tất cả vai trò</value>
+  <data name="EmptyCartSub" xml:space="preserve">
+    <value>Continue shopping to find your perfect pair!</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>LỌC</value>
+  <data name="BackToShop" xml:space="preserve">
+    <value>BACK TO SHOP</value>
   </data>
-  <data name="Reset" xml:space="preserve">
-    <value>RESET</value>
+  <data name="Product" xml:space="preserve">
+    <value>Product</value>
   </data>
-  <data name="User" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Size" xml:space="preserve">
+    <value>Size</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="Quantity" xml:space="preserve">
+    <value>Quantity</value>
   </data>
-  <data name="Role" xml:space="preserve">
-    <value>Vai trò</value>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
-  <data name="JoinDate" xml:space="preserve">
-    <value>Ngày tham gia</value>
+  <data name="Color" xml:space="preserve">
+    <value>Color</value>
   </data>
-  <data name="Status" xml:space="preserve">
-    <value>Trạng thái</value>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
   </data>
-  <data name="Action" xml:space="preserve">
-    <value>Hành động</value>
+  <data name="OrderSummary" xml:space="preserve">
+    <value>Order Summary</value>
   </data>
-  <data name="Active" xml:space="preserve">
-    <value>Đang hoạt động</value>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>Đã khóa</value>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping</value>
   </data>
-  <data name="ChangeRole" xml:space="preserve">
-    <value>Thay đổi vai trò</value>
+  <data name="Free" xml:space="preserve">
+    <value>Free</value>
   </data>
-  <data name="UserLabel" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
   </data>
-  <data name="NewRole" xml:space="preserve">
-    <value>Vai trò mới</value>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total Amount</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Hủy</value>
+  <data name="Checkout" xml:space="preserve">
+    <value>PROCEED TO CHECKOUT</value>
   </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Lưu thay đổi</value>
+  <data name="SafePayment" xml:space="preserve">
+    <value>100% Secure Payment</value>
+  </data>
+  <data name="FastShipping" xml:space="preserve">
+    <value>Fast shipping in 2-4 days</value>
   </data>
 </root>

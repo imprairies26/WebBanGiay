@@ -58,61 +58,64 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ManageUsers" xml:space="preserve">
-    <value>Quản lý người dùng</value>
+  <data name="CartTitle" xml:space="preserve">
+    <value>Giỏ hàng</value>
   </data>
-  <data name="ManageUsersTitle" xml:space="preserve">
-    <value>QUẢN LÝ NGƯỜI DÙNG</value>
+  <data name="YourCart" xml:space="preserve">
+    <value>Giỏ hàng của bạn</value>
   </data>
-  <data name="SearchPlaceholder" xml:space="preserve">
-    <value>Tìm tên hoặc email...</value>
+  <data name="EmptyCart" xml:space="preserve">
+    <value>Giỏ hàng của bạn đang trống</value>
   </data>
-  <data name="AllRoles" xml:space="preserve">
-    <value>Tất cả vai trò</value>
+  <data name="EmptyCartSub" xml:space="preserve">
+    <value>Hãy tiếp tục mua sắm để tìm cho mình đôi giày ưng ý nhất!</value>
   </data>
-  <data name="Filter" xml:space="preserve">
-    <value>LỌC</value>
+  <data name="BackToShop" xml:space="preserve">
+    <value>QUAY LẠI CỬA HÀNG</value>
   </data>
-  <data name="Reset" xml:space="preserve">
-    <value>RESET</value>
+  <data name="Product" xml:space="preserve">
+    <value>Sản phẩm</value>
   </data>
-  <data name="User" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Size" xml:space="preserve">
+    <value>Kích thước</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="Quantity" xml:space="preserve">
+    <value>Số lượng</value>
   </data>
-  <data name="Role" xml:space="preserve">
-    <value>Vai trò</value>
+  <data name="Total" xml:space="preserve">
+    <value>Tổng cộng</value>
   </data>
-  <data name="JoinDate" xml:space="preserve">
-    <value>Ngày tham gia</value>
+  <data name="Color" xml:space="preserve">
+    <value>Màu</value>
   </data>
-  <data name="Status" xml:space="preserve">
-    <value>Trạng thái</value>
+  <data name="Remove" xml:space="preserve">
+    <value>Xóa</value>
   </data>
-  <data name="Action" xml:space="preserve">
-    <value>Hành động</value>
+  <data name="OrderSummary" xml:space="preserve">
+    <value>Tóm tắt đơn hàng</value>
   </data>
-  <data name="Active" xml:space="preserve">
-    <value>Đang hoạt động</value>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Tạm tính</value>
   </data>
-  <data name="Locked" xml:space="preserve">
-    <value>Đã khóa</value>
+  <data name="Shipping" xml:space="preserve">
+    <value>Phí vận chuyển</value>
   </data>
-  <data name="ChangeRole" xml:space="preserve">
-    <value>Thay đổi vai trò</value>
+  <data name="Free" xml:space="preserve">
+    <value>Miễn phí</value>
   </data>
-  <data name="UserLabel" xml:space="preserve">
-    <value>Người dùng</value>
+  <data name="Discount" xml:space="preserve">
+    <value>Giảm giá</value>
   </data>
-  <data name="NewRole" xml:space="preserve">
-    <value>Vai trò mới</value>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Thành tiền</value>
   </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Hủy</value>
+  <data name="Checkout" xml:space="preserve">
+    <value>TIẾN HÀNH THANH TOÁN</value>
   </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Lưu thay đổi</value>
+  <data name="SafePayment" xml:space="preserve">
+    <value>Thanh toán an toàn 100%</value>
+  </data>
+  <data name="FastShipping" xml:space="preserve">
+    <value>Giao hàng nhanh từ 2-4 ngày</value>
   </data>
 </root>

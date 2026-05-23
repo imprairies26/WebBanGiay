@@ -1,27 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
-          <xsd:element name="metadata">
-            <xsd:complexType>
-              <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
-              </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
-            </xsd:complexType>
-          </xsd:element>
-          <xsd:element name="assembly">
-            <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
-            </xsd:complexType>
-          </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
@@ -58,40 +41,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LoginTitle" xml:space="preserve">
-    <value>Login</value>
+  <data name="SuccessTitle" xml:space="preserve">
+    <value>Order Successful</value>
   </data>
-  <data name="HeroTagline" xml:space="preserve">
-    <value>JUST WALK - WE'LL HANDLE THE REST</value>
+  <data name="ThankYouHeader" xml:space="preserve">
+    <value>Thank you for choosing KINETIC!</value>
   </data>
-  <data name="WelcomeBack" xml:space="preserve">
-    <value>Welcome back.</value>
+  <data name="OrderReceivedMsg" xml:space="preserve">
+    <value>Your order has been received and is being processed. We will send you a confirmation email and shipping tracking information soon.</value>
   </data>
-  <data name="LoginSubtitle" xml:space="preserve">
-    <value>Please login to continue your journey with Kinetic.</value>
+  <data name="OrderNoLabel" xml:space="preserve">
+    <value>Order ID:</value>
   </data>
-  <data name="EmailOrUsername" xml:space="preserve">
-    <value>Email or Username</value>
+  <data name="ContinueShoppingBtn" xml:space="preserve">
+    <value>CONTINUE SHOPPING</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
+  <data name="ViewOrderBtn" xml:space="preserve">
+    <value>VIEW ORDER</value>
   </data>
-  <data name="ForgotPassword" xml:space="preserve">
-    <value>Forgot password?</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Remember me</value>
-  </data>
-  <data name="LoginButton" xml:space="preserve">
-    <value>LOGIN NOW</value>
-  </data>
-  <data name="OrLoginWith" xml:space="preserve">
-    <value>Or login with</value>
-  </data>
-  <data name="NoAccount" xml:space="preserve">
-    <value>Don't have an account?</value>
-  </data>
-  <data name="RegisterLink" xml:space="preserve">
-    <value>Register here</value>
+  <data name="SupportText" xml:space="preserve">
+    <value>Need help? Contact us</value>
   </data>
 </root>
