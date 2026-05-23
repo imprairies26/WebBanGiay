@@ -79,8 +79,8 @@
                 <img src="@(string.IsNullOrEmpty(userAvatar) ? "/Data/blank_avatar.webp" : userAvatar)" class="rounded-circle border" style="width: 32px; height: 32px; object-fit: cover;" alt="Avatar">
                 <span class="small fw-bold d-none d-lg-inline">@userName</span>
             </a>
-            <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-link text-secondary p-2 border-0 hover-lift rounded-circle" title="@Localizer["Logout"]">
-                <i class="fa-solid fa-arrow-right-from-bracket fs-6"></i>
+                <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-link text-secondary border-0 hover-lift rounded-circle shadow" title="@Localizer["Logout"]">
+                    <i class="fa-solid fa-arrow-right-from-bracket fs-6" style="color: rgb(235, 71, 71);"></i>
             </a>
         }
         else

@@ -24,7 +24,7 @@
     <!-- Sidebar -->
     <div class="admin-sidebar bg-dark text-white h-100 d-flex flex-column p-4 shadow-lg" style="width: 280px; z-index: 1050;">
         <div class="mb-5 px-2 d-flex align-items-center justify-content-between">
-            <a class="text-decoration-none font-headline fs-4 fst-italic text-white fw-bold tracking-tighter" asp-area="User" asp-controller="Home" asp-action="Index">KINETIC</a>
+            <a class="text-decoration-none font-headline fs-4 fst-italic text-white fw-bold tracking-tighter" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">KINETIC</a>
             <!-- Language Selector Mini -->
             <div class="dropdown">
                 <button class="btn btn-link text-white opacity-50 p-0 border-0 dropdown-toggle no-caret" type="button" data-bs-toggle="dropdown">
@@ -74,6 +74,11 @@
                class="list-group-item list-group-item-action bg-transparent text-white py-3 d-flex align-items-center gap-3 @(ViewData["ActiveNav"]?.ToString() == "Orders" ? "active" : "opacity-50")">
                 <i class="fa-solid fa-receipt fs-5"></i>
                 <span class="fw-bold">@Localizer["Orders"]</span>
+            </a>
+            <a asp-area="Admin" asp-controller="Promotion" asp-action="Index" 
+               class="list-group-item list-group-item-action bg-transparent text-white py-3 d-flex align-items-center gap-3 @(ViewData["ActiveNav"]?.ToString() == "Promotions" ? "active" : "opacity-50")">
+                <i class="fa-solid fa-ticket fs-5"></i>
+                <span class="fw-bold">@Localizer["Promotions"]</span>
             </a>
         </div>
 
