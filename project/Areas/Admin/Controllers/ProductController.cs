@@ -102,7 +102,7 @@ namespace project.Areas.Admin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            
+
             ViewBag.Categories = await _context.Categories.ToListAsync();
             return View(product);
         }
@@ -145,7 +145,7 @@ namespace project.Areas.Admin.Controllers
                         .Include(p => p.ProductImages)
                         .Include(p => p.ProductVariants)
                         .FirstOrDefaultAsync(p => p.Id == id);
-                        
+
                     if (existingProduct == null) return NotFound();
 
                     // Update basic info
@@ -158,38 +158,86 @@ namespace project.Areas.Admin.Controllers
                     existingProduct.IsActive = product.IsActive;
                     existingProduct.UpdatedAt = DateTime.Now;
 
-                    // Update Images: Clear and Re-add (Safely)
-                    _context.ProductImages.RemoveRange(existingProduct.ProductImages);
+                    // 1. Sync Images
+                    var incomingImageIds = product.ProductImages?.Select(i => i.Id).Where(id => id > 0).ToList() ?? new List<int>();
+                    var imagesToRemove = existingProduct.ProductImages.Where(i => !incomingImageIds.Contains(i.Id)).ToList();
+                    _context.ProductImages.RemoveRange(imagesToRemove);
+
                     if (product.ProductImages != null)
                     {
-                        int i = 0;
-                        foreach (var img in product.ProductImages)
+                        int sortOrder = 0;
+                        foreach (var incomingImg in product.ProductImages)
                         {
-                            existingProduct.ProductImages.Add(new ProductImage 
-                            { 
-                                ProductId = id,
-                                ImageUrl = img.ImageUrl,
-                                IsMain = img.IsMain,
-                                SortOrder = i++
-                            });
+                            if (incomingImg.Id > 0)
+                            {
+                                // Update existing
+                                var existingImg = existingProduct.ProductImages.FirstOrDefault(i => i.Id == incomingImg.Id);
+                                if (existingImg != null)
+                                {
+                                    existingImg.ImageUrl = incomingImg.ImageUrl;
+                                    existingImg.IsMain = incomingImg.IsMain;
+                                    existingImg.SortOrder = sortOrder++;
+                                }
+                            }
+                            else
+                            {
+                                // Add new
+                                existingProduct.ProductImages.Add(new ProductImage
+                                {
+                                    ImageUrl = incomingImg.ImageUrl,
+                                    IsMain = incomingImg.IsMain,
+                                    SortOrder = sortOrder++
+                                });
+                            }
                         }
                     }
 
-                    // Update Variants: Clear and Re-add (Safely)
-                    _context.ProductVariants.RemoveRange(existingProduct.ProductVariants);
+                    // 2. Sync Variants
+                    var incomingVariantIds = product.ProductVariants?.Select(v => v.Id).Where(id => id > 0).ToList() ?? new List<int>();
+                    var variantsToRemove = existingProduct.ProductVariants.Where(v => !incomingVariantIds.Contains(v.Id)).ToList();
+                    
+                    // Only remove variants if they are not in use (or let DB handle error if strict sync is required)
+                    // Given the FK error, we should be careful here. 
+                    // For now, we attempt to remove them as requested, but we use a more granular update for existing ones.
+                    _context.ProductVariants.RemoveRange(variantsToRemove);
+
                     if (product.ProductVariants != null)
                     {
-                        foreach (var variant in product.ProductVariants)
+                        foreach (var incomingVar in product.ProductVariants)
                         {
-                            existingProduct.ProductVariants.Add(new ProductVariant
+                            if (incomingVar.Id > 0)
                             {
-                                ProductId = id,
-                                Size = variant.Size,
-                                Color = variant.Color,
-                                Sku = string.IsNullOrEmpty(variant.Sku) ? Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper() : variant.Sku,
-                                StockQuantity = variant.StockQuantity,
-                                UpdatedAt = DateTime.Now
-                            });
+                                // Update existing
+                                var existingVar = existingProduct.ProductVariants.FirstOrDefault(v => v.Id == incomingVar.Id);
+                                if (existingVar != null)
+                                {
+                                    existingVar.Size = incomingVar.Size;
+                                    existingVar.Color = incomingVar.Color;
+                                    existingVar.StockQuantity = incomingVar.StockQuantity;
+                                    existingVar.UpdatedAt = DateTime.Now;
+                                    // Keep SKU or update if empty
+                                    if (string.IsNullOrEmpty(existingVar.Sku))
+                                    {
+                                        existingVar.Sku = string.IsNullOrEmpty(incomingVar.Sku) 
+                                            ? Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper() 
+                                            : incomingVar.Sku;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                // Add new
+                                existingProduct.ProductVariants.Add(new ProductVariant
+                                {
+                                    Size = incomingVar.Size,
+                                    Color = incomingVar.Color,
+                                    StockQuantity = incomingVar.StockQuantity,
+                                    Sku = string.IsNullOrEmpty(incomingVar.Sku) 
+                                        ? Guid.NewGuid().ToString("N").Substring(0, 8).ToUpper() 
+                                        : incomingVar.Sku,
+                                    UpdatedAt = DateTime.Now
+                                });
+                            }
                         }
                     }
 
@@ -202,7 +250,7 @@ namespace project.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            
+
             ViewBag.Categories = await _context.Categories.ToListAsync();
             return View(product);
         }

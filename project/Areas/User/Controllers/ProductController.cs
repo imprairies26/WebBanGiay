@@ -30,7 +30,7 @@ namespace project.Areas.User.Controllers
 
             ViewData["Title"] = product.Name;
             ViewData["ActiveNav"] = "Shop";
-            
+
             return View(product);
         }
     }

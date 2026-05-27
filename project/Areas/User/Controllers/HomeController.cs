@@ -17,11 +17,11 @@ namespace project.Areas.User.Controllers
         }
 
         public async Task<IActionResult> Index(
-            string? search, 
-            int[]? categories, 
-            string[]? sizes, 
-            string[]? colors, 
-            string? sortBy, 
+            string? search,
+            int[]? categories,
+            string[]? sizes,
+            string[]? colors,
+            string? sortBy,
             int page = 1)
         {
             ViewData["Title"] = "Shop";
@@ -50,7 +50,7 @@ namespace project.Areas.User.Controllers
             // Sizes & Colors (from ProductVariants)
             if ((sizes != null && sizes.Length > 0) || (colors != null && colors.Length > 0))
             {
-                query = query.Where(p => p.ProductVariants.Any(v => 
+                query = query.Where(p => p.ProductVariants.Any(v =>
                     (sizes == null || sizes.Length == 0 || sizes.Contains(v.Size)) &&
                     (colors == null || colors.Length == 0 || colors.Contains(v.Color))
                 ));

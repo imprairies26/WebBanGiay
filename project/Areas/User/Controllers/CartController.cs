@@ -38,6 +38,7 @@ namespace project.Areas.User.Controllers
                     .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ProductVariant)
                     .ThenInclude(pv => pv.Product)
+                    .ThenInclude(p => p.ProductImages)
                     .FirstOrDefaultAsync(c => c.UserId == userId);
             }
             else
@@ -46,6 +47,7 @@ namespace project.Areas.User.Controllers
                     .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ProductVariant)
                     .ThenInclude(pv => pv.Product)
+                    .ThenInclude(p => p.ProductImages)
                     .FirstOrDefaultAsync(c => c.SessionId == sessionId);
             }
 

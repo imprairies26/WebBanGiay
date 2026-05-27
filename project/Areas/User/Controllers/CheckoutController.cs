@@ -33,6 +33,7 @@ namespace project.Areas.User.Controllers
                     .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ProductVariant)
                     .ThenInclude(pv => pv.Product)
+                    .ThenInclude(p => p.ProductImages)
                     .FirstOrDefaultAsync(c => c.UserId == userId);
             }
             else
@@ -41,6 +42,7 @@ namespace project.Areas.User.Controllers
                     .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.ProductVariant)
                     .ThenInclude(pv => pv.Product)
+                    .ThenInclude(p => p.ProductImages)
                     .FirstOrDefaultAsync(c => c.SessionId == sessionId);
             }
         }
@@ -67,7 +69,7 @@ namespace project.Areas.User.Controllers
             }
 
             var userId = HttpContext.Session.GetString("UserId");
-            
+
             // Calculate totals
             decimal totalAmount = cart.CartItems.Sum(ci => (ci.ProductVariant.Product.SalePrice ?? ci.ProductVariant.Product.BasePrice) * ci.Quantity);
             decimal discountAmount = 0;
@@ -87,7 +89,7 @@ namespace project.Areas.User.Controllers
                     {
                         discountAmount = promotion.DiscountAmount.Value;
                     }
-                    
+
                     // Increment usage count
                     promotion.UsedCount++;
                 }
@@ -153,7 +155,7 @@ namespace project.Areas.User.Controllers
                 // Clear Cart
                 _context.CartItems.RemoveRange(cart.CartItems);
                 await _context.SaveChangesAsync();
-                
+
                 await transaction.CommitAsync();
 
                 // Send notification
@@ -185,7 +187,7 @@ namespace project.Areas.User.Controllers
         public async Task<IActionResult> ValidatePromo(string code, decimal currentTotal)
         {
             var promotion = await _context.Promotions.FirstOrDefaultAsync(p => p.Code == code && p.IsActive && p.StartDate <= DateTime.Now && p.ExpirationDate >= DateTime.Now);
-            
+
             if (promotion == null)
                 return Json(new { success = false, message = "Mã giảm giá không tồn tại hoặc đã hết hạn." });
 

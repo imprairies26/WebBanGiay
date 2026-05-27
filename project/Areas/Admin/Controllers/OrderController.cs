@@ -28,7 +28,7 @@ namespace project.Areas.Admin.Controllers
 
             if (!string.IsNullOrEmpty(search))
             {
-                query = query.Where(o => o.Id.ToString().Contains(search) || 
+                query = query.Where(o => o.Id.ToString().Contains(search) ||
                                         (o.User != null && o.User.FullName.Contains(search)) ||
                                         (o.User != null && o.User.Email.Contains(search)));
             }
@@ -53,6 +53,7 @@ namespace project.Areas.Admin.Controllers
                 .Include(o => o.OrderDetails)
                     .ThenInclude(od => od.ProductVariant)
                         .ThenInclude(pv => pv.Product)
+                            .ThenInclude(p => p.ProductImages)
                 .FirstOrDefaultAsync(o => o.Id == id);
 
             if (order == null) return NotFound();
@@ -69,7 +70,7 @@ namespace project.Areas.Admin.Controllers
                 if (!string.IsNullOrEmpty(orderStatus))
                 {
                     // Map from UI values if they differ, but we should align UI values too
-                    order.OrderStatus = orderStatus.ToUpper(); 
+                    order.OrderStatus = orderStatus.ToUpper();
                 }
                 if (!string.IsNullOrEmpty(paymentStatus))
                 {

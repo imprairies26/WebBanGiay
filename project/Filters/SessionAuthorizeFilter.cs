@@ -9,17 +9,17 @@ namespace project.Filters
         {
             var userId = context.HttpContext.Session.GetString("UserId");
             var roleIdStr = context.HttpContext.Session.GetString("UserRoleId");
-            
+
             var controllerName = context.RouteData.Values["controller"]?.ToString();
             var actionName = context.RouteData.Values["action"]?.ToString();
             var areaName = context.RouteData.Values["area"]?.ToString();
 
             // 1. TRANG CÔNG KHAI
-            bool isPublicPage = 
-                (controllerName == "Account") || 
+            bool isPublicPage =
+                (controllerName == "Account") ||
                 (controllerName == "Language") ||
-                (controllerName == "Home" && actionName == "Index") || 
-                (controllerName == "Product" && actionName == "Detail") || 
+                (controllerName == "Home" && actionName == "Index") ||
+                (controllerName == "Product" && actionName == "Detail") ||
                 (controllerName == "Cart");
 
             // 2. CHƯA ĐĂNG NHẬP
@@ -45,6 +45,6 @@ namespace project.Filters
             }
         }
 
-        public void OnActionExecuted(ActionExecutedContext context) {}
+        public void OnActionExecuted(ActionExecutedContext context) { }
     }
 }

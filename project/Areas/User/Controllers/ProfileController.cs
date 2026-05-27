@@ -75,12 +75,12 @@ namespace project.Areas.User.Controllers
                 user.FullName = fullName;
                 user.PhoneNumber = phoneNumber;
                 user.UpdatedAt = DateTime.Now;
-                
+
                 await _context.SaveChangesAsync();
-                
+
                 // Update Session for Header sync
                 HttpContext.Session.SetString("UserFullName", user.FullName);
-                
+
                 TempData["SuccessMessage"] = "Cập nhật thông tin thành công.";
             }
 
@@ -99,12 +99,12 @@ namespace project.Areas.User.Controllers
             {
                 user.AvatarUrl = avatarUrl;
                 user.UpdatedAt = DateTime.Now;
-                
+
                 await _context.SaveChangesAsync();
-                
+
                 // Update Session for Header sync
                 HttpContext.Session.SetString("UserAvatar", user.AvatarUrl ?? "");
-                
+
                 TempData["SuccessMessage"] = "Cập nhật ảnh đại diện thành công.";
             }
 

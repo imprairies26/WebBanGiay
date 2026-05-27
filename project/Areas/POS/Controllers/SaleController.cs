@@ -31,7 +31,8 @@ namespace project.Areas.POS.Controllers
                 .Include(v => v.Product)
                 .ThenInclude(p => p.ProductImages)
                 .Where(v => v.Product.IsActive && v.StockQuantity > 0)
-                .Select(v => new {
+                .Select(v => new
+                {
                     id = v.Id,
                     name = v.Product.Name,
                     size = v.Size,
@@ -39,8 +40,8 @@ namespace project.Areas.POS.Controllers
                     sku = v.Sku,
                     price = v.Product.SalePrice ?? v.Product.BasePrice,
                     stock = v.StockQuantity,
-                    image = v.Product.ProductImages.Any(i => i.IsMain) 
-                        ? v.Product.ProductImages.First(i => i.IsMain).ImageUrl 
+                    image = v.Product.ProductImages.Any(i => i.IsMain)
+                        ? v.Product.ProductImages.First(i => i.IsMain).ImageUrl
                         : (v.Product.ProductImages.Any() ? v.Product.ProductImages.First().ImageUrl : "/Data/blank_avatar.webp")
                 })
                 .ToListAsync();
@@ -57,7 +58,8 @@ namespace project.Areas.POS.Controllers
                 .Include(v => v.Product)
                 .ThenInclude(p => p.ProductImages)
                 .Where(v => v.Sku == query || v.Product.Name.Contains(query))
-                .Select(v => new {
+                .Select(v => new
+                {
                     id = v.Id,
                     name = v.Product.Name,
                     size = v.Size,
@@ -65,8 +67,8 @@ namespace project.Areas.POS.Controllers
                     sku = v.Sku,
                     price = v.Product.SalePrice ?? v.Product.BasePrice,
                     stock = v.StockQuantity,
-                    image = v.Product.ProductImages.Any(i => i.IsMain) 
-                        ? v.Product.ProductImages.First(i => i.IsMain).ImageUrl 
+                    image = v.Product.ProductImages.Any(i => i.IsMain)
+                        ? v.Product.ProductImages.First(i => i.IsMain).ImageUrl
                         : (v.Product.ProductImages.Any() ? v.Product.ProductImages.First().ImageUrl : "")
                 })
                 .ToListAsync();
