@@ -1,0 +1,12 @@
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\project.exe
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\project.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\vi-VN\project.resources.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\BCrypt.Net-Next.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.Relational.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\Microsoft.SqlServer.Server.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\System.Configuration.ConfigurationManager.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\runtimes\win\lib\net9.0\Microsoft.Data.SqlClient.dll
+D:\Works\code\BAOCAO\WebNangCao\product\WebBanGiay\project\bin\Debug\net10.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
