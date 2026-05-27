@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
     <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
@@ -58,29 +58,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ProfileTitle" xml:space="preserve">
-    <value>Profile</value>
+  <data name="OrderDetailTitle" xml:space="preserve">
+    <value>Order Details</value>
   </data>
-  <data name="OrderHistory" xml:space="preserve">
-    <value>Order History</value>
+  <data name="OrderDetailHeader" xml:space="preserve">
+    <value>Order</value>
   </data>
-  <data name="AccountSettings" xml:space="preserve">
-    <value>Account Settings</value>
-  </data>
-  <data name="Security" xml:space="preserve">
-    <value>Security</value>
-  </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Logout</value>
-  </data>
-  <data name="NoOrders" xml:space="preserve">
-    <value>You don't have any orders yet.</value>
-  </data>
-  <data name="ShopNow" xml:space="preserve">
-    <value>Shop Now</value>
-  </data>
-  <data name="OrderNo" xml:space="preserve">
-    <value>Order #</value>
+  <data name="Products" xml:space="preserve">
+    <value>Products</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
@@ -88,59 +73,41 @@
   <data name="Color" xml:space="preserve">
     <value>Color</value>
   </data>
-  <data name="Qty" xml:space="preserve">
-    <value>Qty</value>
+  <data name="Subtotal" xml:space="preserve">
+    <value>Subtotal</value>
   </data>
-  <data name="Payment" xml:space="preserve">
-    <value>Payment:</value>
+  <data name="Discount" xml:space="preserve">
+    <value>Discount</value>
   </data>
-  <data name="InvoiceDetails" xml:space="preserve">
-    <value>Invoice Details</value>
+  <data name="Shipping" xml:space="preserve">
+    <value>Shipping</value>
   </data>
-  <data name="FullName" xml:space="preserve">
-    <value>Full Name</value>
+  <data name="Free" xml:space="preserve">
+    <value>Free</value>
   </data>
-  <data name="EmailCannotChange" xml:space="preserve">
-    <value>Email (Cannot change)</value>
+  <data name="Total" xml:space="preserve">
+    <value>Total</value>
   </data>
-  <data name="PhoneNumber" xml:space="preserve">
-    <value>Phone Number</value>
+  <data name="ShippingInfo" xml:space="preserve">
+    <value>Shipping Information</value>
   </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>SAVE CHANGES</value>
+  <data name="Recipient" xml:space="preserve">
+    <value>Recipient</value>
   </data>
-  <data name="SecurityPassword" xml:space="preserve">
-    <value>Security &amp; Password</value>
+  <data name="OrderDate" xml:space="preserve">
+    <value>Order Date</value>
   </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Current Password</value>
+  <data name="PaymentInfo" xml:space="preserve">
+    <value>Payment Information</value>
   </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New Password</value>
+  <data name="Method" xml:space="preserve">
+    <value>Method</value>
   </data>
-  <data name="ConfirmNewPassword" xml:space="preserve">
-    <value>Confirm New Password</value>
+  <data name="Status" xml:space="preserve">
+    <value>Status</value>
   </data>
-  <data name="ChangePasswordBtn" xml:space="preserve">
-    <value>CHANGE PASSWORD</value>
-  </data>
-  <data name="UpdateAvatar" xml:space="preserve">
-    <value>Update Avatar</value>
-  </data>
-  <data name="ImageLink" xml:space="preserve">
-    <value>Image Link (URL)</value>
-  </data>
-  <data name="ImageLinkPlaceholder" xml:space="preserve">
-    <value>Paste image link from Cloud or Social Media...</value>
-  </data>
-  <data name="ImageLinkNote" xml:space="preserve">
-    <value>Note: Currently the system only supports updating via public URL links.</value>
-  </data>
-  <data name="Cancel" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="Update" xml:space="preserve">
-    <value>Update</value>
+  <data name="Note" xml:space="preserve">
+    <value>Note</value>
   </data>
   <data name="StatusPending" xml:space="preserve">
     <value>Pending</value>

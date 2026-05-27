@@ -201,4 +201,31 @@
   <data name="Update" xml:space="preserve">
     <value>Cập nhật</value>
   </data>
+  <data name="StatusPending" xml:space="preserve">
+    <value>Chờ xử lý</value>
+  </data>
+  <data name="StatusProcessing" xml:space="preserve">
+    <value>Đang xử lý</value>
+  </data>
+  <data name="StatusShipped" xml:space="preserve">
+    <value>Đang giao hàng</value>
+  </data>
+  <data name="StatusCompleted" xml:space="preserve">
+    <value>Hoàn thành</value>
+  </data>
+  <data name="StatusCancelled" xml:space="preserve">
+    <value>Đã huỷ</value>
+  </data>
+  <data name="PaymentUnpaid" xml:space="preserve">
+    <value>Chưa thanh toán</value>
+  </data>
+  <data name="PaymentPending" xml:space="preserve">
+    <value>Chờ thanh toán</value>
+  </data>
+  <data name="PaymentPaid" xml:space="preserve">
+    <value>Đã thanh toán</value>
+  </data>
+  <data name="PaymentRefunded" xml:space="preserve">
+    <value>Đã hoàn tiền</value>
+  </data>
 </root>
