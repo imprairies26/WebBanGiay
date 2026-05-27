@@ -40,7 +40,8 @@ networks:
   internal_network:
     driver: bridge
   nginx_proxy_network:
-    external: true # Mạng này sẽ được tạo thủ công hoặc bởi NPM
+    name: nginx_proxy_network # Dự án này sẽ tự tạo mạng này khi khởi chạy
+    driver: bridge
 
 volumes:
   sql_data:
