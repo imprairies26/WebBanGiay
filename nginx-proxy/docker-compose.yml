@@ -1,12 +1,12 @@
 version: '3.8'
 services:
   app:
-    image: 'jc21/nginx-proxy-manager:lastest'
+    image: 'jc21/nginx-proxy-manager:latest'
     restart: unless-stopped
-    port:
-      - '80:80'
-      - '81:81'
-      - '443:443'
+    ports:
+      - '80:80'   # Cổng cho HTTP
+      - '81:81'   # Cổng cho giao diện quản lý web
+      - '443:443' # Cổng cho HTTPS
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
