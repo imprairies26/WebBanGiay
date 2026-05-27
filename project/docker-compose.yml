@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: kinetic_db
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Kinetic@StrongPwd2026!
+      - MSSQL_PID=Express
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+      - ./Data/ShoesShop.sql:/tmp/ShoesShop.sql
+    # Lệnh khởi tạo tự động cho SQL Server 2022
+    command: /bin/bash -c "(/opt/mssql/bin/sqlservr &) && sleep 15 && /opt/mssql-tools18/bin/sqlcmd -S localhost -U SA -P 'Kinetic@StrongPwd2026!' -i /tmp/ShoesShop.sql -C && wait"
+    networks:
+      - internal_network
+    restart: unless-stopped
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kinetic_web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Server=db;Database=ShoesShop;User Id=sa;Password=Kinetic@StrongPwd2026!;TrustServerCertificate=True
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    networks:
+      - internal_network
+      - nginx_proxy_network # Kết nối với mạng của Nginx Proxy Manager
+    restart: unless-stopped
+
+networks:
+  internal_network:
+    driver: bridge
+  nginx_proxy_network:
+    external: true # Mạng này sẽ được tạo thủ công hoặc bởi NPM
+
+volumes:
+  sql_data:
