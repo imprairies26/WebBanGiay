@@ -148,44 +148,66 @@
 @section Scripts {
     <script>
         async function applyPromo() {
-            const code = document.getElementById('promo-code-input').value;
+            console.log("Applying promo...");
+            const codeInput = document.getElementById('promo-code-input');
             const messageEl = document.getElementById('promo-message');
-            const total = @totalAmount;
+            const discountRow = document.getElementById('discount-row');
+            const discountAmountEl = document.getElementById('discount-amount');
+            const finalAmountEl = document.getElementById('final-amount');
             
-            if (!code) return;
+            const code = codeInput.value.trim();
+            const total = parseFloat('@totalAmount');
+            
+            if (!code) {
+                messageEl.className = 'small mt-2 text-danger';
+                messageEl.innerText = 'Vui lòng nhập mã giảm giá';
+                return;
+            }
 
             try {
-                const formData = new FormData();
+                const formData = new URLSearchParams();
                 formData.append('code', code);
                 formData.append('currentTotal', total);
                 
-                const token = document.querySelector('input[name="__RequestVerificationToken"]').value;
+                const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+                const token = tokenInput ? tokenInput.value : "";
 
-                const response = await fetch('/User/Checkout/ValidatePromo', {
+                console.log("Fetching validation for:", code);
+                const response = await fetch('@Url.Action("ValidatePromo", "Checkout", new { area = "User" })', {
                     method: 'POST',
                     headers: {
-                        'RequestVerificationToken': token
+                        'RequestVerificationToken': token,
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     },
                     body: formData
                 });
+                
                 const data = await response.json();
+                console.log("Server response:", data);
+                
+                const formatter = new Intl.NumberFormat('vi-VN');
 
                 if (data.success) {
                     messageEl.className = 'small mt-2 text-success';
                     messageEl.innerText = 'Áp dụng mã thành công!';
                     
-                    document.getElementById('discount-row').style.setProperty('display', 'flex', 'important');
-                    document.getElementById('discount-amount').innerText = '-' + data.discount.toLocaleString() + 'đ';
-                    document.getElementById('final-amount').innerText = data.finalTotal.toLocaleString() + 'đ';
+                    discountRow.style.display = 'flex';
+                    discountRow.style.setProperty('display', 'flex', 'important');
+                    
+                    discountAmountEl.innerText = '-' + formatter.format(data.discount) + 'đ';
+                    finalAmountEl.innerText = formatter.format(data.finalTotal) + 'đ';
                 } else {
                     messageEl.className = 'small mt-2 text-danger';
                     messageEl.innerText = data.message;
                     
-                    document.getElementById('discount-row').style.setProperty('display', 'none', 'important');
-                    document.getElementById('final-amount').innerText = total.toLocaleString() + 'đ';
+                    discountRow.style.display = 'none';
+                    discountRow.style.setProperty('display', 'none', 'important');
+                    finalAmountEl.innerText = formatter.format(total) + 'đ';
                 }
             } catch (e) {
-                console.error(e);
+                console.error("Error applying promo:", e);
+                messageEl.className = 'small mt-2 text-danger';
+                messageEl.innerText = 'Đã có lỗi xảy ra khi áp dụng mã.';
             }
         }
     </script>
